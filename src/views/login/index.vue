@@ -53,29 +53,29 @@
 </template>
 
 <script>
-import { validUsername } from '@/utils/validate'
+import { validUsername, validPassword } from '@/utils/validate'
 
 export default {
   name: 'Login',
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
-        callback(new Error('Please enter the correct user name'))
+        callback(new Error('请输入用户名'))
       } else {
         callback()
       }
     }
     const validatePassword = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error('The password can not be less than 6 digits'))
+      if (!validPassword(value)) {
+        callback(new Error('密码中必须包含大小写 字母、数字、特称字符，至少8个字符，最多30个字符'))
       } else {
         callback()
       }
     }
     return {
       loginForm: {
-        username: '17075256495',
-        password: '123456',
+        username: '',
+        password: '',
         code: "123456"
       },
       loginRules: {
@@ -173,24 +173,39 @@ $cursor: #fff;
 }
 </style>
 
+<!--这里为可以自己修改的-->
 <style lang="scss" scoped>
 $bg:#2d3a4b;
 $dark_gray:#889aa4;
 $light_gray:#eee;
 
 .login-container {
+  position: relative;
   min-height: 100%;
   width: 100%;
-  background-color: $bg;
+  background-image: url("/bg.jpg");
   overflow: hidden;
+  &:before{
+    content: "";
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255,255,255,0.2);
+  }
 
   .login-form {
-    position: relative;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    padding: 30px 30px 30px;
     width: 520px;
     max-width: 100%;
-    padding: 160px 35px 0;
-    margin: 0 auto;
+    border-radius: 20px;
     overflow: hidden;
+    background-color: rgba(0,0,0,0.6);
   }
 
   .tips {
