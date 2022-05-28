@@ -10,7 +10,7 @@ class TravelSystemApplicationTests {
 
     @Test
     void contextLoads() {
-        String str = "123";
+        String str = "Zj123456!";
         String encodedPassword = new BCryptPasswordEncoder().encode(str);
         System.out.println(encodedPassword);
 

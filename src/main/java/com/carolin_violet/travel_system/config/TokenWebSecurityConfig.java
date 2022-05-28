@@ -18,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -46,13 +47,6 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyLogoutHandler myLogoutHandler;
 
-    // 登录失败
-    @Autowired
-    private LoginFailedHandler loginFailedHandler;
-
-    // 登录成功
-    @Autowired
-    private LoginSuccessHandler loginSuccessHandler;
 
     private UserDetailsService userDetailsService;
     private TokenManager tokenManager;
@@ -84,7 +78,8 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and().csrf().disable() // 关闭 csrf 跨域请求
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/travel_system/oss/picture").permitAll()   // 由于上传图片时报跨域异常所以加上这个配置
-                .antMatchers(HttpMethod.POST, "/travel_system/oss/picture/addPhoto/{id}").permitAll()
+                .antMatchers(HttpMethod.POST, "/travel_system/oss/picture/addPhoto/**").permitAll()
+                .antMatchers(HttpMethod.GET, "/travel_system/msm/send/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
@@ -133,6 +128,8 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers(
+                "/travel_system/oss/picture/addPhoto/**",
+                "/travel_system/oss/picture",
                 "/travel_system/msm/send/**",   // 忽略短信上传接口
                 "/travel_system/feedback/addFeedback",   // 忽略反馈上传接口
                 "/travel_system/travel-note/addNote",    // 忽略游记上传接口

@@ -33,11 +33,11 @@ public class MsmController {
     @GetMapping("send/{phone}")
     public R sendMsm(@PathVariable String phone) {
         // 从redis获取验证码，如果获取到就直接返回
+        System.out.println(phone);
         String code = redisTemplate.opsForValue().get(phone+"msm");
         if (!StringUtils.isEmpty(code)) {
             return R.ok();
         }
-
         // 如果redis获取不到，进行阿里云发送
         // 生成随机值，给阿里云发送
         code = RandomUtil.getSixBitRandom();

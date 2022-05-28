@@ -30,7 +30,7 @@ public class MsmServiceImpl implements MsmService {
     @Override
     public boolean send(String code, String phone) {
         try {
-            Credential cred = new Credential("", "");
+            Credential cred = new Credential("AKID2vZy81f28wUmoZ7PQAcokPnukJceQvA8", "jBMGuHNCk23nGVUCdngIPL2UgcJlxtZ0");
 
             HttpProfile httpProfile = new HttpProfile();
             httpProfile.setReqMethod("GET");
