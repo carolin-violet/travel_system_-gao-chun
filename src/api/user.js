@@ -22,3 +22,10 @@ export function logout() {
     method: 'post'
   })
 }
+
+export function getCode(phone) {
+  return request({
+    url: `/travel_system/msm/send/${phone}`,
+    method: 'get'
+  })
+}

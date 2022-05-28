@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'travel_management_platform',
+  title: '高淳旅游服务管理系统',
 
   /**
    * @type {boolean} true | false

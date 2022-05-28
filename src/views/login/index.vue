@@ -13,7 +13,7 @@
         <el-input
           ref="username"
           v-model="loginForm.username"
-          placeholder="Username"
+          placeholder="手机号"
           name="username"
           type="text"
           tabindex="1"
@@ -30,7 +30,7 @@
           ref="password"
           v-model="loginForm.password"
           :type="passwordType"
-          placeholder="Password"
+          placeholder="密码"
           name="password"
           tabindex="2"
           auto-complete="on"
@@ -41,12 +41,22 @@
         </span>
       </el-form-item>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-form-item>
+        <span class="svg-container">
+          <svg-icon icon-class="captcha" />
+        </span>
+        <el-input
+          v-model="loginForm.code"
+          placeholder="验证码"
+          type="text"
+          tabindex="1"
+          auto-complete="off"
+          style="width: 60%"
+        />
 
-      <div class="tips">
-        <span style="margin-right:20px;">username: admin</span>
-        <span> password: any</span>
-      </div>
+        <el-button class="code-button" type="primary" round @click="getMessageCode" :disabled="disabled">{{ count }}</el-button>
+      </el-form-item>
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
     </el-form>
   </div>
@@ -54,6 +64,7 @@
 
 <script>
 import { validUsername, validPassword } from '@/utils/validate'
+import {getCode} from "@/api/user";
 
 export default {
   name: 'Login',
@@ -76,7 +87,7 @@ export default {
       loginForm: {
         username: '',
         password: '',
-        code: "123456"
+        code: ""
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -84,7 +95,10 @@ export default {
       },
       loading: false,
       passwordType: 'password',
-      redirect: undefined
+      redirect: undefined,
+      count: "点击获取验证码",
+      disabled: false,
+      timer: null
     }
   },
   watch: {
@@ -121,6 +135,28 @@ export default {
           return false
         }
       })
+    },
+
+    getMessageCode() {
+      this.disabled = true
+      let count = 60
+      let timer = setInterval(()=>{
+        count--
+        this.count = count + "s"
+        if (count < 1) {
+          this.count = "点击获取验证码"
+        }
+      }, 1000)
+      // 获取手机验证码
+      getCode(this.loginForm.username)
+    }
+  },
+  watch: {
+    count: {
+      handler(newValue, oldValue) {
+        if (newValue === "点击获取验证码") this.disabled = false
+        this.timer = null  // 清除计时器避免内存泄漏
+      }
     }
   }
 }
@@ -224,8 +260,16 @@ $light_gray:#eee;
     padding: 6px 5px 6px 15px;
     color: $dark_gray;
     vertical-align: middle;
-    width: 30px;
-    display: inline-block;
+    width: 80px;
+  }
+
+  .code-button {
+    padding: 6px 5px 6px 15px;
+    color: $dark_gray;
+    vertical-align: middle;
+    width: 130px;
+    height: 35px;
+    color: white;
   }
 
   .title-container {
