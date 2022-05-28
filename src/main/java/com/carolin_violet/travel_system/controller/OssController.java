@@ -68,6 +68,7 @@ public class OssController {
     }
 
     // 根据图片url删除
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER','ROLE_HOTEL','ROLE_DELICACY','ROLE_SCENIC','ROLE_ROUTE','ROLE_NOTICE','ROLE_NOTE','ROLE_FEEDBACK')")
     @DeleteMapping("/{mark_id}")
     public R delPhoto(@PathVariable String mark_id, @RequestParam String url) {
 
