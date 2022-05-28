@@ -45,13 +45,9 @@ const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       let accessedRoutes = []
-      console.log(asyncRoutes)
       if (roles.length === 8) {
         accessedRoutes = asyncRoutes || []
-        console.log("8888888888888:", accessedRoutes)
       } else {
-        console.log("common:", accessedRoutes)
-        console.log(roles)
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
       }
       commit('SET_ROUTES', accessedRoutes)
