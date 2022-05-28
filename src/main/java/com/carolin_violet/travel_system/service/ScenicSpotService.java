@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ScenicSpotService extends IService<ScenicSpot> {
 
+    void removePhoto(String picture);
 }

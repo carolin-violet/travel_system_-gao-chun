@@ -1,10 +1,20 @@
 package com.carolin_violet.travel_system.service.impl;
 
+import com.aliyun.oss.OSS;
+import com.aliyun.oss.OSSClientBuilder;
+import com.aliyun.oss.model.DeleteObjectsRequest;
+import com.aliyun.oss.model.DeleteObjectsResult;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.carolin_violet.travel_system.bean.Delicacy;
+import com.carolin_violet.travel_system.bean.Photos;
 import com.carolin_violet.travel_system.mapper.DelicacyMapper;
 import com.carolin_violet.travel_system.service.DelicacyService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.carolin_violet.travel_system.utils.OssPropertiesUtils;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -16,5 +26,21 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class DelicacyServiceImpl extends ServiceImpl<DelicacyMapper, Delicacy> implements DelicacyService {
+
+    // 在删除整条记录前先删除oss相应照片
+    @Override
+    public void removePhoto(String picture) {
+        String endpoint = OssPropertiesUtils.END_POINT;
+        String accessKeyId = OssPropertiesUtils.KEY_ID;
+        String accessKeySecret = OssPropertiesUtils.KEY_SECRET;
+        String bucketName = OssPropertiesUtils.BUCKET_NAME;
+
+        // 创建OSSClient实例。
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+
+        ossClient.deleteObject(bucketName, picture.replace("https://edu-19527.oss-cn-nanjing.aliyuncs.com/", ""));
+
+        ossClient.shutdown();
+    }
 
 }

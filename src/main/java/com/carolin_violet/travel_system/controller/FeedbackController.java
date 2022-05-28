@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.carolin_violet.travel_system.bean.Feedback;
 import com.carolin_violet.travel_system.bean.vo.FeedbackVo;
 import com.carolin_violet.travel_system.service.FeedbackService;
+import com.carolin_violet.travel_system.service.PhotosService;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -27,6 +28,9 @@ public class FeedbackController {
 
     @Autowired
     private FeedbackService feedbackService;
+
+    @Autowired
+    private PhotosService photosService;
 
     // 分页查询反馈信息
     @PreAuthorize("hasAnyAuthority('ROLE_FEEDBACK')")
@@ -56,7 +60,7 @@ public class FeedbackController {
     @PreAuthorize("hasAnyAuthority('ROLE_FEEDBACK')")
     @DeleteMapping("{id}")
     public R removeFeedback(@PathVariable String id) {
-        feedbackService.removePhotos(id);
+        photosService.removePhotos(id);
         feedbackService.removeById(id);
         return R.ok();
     }

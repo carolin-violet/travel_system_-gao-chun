@@ -15,6 +15,4 @@ import com.carolin_violet.travel_system.bean.vo.FeedbackVo;
 public interface FeedbackService extends IService<Feedback> {
 
     void addFeedback(FeedbackVo feedbackVo);
-
-    void removePhotos(String id);
 }

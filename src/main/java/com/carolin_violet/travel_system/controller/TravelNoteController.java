@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.carolin_violet.travel_system.bean.TravelNote;
 import com.carolin_violet.travel_system.bean.vo.TravelNoteVo;
+import com.carolin_violet.travel_system.service.PhotosService;
 import com.carolin_violet.travel_system.service.TravelNoteService;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class TravelNoteController {
 
     @Autowired
     private TravelNoteService travelNoteService;
+
+    @Autowired
+    private PhotosService photosService;
 
     // 分页查询游记
     @PreAuthorize("hasAnyAuthority('ROLE_NOTE')")
@@ -59,7 +63,7 @@ public class TravelNoteController {
     @PreAuthorize("hasAnyAuthority('ROLE_NOTE')")
     @DeleteMapping("{id}")
     public R removeNote(@PathVariable String id) {
-        travelNoteService.removePhotos(id);
+        photosService.removePhotos(id);
         travelNoteService.removeById(id);
         return R.ok();
     }

@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2022-05-22
  */
 public interface PhotosService extends IService<Photos> {
-
+    void removePhotos(String id);
 }

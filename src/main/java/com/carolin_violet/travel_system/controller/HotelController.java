@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.carolin_violet.travel_system.bean.Hotel;
 import com.carolin_violet.travel_system.bean.conditionQuery.HotelQuery;
 import com.carolin_violet.travel_system.service.HotelService;
+import com.carolin_violet.travel_system.service.PhotosService;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +27,9 @@ import java.util.List;
 public class HotelController {
     @Autowired
     private HotelService hotelService;
+
+    @Autowired
+    private PhotosService photosService;
 
     // 查找所有旅馆, 按展示优先级降序排序
     @PreAuthorize("hasAnyAuthority('ROLE_HOTEL')")
@@ -58,6 +62,7 @@ public class HotelController {
     @PreAuthorize("hasAnyAuthority('ROLE_HOTEL')")
     @PutMapping("updateHotel")
     public R updateHotel(@RequestBody Hotel hotel) {
+        hotelService.removePhoto(hotelService.getById(hotel).getPicture());
         boolean flag = hotelService.updateById(hotel);
         if (flag) {
             return R.ok();
@@ -70,6 +75,8 @@ public class HotelController {
     @PreAuthorize("hasAnyAuthority('ROLE_HOTEL')")
     @DeleteMapping("{id}")
     public R removeHotel(@PathVariable String id) {
+        photosService.removePhotos(id);  // 删除更多的照片
+        hotelService.removePhoto(hotelService.getById(id).getPicture());
         boolean flag = hotelService.removeById(id);
         if (flag) {
             return R.ok();

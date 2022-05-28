@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.carolin_violet.travel_system.bean.Notice;
 import com.carolin_violet.travel_system.service.NoticeService;
+import com.carolin_violet.travel_system.service.PhotosService;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -25,6 +26,9 @@ import java.util.List;
 public class NoticeController {
     @Autowired
     private NoticeService noticeService;
+
+    @Autowired
+    private PhotosService photosService;
 
     // 根据时间排序分页查询广告
     @PreAuthorize("hasAnyAuthority('ROLE_NOTICE')")
@@ -62,6 +66,7 @@ public class NoticeController {
     @PreAuthorize("hasAnyAuthority('ROLE_NOTICE')")
     @PutMapping("updateNotice")
     public R updateNotice(@RequestBody Notice notice) {
+        noticeService.removePhoto(noticeService.getById(notice).getPicture());
         boolean flag = noticeService.updateById(notice);
         if (flag) {
             return R.ok();
@@ -74,6 +79,8 @@ public class NoticeController {
     @PreAuthorize("hasAnyAuthority('ROLE_NOTICE')")
     @DeleteMapping("{id}")
     public R removeNotice(@PathVariable String id) {
+        photosService.removePhotos(id);  // 删除更多的照片
+        noticeService.removePhoto(noticeService.getById(id).getPicture());
         boolean flag = noticeService.removeById(id);
         if (flag) {
             return R.ok();

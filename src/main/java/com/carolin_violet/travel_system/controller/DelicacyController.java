@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.carolin_violet.travel_system.bean.Delicacy;
 import com.carolin_violet.travel_system.bean.conditionQuery.DelicacyQuery;
 import com.carolin_violet.travel_system.service.DelicacyService;
+import com.carolin_violet.travel_system.service.PhotosService;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -26,6 +27,9 @@ import java.util.List;
 public class DelicacyController {
     @Autowired
     private DelicacyService delicacyService;
+
+    @Autowired
+    private PhotosService photosService;
 
     // 查询所有美食
     @GetMapping("findAll/{cur}/{limit}")
@@ -60,6 +64,7 @@ public class DelicacyController {
     @PreAuthorize("hasAnyAuthority('ROLE_DELICACY')")
     @PutMapping("updateDelicacy")
     public R updateDelicacy(@RequestBody Delicacy delicacy) {
+        delicacyService.removePhoto(delicacyService.getById(delicacy).getPicture());
         boolean flag = delicacyService.updateById(delicacy);
         if (flag) {
             return R.ok();
@@ -72,6 +77,8 @@ public class DelicacyController {
     @PreAuthorize("hasAnyAuthority('ROLE_DELICACY')")
     @DeleteMapping("{id}")
     public R removeDelicacy(@PathVariable String id) {
+        photosService.removePhotos(id);  // 删除更多的照片
+        delicacyService.removePhoto(delicacyService.getById(id).getPicture());
         boolean flag = delicacyService.removeById(id);
         if (flag) {
             return R.ok();

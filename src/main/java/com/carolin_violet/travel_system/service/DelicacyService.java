@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface DelicacyService extends IService<Delicacy> {
 
+    void removePhoto(String picture);
 }

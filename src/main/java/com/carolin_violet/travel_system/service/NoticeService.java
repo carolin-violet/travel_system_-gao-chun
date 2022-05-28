@@ -13,4 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface NoticeService extends IService<Notice> {
 
+    void removePhoto(String picture);
 }

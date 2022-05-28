@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.carolin_violet.travel_system.bean.ScenicSpot;
 import com.carolin_violet.travel_system.bean.conditionQuery.ScenicSpotQuery;
+import com.carolin_violet.travel_system.service.PhotosService;
 import com.carolin_violet.travel_system.service.ScenicSpotService;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,9 @@ public class ScenicSpotController {
 
     @Autowired
     private ScenicSpotService scenicSpotService;
+
+    @Autowired
+    private PhotosService photosService;
 
     // 查询所有景点
     @PreAuthorize("hasAnyAuthority('ROLE_SCENIC')")
@@ -58,6 +62,7 @@ public class ScenicSpotController {
     @PreAuthorize("hasAnyAuthority('ROLE_SCENIC')")
     @PutMapping("updateScenicSpot")
     public R updateScenicSpot(@RequestBody ScenicSpot scenicSpot) {
+        scenicSpotService.removePhoto(scenicSpotService.getById(scenicSpot).getPicture());
         boolean flag = scenicSpotService.updateById(scenicSpot);
         if (flag) {
             return R.ok();
@@ -70,6 +75,8 @@ public class ScenicSpotController {
     @PreAuthorize("hasAnyAuthority('ROLE_SCENIC')")
     @DeleteMapping("{id}")
     public R removeScenicSpot(@PathVariable String id) {
+        photosService.removePhotos(id);  // 删除更多的照片
+        scenicSpotService.removePhoto(scenicSpotService.getById(id).getPicture());
         boolean flag = scenicSpotService.removeById(id);
         if (flag) {
             return R.ok();

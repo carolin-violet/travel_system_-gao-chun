@@ -14,7 +14,5 @@ import com.carolin_violet.travel_system.bean.vo.TravelNoteVo;
  */
 public interface TravelNoteService extends IService<TravelNote> {
 
-    void removePhotos(String id);
-
     void addNote(TravelNoteVo travelNoteVo);
 }
