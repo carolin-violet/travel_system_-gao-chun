@@ -6,6 +6,7 @@ import com.carolin_violet.travel_system.service.OssService;
 import com.carolin_violet.travel_system.service.PhotosService;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -29,7 +30,7 @@ public class OssController {
     @Autowired
     private PhotosService photosService;
 
-    // 新增相关物件时添加选展示图片
+    // 新增相关物件时添加相关展示图片
     @PostMapping
     public R uploadOssPicture(MultipartFile file) {
         String url = ossService.uploadFileAvatar(file);
@@ -65,4 +66,23 @@ public class OssController {
             return R.error();
         }
     }
+
+    // 根据图片url删除
+    @DeleteMapping("/{mark_id}")
+    public R delPhoto(@PathVariable String mark_id, @RequestParam String url) {
+
+        if (url != null) {
+            // 删除阿里云oss的图片
+            photosService.removeRemotePhoto(url);
+
+            // 删除图片记录
+            QueryWrapper<Photos> wrapper = new QueryWrapper<>();
+            wrapper.eq("mark_id", mark_id).eq("picture", url);
+            photosService.remove(wrapper);
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+
 }

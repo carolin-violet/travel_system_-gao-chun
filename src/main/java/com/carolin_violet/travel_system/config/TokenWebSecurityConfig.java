@@ -85,6 +85,7 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/travel_system/oss/picture").permitAll()   // 由于上传图片时报跨域异常所以加上这个配置
                 .antMatchers(HttpMethod.POST, "/travel_system/oss/picture/addPhoto/{id}").permitAll()
+                .antMatchers(HttpMethod.DELETE, "/travel_system/oss/picture/{mark_id}").permitAll()
                 .anyRequest().authenticated()
 
                 .and()

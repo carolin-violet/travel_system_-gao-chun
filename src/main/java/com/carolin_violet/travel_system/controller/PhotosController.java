@@ -27,7 +27,7 @@ public class PhotosController {
     @Autowired
     private PhotosService photosService;
 
-    // 根据游记、反馈等的id获取相关所有图片
+    // 根据游记、反馈等的id获取相关所有图片对象信息(目前好像并没有用到)
     @RequestMapping("{id}")
     public R getPhotos(@PathVariable String id) {
         QueryWrapper<Photos> wrapper = new QueryWrapper<>();

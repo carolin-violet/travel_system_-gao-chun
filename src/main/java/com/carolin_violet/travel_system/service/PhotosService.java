@@ -13,4 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface PhotosService extends IService<Photos> {
     void removePhotos(String id);
+
+    void removeRemotePhoto(String url);
 }

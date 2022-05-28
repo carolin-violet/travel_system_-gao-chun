@@ -26,7 +26,7 @@ import java.util.List;
 @Service
 public class PhotosServiceImpl extends ServiceImpl<PhotosMapper, Photos> implements PhotosService {
 
-    // 在删除某一类型前先根据mark_id删除图片
+    // 在删除某一类型前先根据mark_id删除所有图片
     @Override
     public void removePhotos(String id) {
 
@@ -64,6 +64,22 @@ public class PhotosServiceImpl extends ServiceImpl<PhotosMapper, Photos> impleme
 
         // 2. 删除表中图片信息
         baseMapper.delete(wrapper);
+    }
+
+    // 根据mark_id和url删除特定照片
+    @Override
+    public void removeRemotePhoto(String url) {
+        String endpoint = OssPropertiesUtils.END_POINT;
+        String accessKeyId = OssPropertiesUtils.KEY_ID;
+        String accessKeySecret = OssPropertiesUtils.KEY_SECRET;
+        String bucketName = OssPropertiesUtils.BUCKET_NAME;
+
+        // 创建OSSClient实例。
+        OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
+
+        ossClient.deleteObject(bucketName, url.replace("https://edu-19527.oss-cn-nanjing.aliyuncs.com/", ""));
+
+        ossClient.shutdown();
     }
 
 }
