@@ -41,33 +41,41 @@
         </span>
       </el-form-item>
 
-      <el-form-item>
-        <span class="svg-container">
-          <svg-icon icon-class="captcha" />
-        </span>
-        <el-input
-          v-model="loginForm.code"
-          placeholder="验证码"
-          type="text"
-          tabindex="1"
-          auto-complete="off"
-          style="width: 60%"
-        />
 
-        <el-button class="code-button" type="primary" round @click="getMessageCode" :disabled="disabled">{{ count }}</el-button>
-      </el-form-item>
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+<!--      短信验证码-->
+<!--      <el-form-item>-->
+<!--        <span class="svg-container">-->
+<!--          <svg-icon icon-class="captcha" />-->
+<!--        </span>-->
+<!--        <el-input-->
+<!--          v-model="loginForm.code"-->
+<!--          placeholder="验证码"-->
+<!--          type="text"-->
+<!--          tabindex="1"-->
+<!--          auto-complete="off"-->
+<!--          style="width: 60%"-->
+<!--        />-->
+<!--        <el-button class="code-button" type="primary" round @click="getMessageCode" :disabled="disabled">{{ count }}</el-button>-->
+<!--      </el-form-item>-->
+
+      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="submit">Login</el-button>
 
     </el-form>
+
+<!--    滑块验证弹窗-->
+    <Vcode :show="isShow" @success="onSuccess" @close="onClose" />
   </div>
 </template>
 
 <script>
 import { validUsername, validPassword } from '@/utils/validate'
-import {getCode} from "@/api/user";
+import Vcode from "vue-puzzle-vcode";
 
 export default {
   name: 'Login',
+  components: {
+    Vcode,
+  },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
@@ -86,8 +94,7 @@ export default {
     return {
       loginForm: {
         username: '',
-        password: '',
-        code: ""
+        password: ''
       },
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
@@ -96,9 +103,9 @@ export default {
       loading: false,
       passwordType: 'password',
       redirect: undefined,
-      count: "点击获取验证码",
-      disabled: false,
-      timer: null
+      isShow: false,
+      codeMsg: null,
+      flag: 0,  //可登录标志
     }
   },
   watch: {
@@ -107,6 +114,13 @@ export default {
         this.redirect = route.query && route.query.redirect
       },
       immediate: true
+    },
+    codeMsg: {
+      handler: function (val, oldVal) {
+        if (val != oldVal) {
+          this.flag = 1
+        }
+      }
     }
   },
   methods: {
@@ -120,12 +134,14 @@ export default {
         this.$refs.password.focus()
       })
     },
+    // 登录函数
     handleLogin() {
+      // 处理登录验证
       this.$refs.loginForm.validate(valid => {
         if (valid) {
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm).then(() => {
-            this.$router.push({ path: this.redirect || '/' })
+            this.$router.push({path: this.redirect || '/'})
             this.loading = false
           }).catch(() => {
             this.loading = false
@@ -137,27 +153,19 @@ export default {
       })
     },
 
-    getMessageCode() {
-      this.disabled = true
-      let count = 60
-      let timer = setInterval(()=>{
-        count--
-        this.count = count + "s"
-        if (count < 1) {
-          this.count = "点击获取验证码"
-        }
-      }, 1000)
-      // 获取手机验证码
-      getCode(this.loginForm.username)
-    }
-  },
-  watch: {
-    count: {
-      handler(newValue, oldValue) {
-        if (newValue === "点击获取验证码") this.disabled = false
-        this.timer = null  // 清除计时器避免内存泄漏
-      }
-    }
+    // 以下为vue-puzzle-vcode的一些函数
+    submit() {
+      this.isShow = true;
+    },
+
+    onSuccess(msg) {
+      this.isShow = false; // 通过验证后，需要手动关闭模态框
+      this.handleLogin()
+    },
+
+    onClose() {
+      this.isShow = false;
+    },
   }
 }
 </script>
