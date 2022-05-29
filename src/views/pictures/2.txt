@@ -1,31 +1,31 @@
 <template>
   <div class="app-container">
 
-    <!--  上传图片  -->
-    <el-upload
-      :action="BASE_API + `/travel_system/oss/picture/addPhoto/${markeId}`"
-      list-type="picture-card"
-      :on-preview="handlePictureCardPreview"
-      :on-remove="handleRemove"
-      :on-success="handleUploadSuccess"
-    >
-      <i class="el-icon-plus"></i>
-    </el-upload>
-    <el-dialog :visible.sync="dialogVisible">
-      <img width="100%" :src="dialogImageUrl" alt="">
-    </el-dialog>
+<!--  上传图片  -->
+      <el-upload
+        :action="BASE_API + `/travel_system/oss/picture/addPhoto/${markeId}`"
+        list-type="picture-card"
+        :on-preview="handlePictureCardPreview"
+        :on-remove="handleRemove"
+        :on-success="handleUploadSuccess"
+      >
+        <i class="el-icon-plus"></i>
+      </el-upload>
+      <el-dialog :visible.sync="dialogVisible">
+        <img width="100%" :src="dialogImageUrl" alt="">
+      </el-dialog>
 
 
     <div class="photo-container">
-      <div class="item"  v-for="src in srcList" @click="handleClick(src)">
-        <el-image
-          :src="src"
-          :preview-src-list="srcList"
-          lazy="lazy">
+      <div class="item"  v-for="src in srcList" >
+        <el-image :src="src" :preview-src-list="srcList" lazy="lazy">
           <div slot="placeholder" class="image-slot">
             <img src="/loading.gif" alt="">
           </div>
         </el-image>
+        <div class="photo-delete-icon-container" @click="handleClick(src)">
+          <i class="el-icon-close photo-delete-icon"></i>
+        </div>
       </div>
     </div>
 
@@ -109,36 +109,29 @@ export default {
   margin-top: 50px;
   width: 100%;
   height: 100%;
-  column-count: 4;
+  column-count: 5;
   column-gap: 20px;
   .item{
     margin-bottom: 10px;
-    position: relative;
+    flex-wrap: nowrap;
     .el-image{
       width: 100%;
       height: auto;
-      position: relative;
-      pointer-events: none;
     }
-    &:hover{
-      &:after{
-        font-family: "iconfont";
-        content: "\e67e";
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        color: red;
-        font-size: 40px;
-        cursor: pointer;
-        animation: move 100ms;
-        pointer-events: all;
-      }
-      @keyframes move {
-        0%{transform: translateY(100%)}
-        100%{transform: translateY(0)}
+    .photo-delete-icon-container{
+      width: 25px;
+      height: 25px;
+      .photo-delete-icon{
+        font-size: 24px;
+        color: black;
+        &:hover{
+          transform: rotateZ(.5turn);
+          transition: all 0.5s ;
+          color: red;
+        }
       }
     }
+
   }
 }
 </style>
