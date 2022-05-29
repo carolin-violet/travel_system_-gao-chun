@@ -6,6 +6,7 @@ import com.carolin_violet.travel_system.bean.Photos;
 import com.carolin_violet.travel_system.service.PhotosService;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -23,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/travel_system/photos")
+@CrossOrigin
 public class PhotosController {
     @Autowired
     private PhotosService photosService;

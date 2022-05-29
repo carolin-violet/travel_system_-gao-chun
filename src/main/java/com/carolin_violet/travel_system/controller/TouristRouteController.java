@@ -24,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/travel_system/tourist-route")
+@CrossOrigin
 public class TouristRouteController {
     @Autowired
     private TouristRouteService touristRouteService;

@@ -33,6 +33,6 @@ public class MyAccessDeniedHandler implements AccessDeniedHandler {
         PrintWriter writer = httpServletResponse.getWriter();
         writer.write(resultMap.toString());
         writer.flush();
-        writer.close();
+//        writer.close();
     }
 }

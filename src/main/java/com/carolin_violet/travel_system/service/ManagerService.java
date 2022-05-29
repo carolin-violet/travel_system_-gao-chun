@@ -11,4 +11,5 @@ import com.carolin_violet.travel_system.bean.Manager;
  * @Version 1.0
  */
 public interface ManagerService extends IService<Manager> {
+
 }

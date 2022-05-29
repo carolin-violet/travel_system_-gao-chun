@@ -24,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/travel_system/scenic-spot")
+@CrossOrigin
 public class ScenicSpotController {
 
     @Autowired

@@ -2,6 +2,7 @@ package com.carolin_violet.travel_system.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.carolin_violet.travel_system.bean.Manager;
+import com.carolin_violet.travel_system.bean.security.SecurityUser;
 import com.carolin_violet.travel_system.security.TokenManager;
 import com.carolin_violet.travel_system.service.ManagerService;
 import com.carolin_violet.travel_system.utils.R;
@@ -79,20 +80,19 @@ public class ManagerController {
     }
 
     // 登录后获取管理员信息
-    @RequestMapping("getInfo")
+    @GetMapping("getInfo")
     public R getInfo(@RequestParam String token) {
         if (token != null) {
             //从token获取手机号
             String username = new TokenManager().getUserFromToken(token);
-            List<String> permissionValueList = (List<String>) redisTemplate.opsForValue().get(username + "permission");
+             SecurityUser user = (SecurityUser) redisTemplate.opsForValue().get("securityUser:" + username);
             QueryWrapper<Manager> wrapper = new QueryWrapper<>();
             wrapper.eq("telephone", username);
             Manager manager = managerService.getOne(wrapper);
-            return R.ok().data("info", manager).data("roles", permissionValueList);
+            return R.ok().data("info", manager).data("roles", user.getPermissionValueList());
         } else {
             return R.error().message("获取信息失败");
         }
-
     }
 
 }

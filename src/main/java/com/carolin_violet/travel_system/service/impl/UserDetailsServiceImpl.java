@@ -2,20 +2,15 @@ package com.carolin_violet.travel_system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.carolin_violet.travel_system.bean.Manager;
-import com.carolin_violet.travel_system.bean.Role;
 import com.carolin_violet.travel_system.bean.security.SecurityUser;
 import com.carolin_violet.travel_system.service.ManagerService;
 import com.carolin_violet.travel_system.service.PermissionService;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -21,7 +21,7 @@ import java.util.Map;
 public class MyUnAuthEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
-        log.info("======= UnAuthqaq ===");
+        System.out.println("======================UnAuth==============================");
         // 返回请求端
         Map<String,Object> resultMap = new HashMap<>();
         // 保存数据
@@ -36,6 +36,6 @@ public class MyUnAuthEntryPoint implements AuthenticationEntryPoint {
         // 返回给请求端
         PrintWriter writer  = httpServletResponse.getWriter();
         writer.write(resultMap.toString());
-        writer.close();
+//        writer.close();
     }
 }

@@ -6,10 +6,7 @@ import com.carolin_violet.travel_system.utils.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,6 +19,7 @@ import java.util.concurrent.TimeUnit;
  */
 @RestController
 @RequestMapping("/travel_system/msm")
+@CrossOrigin
 public class MsmController {
     @Autowired
     private MsmService msmService;
@@ -34,7 +32,7 @@ public class MsmController {
     public R sendMsm(@PathVariable String phone) {
         // 从redis获取验证码，如果获取到就直接返回
         System.out.println(phone);
-        String code = redisTemplate.opsForValue().get(phone+"msm");
+        String code = redisTemplate.opsForValue().get("msm:" + phone);
         if (!StringUtils.isEmpty(code)) {
             return R.ok();
         }
@@ -45,7 +43,7 @@ public class MsmController {
         boolean isSend =msmService.send(code, phone);
         if (isSend) {
             // 发送成功，把发送成功验证码放到redis中并设置有效时间
-            redisTemplate.opsForValue().set(phone+ "msm", code, 5, TimeUnit.MINUTES);
+            redisTemplate.opsForValue().set("msm:" + phone, code, 5, TimeUnit.MINUTES);
             return R.ok();
         } else {
             return R.error().message("短信发送失败");

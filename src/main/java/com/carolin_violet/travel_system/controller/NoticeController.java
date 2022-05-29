@@ -23,6 +23,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/travel_system/notice")
+@CrossOrigin
 public class NoticeController {
     @Autowired
     private NoticeService noticeService;

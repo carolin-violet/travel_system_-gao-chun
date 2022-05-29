@@ -22,6 +22,7 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/travel_system/route-detail")
+@CrossOrigin
 public class RouteDetailController {
 
     @Autowired

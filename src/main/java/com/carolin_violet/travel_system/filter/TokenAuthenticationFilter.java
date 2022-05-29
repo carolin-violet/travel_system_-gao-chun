@@ -1,6 +1,9 @@
 package com.carolin_violet.travel_system.filter;
 
+import com.carolin_violet.travel_system.bean.security.SecurityUser;
 import com.carolin_violet.travel_system.security.TokenManager;
+import com.carolin_violet.travel_system.service.ManagerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,6 +31,9 @@ import java.util.List;
  */
 public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
 
+    @Autowired
+    private ManagerService managerService;
+
     private TokenManager tokenManager;
     private RedisTemplate redisTemplate;
 
@@ -39,34 +45,25 @@ public class TokenAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
-
         //获取当前认证成功用户权限信息
         UsernamePasswordAuthenticationToken authRequest = getAuthentication(request, response);
         if(authRequest != null){
             // 有权限，则放入权限上下文中
             SecurityContextHolder.getContext().setAuthentication(authRequest);
         }
-
         // 执行下一个 filter 过滤器链
         chain.doFilter(request,response);
-
     }
 
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request, HttpServletResponse response) {
-
         //从header获取token
         String token = request.getHeader("token");
         if(token != null) {
             //从token获取手机号
             String username = tokenManager.getUserFromToken(token);
 
-            List<String> permissionValueList = (List<String>) redisTemplate.opsForValue().get(username + "permission");
-            Collection<GrantedAuthority> authority = new ArrayList<>();
-            for(String permissionValue : permissionValueList) {
-                SimpleGrantedAuthority auth = new SimpleGrantedAuthority(permissionValue);
-                authority.add(auth);
-            }
-            return new UsernamePasswordAuthenticationToken(username,token,authority);
+            SecurityUser user = (SecurityUser) redisTemplate.opsForValue().get("securityUser:" + username);
+            return new UsernamePasswordAuthenticationToken(username,token, user.getAuthorities());
         }
         return null;
     }

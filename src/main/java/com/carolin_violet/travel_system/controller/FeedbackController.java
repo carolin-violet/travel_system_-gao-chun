@@ -24,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/travel_system/feedback")
+@CrossOrigin
 public class FeedbackController {
 
     @Autowired

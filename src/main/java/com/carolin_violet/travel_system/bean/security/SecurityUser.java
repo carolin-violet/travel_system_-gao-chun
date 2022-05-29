@@ -40,6 +40,7 @@ public class SecurityUser implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         permissionValueList.forEach(permission ->{

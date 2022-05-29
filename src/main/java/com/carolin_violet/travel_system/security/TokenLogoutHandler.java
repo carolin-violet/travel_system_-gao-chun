@@ -5,6 +5,7 @@ import com.carolin_violet.travel_system.utils.ResponseUtil;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * </p>
  *
  */
+@Component
 public class TokenLogoutHandler implements LogoutHandler {
 
     private TokenManager tokenManager;

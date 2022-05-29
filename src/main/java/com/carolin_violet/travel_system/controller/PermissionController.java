@@ -22,6 +22,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/travel_system/permission")
+@CrossOrigin
 public class PermissionController {
 
     @Autowired

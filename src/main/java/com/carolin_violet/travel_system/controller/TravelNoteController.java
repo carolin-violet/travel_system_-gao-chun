@@ -24,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/travel_system/travel-note")
+@CrossOrigin
 public class TravelNoteController {
 
     @Autowired

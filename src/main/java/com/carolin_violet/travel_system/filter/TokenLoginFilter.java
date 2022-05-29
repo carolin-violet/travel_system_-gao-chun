@@ -1,5 +1,6 @@
 package com.carolin_violet.travel_system.filter;
 
+
 import com.carolin_violet.travel_system.bean.security.LoginUser;
 import com.carolin_violet.travel_system.bean.security.SecurityUser;
 import com.carolin_violet.travel_system.security.TokenManager;
@@ -11,6 +12,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -28,13 +30,13 @@ import java.util.ArrayList;
  * @Date 2022/5/24 10:03
  * @Version 1.0
  */
-public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
+public class TokenLoginFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authenticationManager;
     private TokenManager tokenManager;
     private RedisTemplate redisTemplate;
 
-    public JwtLoginFilter(AuthenticationManager authenticationManager, TokenManager tokenManager, RedisTemplate redisTemplate) {
+    public TokenLoginFilter(AuthenticationManager authenticationManager, TokenManager tokenManager, RedisTemplate redisTemplate) {
         this.authenticationManager = authenticationManager;
         this.tokenManager = tokenManager;
         this.redisTemplate = redisTemplate;
@@ -46,11 +48,13 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     //这个方法是用来去尝试验证用户的
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
+
+        String token = request.getHeader("token");
+        if (token !=null) {
+            ResponseUtil.out(response, R.ok().data("Msg", "重复登录"));
+        }
         try {
             LoginUser loginUser = new ObjectMapper().readValue(request.getInputStream(), LoginUser.class);
-            System.out.println("999999999999999999999999999999999999999999999");
-            System.out.println(loginUser.getUsername());
-            System.out.println(loginUser.getPassword());
             return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getUsername(), loginUser.getPassword(), new ArrayList<>()));
 //            return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(InputUserCache.username, InputUserCache.password, new ArrayList<>()));
         } catch (Exception e) {
@@ -70,13 +74,13 @@ public class JwtLoginFilter extends UsernamePasswordAuthenticationFilter {
     @Override
     protected void successfulAuthentication(HttpServletRequest req, HttpServletResponse res, FilterChain chain,
                                             Authentication auth) throws IOException, ServletException {
-
+        logger.info("=================登录成功=============");
         SecurityUser securityUser = (SecurityUser) auth.getPrincipal();
         // 根据用户名生产token
         String token = tokenManager.createToken(securityUser.getUsername());
         // 将权限存入redis缓存
-        redisTemplate.opsForValue().set(securityUser.getUsername() + "permission", securityUser.getPermissionValueList());
-
+        redisTemplate.opsForValue().set("securityUser:"+ securityUser.getUsername(), securityUser);
+        redisTemplate.opsForValue().set("token:"+ securityUser.getUsername(), token);
         ResponseUtil.out(res, R.ok().data("token", token));
     }
 

@@ -23,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/travel_system/oss/picture")
+@CrossOrigin
 public class OssController {
     @Autowired
     private OssService ossService;

@@ -1,10 +1,13 @@
 package com.carolin_violet.travel_system.config;
 
+//import com.carolin_violet.travel_system.filter.CodeValidateFilter;
 import com.carolin_violet.travel_system.filter.CodeValidateFilter;
-import com.carolin_violet.travel_system.filter.JwtLoginFilter;
 import com.carolin_violet.travel_system.filter.TokenAuthenticationFilter;
+import com.carolin_violet.travel_system.filter.TokenLoginFilter;
 import com.carolin_violet.travel_system.security.DefaultPasswordEncoder;
+import com.carolin_violet.travel_system.security.TokenLogoutHandler;
 import com.carolin_violet.travel_system.security.TokenManager;
+import com.carolin_violet.travel_system.security.UnauthorizedEntryPoint;
 import com.carolin_violet.travel_system.security.handler.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -47,6 +50,12 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private MyLogoutHandler myLogoutHandler;
 
+    @Autowired
+    private TokenLogoutHandler tokenLogoutHandler;
+
+    @Autowired
+    private UnauthorizedEntryPoint unauthorizedEntryPoint;
+
 
     private UserDetailsService userDetailsService;
     private TokenManager tokenManager;
@@ -70,16 +79,18 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.exceptionHandling()
-                .authenticationEntryPoint(myUnAuthEntryPoint) // 未登录 handler
+                .authenticationEntryPoint(unauthorizedEntryPoint) // 未登录 handler
                 .accessDeniedHandler(myAccessDeniedHandler) // 无权限
 
 
                 .and().cors().configurationSource(corsConfigurationSource())   // 解决跨域问题
                 .and().csrf().disable() // 关闭 csrf 跨域请求
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/travel_system/oss/picture").permitAll()   // 由于上传图片时报跨域异常所以加上这个配置
+                .antMatchers(HttpMethod.OPTIONS).permitAll()  // 通过所有OPTION请求
+
+                // 以下为登录后无需权限就能访问的
+                .antMatchers(HttpMethod.POST, "/travel_system/oss/picture").permitAll()
                 .antMatchers(HttpMethod.POST, "/travel_system/oss/picture/addPhoto/**").permitAll()
-                .antMatchers(HttpMethod.GET, "/travel_system/msm/send/**").permitAll()
                 .anyRequest().authenticated()
 
                 .and()
@@ -91,8 +102,8 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // 前后代码略
                 // 添加短信验证码过滤器链
-//                .addFilterBefore(new CodeValidateFilter(), UsernamePasswordAuthenticationFilter.class)
-                .addFilter(new JwtLoginFilter(authenticationManager(), tokenManager, redisTemplate)) // 认证交给 自定义 TokenLoginFilter 实现
+                .addFilterBefore(new CodeValidateFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilter(new TokenLoginFilter(authenticationManager(), tokenManager, redisTemplate)) // 认证交给 自定义 TokenLoginFilter 实现
                 .addFilter(new TokenAuthenticationFilter(authenticationManager(),tokenManager, redisTemplate))
                 // basic 方式
                 .httpBasic();
@@ -103,7 +114,7 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowedHeaders(Arrays.asList("*"));
         corsConfiguration.setAllowedMethods(Arrays.asList("*"));
-        corsConfiguration.setAllowedOrigins(Arrays.asList("*", "http://localhost:9528"));   // *或者http://localhost:9528(vuecli的端口)
+        corsConfiguration.setAllowedOrigins(Arrays.asList("*"));   // *或者http://localhost:9528(vuecli的端口)
         corsConfiguration.setMaxAge(360000L);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", corsConfiguration);
@@ -127,12 +138,9 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
      */
     @Override
     public void configure(WebSecurity web) throws Exception {
+        // 此处配置不需要通过过滤链的访问
         web.ignoring().antMatchers(
-                "/travel_system/oss/picture/addPhoto/**",
-                "/travel_system/oss/picture",
-                "/travel_system/msm/send/**",   // 忽略短信上传接口
-                "/travel_system/feedback/addFeedback",   // 忽略反馈上传接口
-                "/travel_system/travel-note/addNote",    // 忽略游记上传接口
+                "/travel_system/msm/send/**",
                 "/swagger-resources/**",
                 "/webjars/**", "/v2/**", "/swagger-ui.html/**"
         );

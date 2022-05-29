@@ -24,6 +24,7 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/travel_system/delicacy")
+@CrossOrigin
 public class DelicacyController {
     @Autowired
     private DelicacyService delicacyService;
