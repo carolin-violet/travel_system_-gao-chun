@@ -1,7 +1,5 @@
 package com.carolin_violet.travel_system.config;
 
-//import com.carolin_violet.travel_system.filter.CodeValidateFilter;
-import com.carolin_violet.travel_system.filter.CodeValidateFilter;
 import com.carolin_violet.travel_system.filter.TokenAuthenticationFilter;
 import com.carolin_violet.travel_system.filter.TokenLoginFilter;
 import com.carolin_violet.travel_system.security.DefaultPasswordEncoder;
@@ -100,9 +98,6 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
 
-                // 前后代码略
-                // 添加短信验证码过滤器链
-                .addFilterBefore(new CodeValidateFilter(), UsernamePasswordAuthenticationFilter.class)
                 .addFilter(new TokenLoginFilter(authenticationManager(), tokenManager, redisTemplate)) // 认证交给 自定义 TokenLoginFilter 实现
                 .addFilter(new TokenAuthenticationFilter(authenticationManager(),tokenManager, redisTemplate))
                 // basic 方式
