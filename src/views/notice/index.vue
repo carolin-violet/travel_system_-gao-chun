@@ -88,7 +88,13 @@
 
     <!--   添加删除用的表单 -->
     <el-dialog title="公告信息" :visible.sync="dialogFormVisible">
-      <el-form :model="curNotice">
+      <el-form
+        :model="curNotice"
+        v-loading="loading"
+        element-loading-text="图片跟新中"
+        element-loading-spinner="el-icon-loading"
+        element-loading-background="rgba(255, 255, 255, 0.2)"
+      >
         <el-form-item label="公告id" :label-width="formLabelWidth" v-show="flag===0">
           <el-input v-model="curNotice.id" disabled autocomplete="off"></el-input>
         </el-form-item>
@@ -103,6 +109,7 @@
             :limit="1*1"
             :before-upload="handleBeforeUpload"
             :on-success="handleUploadSuccess"
+            :on-progress="handleLoading"
           >
             <i slot="default" class="el-icon-plus"></i>
             <div slot="file" slot-scope="{file}">
@@ -162,7 +169,8 @@ export default {
       current: 1,
       limit: 5,
       total: null,
-      BASE_API: process.env.VUE_APP_BASE_API
+      BASE_API: process.env.VUE_APP_BASE_API,
+      loading: false
     }
   },
 
@@ -260,7 +268,8 @@ export default {
     handleUploadSuccess(res, file) {
       this.$message.success("图片上传成功")
       this.dialogImageUrl = res.data.url
-      this.curDelicacy.picture = res.data.url
+      this.curNotice.picture = res.data.url
+      this.loading = false
     },
     // 图片上传前校验
     handleBeforeUpload(file) {
@@ -276,6 +285,11 @@ export default {
         this.$message.error('上传图片大小不能超过 30MB!');
       }
       return isJPG || isPng && isLt30M;
+    },
+
+    // 文件上传时的钩子，使得表单显示加载中不可点击
+    handleLoading(event, file, fileList) {
+      this.loading = true
     },
 
 

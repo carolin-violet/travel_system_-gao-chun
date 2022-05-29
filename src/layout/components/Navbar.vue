@@ -16,11 +16,14 @@
               Home
             </el-dropdown-item>
           </router-link>
-          <a target="_blank" href="https://github.com/PanJiaChen/vue-admin-template/">
+          <a target="_blank" href="https://github.com/carolin-violet/travel_system_-gao-chun/">
             <el-dropdown-item>Github</el-dropdown-item>
           </a>
-          <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
+          <a target="_blank" href="https://gitee.com/carolin-violet/travel_system_-gao-chun">
+            <el-dropdown-item>Gitee</el-dropdown-item>
+          </a>
+          <a target="_blank" href="http://82.157.183.73:8090/">
+            <el-dropdown-item>博客</el-dropdown-item>
           </a>
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">Log Out</span>
