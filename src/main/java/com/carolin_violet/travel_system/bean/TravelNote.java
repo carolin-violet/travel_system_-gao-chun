@@ -31,15 +31,9 @@ public class TravelNote implements Serializable {
     private String id;
 
     /**
-     * 游客昵称
+     * 游客id
      */
-    @TableField("nickName")
-    private String nickName;
-
-    /**
-     * 游客邮箱
-     */
-    private String mail;
+    private String touristId;
 
     /**
      * 游记内容

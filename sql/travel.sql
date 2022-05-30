@@ -11,11 +11,30 @@
  Target Server Version : 80025
  File Encoding         : 65001
 
- Date: 26/05/2022 20:26:10
+ Date: 30/05/2022 21:37:55
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for comment
+-- ----------------------------
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment`  (
+  `id` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '评论序号',
+  `mark_id` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '旅馆、景点、美食等id',
+  `tourist_id` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '游客id',
+  `comment` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '评论',
+  `is_deleted` tinyint(0) NOT NULL COMMENT '逻辑删除',
+  `create_time` datetime(0) NOT NULL COMMENT '评论时间',
+  `modify_time` datetime(0) NOT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of comment
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for delicacy
@@ -36,8 +55,8 @@ CREATE TABLE `delicacy`  (
 -- ----------------------------
 -- Records of delicacy
 -- ----------------------------
-INSERT INTO `delicacy` VALUES ('1528260176480604161', '蟹黄包', '很好吃', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/7b013da896dd4a00941bd876c730c9a59866091_carolin-zhou_1634606834.png', 3, 0, '2022-05-22 14:23:14', '2022-05-22 15:04:23');
-INSERT INTO `delicacy` VALUES ('1529088864428240897', '米糕', '很好吃', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/aed4f410e81d4a018e3c995f1888b4589866091_carolin-zhou_1641393112.png', 2, 0, '2022-05-24 21:16:09', '2022-05-24 21:16:09');
+INSERT INTO `delicacy` VALUES ('1528260176480604161', '蟹黄包', '很好吃', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/752166c31d8e4dcd8134dfba8f043ecanrwmem.png', 3, 0, '2022-05-22 14:23:14', '2022-05-28 13:21:46');
+INSERT INTO `delicacy` VALUES ('1529088864428240897', '米糕', '很好吃', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/07bae3b685c74967a020e9b76e615003[3275]【PFRD】世界が終わる日-64117602.png', 2, 0, '2022-05-24 21:16:09', '2022-05-29 20:45:00');
 
 -- ----------------------------
 -- Table structure for feedback
@@ -45,8 +64,7 @@ INSERT INTO `delicacy` VALUES ('1529088864428240897', '米糕', '很好吃', 'ht
 DROP TABLE IF EXISTS `feedback`;
 CREATE TABLE `feedback`  (
   `id` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '反馈id',
-  `nickName` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '游客昵称',
-  `mail` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '游客邮箱',
+  `tourist_id` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '游客id',
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '反馈内容',
   `is_deleted` tinyint(0) NOT NULL COMMENT '逻辑删除',
   `create_time` datetime(0) NOT NULL COMMENT '添加时间',
@@ -57,8 +75,9 @@ CREATE TABLE `feedback`  (
 -- ----------------------------
 -- Records of feedback
 -- ----------------------------
-INSERT INTO `feedback` VALUES ('1528361382464978945', 'asdfd ', 'wq@163.com', '卧槽', 0, '2022-05-22 21:05:24', '2022-05-22 21:05:24');
-INSERT INTO `feedback` VALUES ('1528617766280605698', 'sdgsdg', 'wq@163.com', '卧槽', 0, '2022-05-23 14:04:10', '2022-05-23 14:04:10');
+INSERT INTO `feedback` VALUES ('1528361382464978945', 'asdfd', '卧槽', 0, '2022-05-22 21:05:24', '2022-05-22 21:05:24');
+INSERT INTO `feedback` VALUES ('1528617766280605698', 'sdgsdg', '卧槽', 0, '2022-05-23 14:04:10', '2022-05-23 14:04:10');
+INSERT INTO `feedback` VALUES ('1531263487915925505', 'azsd', 'ghgfjhg', 0, '2022-05-30 21:17:20', '2022-05-30 21:17:20');
 
 -- ----------------------------
 -- Table structure for hotel
@@ -79,7 +98,8 @@ CREATE TABLE `hotel`  (
 -- ----------------------------
 -- Records of hotel
 -- ----------------------------
-INSERT INTO `hotel` VALUES ('1528227447567302657', '狮王旅馆', 'lion\'s pride,哇哦尖峰时刻韩国考试的话概括年法国空军和东方男科货到付款和你们看到父母NHK的房间你快回家死哦的话i哦国内的覅客户哦那的覅oh九年科大夫您好都分工放到干饭', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/aed4f410e81d4a018e3c995f1888b4589866091_carolin-zhou_1641393112.png', 1, 0, '2022-05-22 12:13:11', '2022-05-26 11:12:15');
+INSERT INTO `hotel` VALUES ('1530439994282373121', '狮王酒馆', '阿斯蒂芬', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/87fb9487a68b452caef32257376b98ac1.png', 3, 1, '2022-05-28 14:45:04', '2022-05-28 14:45:04');
+INSERT INTO `hotel` VALUES ('1530789837718708225', '狮王旅馆', '奥里给', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/56c64435ee64405391d316b3f037eb69[3056]【COMITIA120】flap-62713348.png', 3, 0, '2022-05-29 13:55:13', '2022-05-29 20:37:06');
 
 -- ----------------------------
 -- Table structure for manager
@@ -99,10 +119,10 @@ CREATE TABLE `manager`  (
 -- ----------------------------
 -- Records of manager
 -- ----------------------------
-INSERT INTO `manager` VALUES ('0', 'admin', '17075256495', '$2a$10$bzlXeNhRppIN5eS1eEbdge..MV5No00W/5N8jXwv66NE2Bm6qStGu', 0, '2022-05-24 09:07:27', '2022-05-24 09:07:32');
-INSERT INTO `manager` VALUES ('1528213171205128194', 'admin2', '12345678910', '$2a$10$bzlXeNhRppIN5eS1eEbdge..MV5No00W/5N8jXwv66NE2Bm6qStGu', 0, '2022-05-22 11:16:28', '2022-05-22 14:52:32');
-INSERT INTO `manager` VALUES ('1528358307016765442', 'admin11', '12345678911', '$2a$10$6jQurtqO7PjULPFrf.2KmuyLF5TzrGRmu70z5tfJ25FOMxqqBtEU6', 0, '2022-05-22 20:53:11', '2022-05-25 18:04:32');
-INSERT INTO `manager` VALUES ('1529403204062740482', '奥里给', '12345678912', '$2a$10$bIqk9nogb8/4zfH.aahvn.UeYBZG62SOgpPb/oMM46kzzK3xDLR0O', 0, '2022-05-25 18:05:13', '2022-05-25 18:05:13');
+INSERT INTO `manager` VALUES ('0', 'admin', '17075256495', '$2a$10$1U.9C0YPSBCaZFwVhiKV.eJiufB1pVbVbbPdG/GgJFk46enqdAXG2', 0, '2022-05-24 09:07:27', '2022-05-24 09:07:32');
+INSERT INTO `manager` VALUES ('1528213171205128194', 'admin2', '12345678910', '$2a$10$1U.9C0YPSBCaZFwVhiKV.eJiufB1pVbVbbPdG/GgJFk46enqdAXG2', 0, '2022-05-22 11:16:28', '2022-05-22 14:52:32');
+INSERT INTO `manager` VALUES ('1528358307016765442', 'admin11', '12345678911', '$2a$10$1U.9C0YPSBCaZFwVhiKV.eJiufB1pVbVbbPdG/GgJFk46enqdAXG2', 0, '2022-05-22 20:53:11', '2022-05-25 18:04:32');
+INSERT INTO `manager` VALUES ('1529403204062740482', '奥里给', '12345678912', '$2a$10$1U.9C0YPSBCaZFwVhiKV.eJiufB1pVbVbbPdG/GgJFk46enqdAXG2', 0, '2022-05-25 18:05:13', '2022-05-25 18:05:13');
 
 -- ----------------------------
 -- Table structure for notice
@@ -122,7 +142,7 @@ CREATE TABLE `notice`  (
 -- ----------------------------
 -- Records of notice
 -- ----------------------------
-INSERT INTO `notice` VALUES ('1528276227691917314', '公告AA', '今天下雨呀，注意安全', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/aed4f410e81d4a018e3c995f1888b4589866091_carolin-zhou_1641393112.png', 0, '2022-05-22 15:27:01', '2022-05-26 11:21:14');
+INSERT INTO `notice` VALUES ('1528276227691917314', '公告AA', '今天下雨呀，注意安全', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/f366bb8f50ed4b1e8f4e1fb1823dd4cc[6612]夏のお祭り-61749296.png', 0, '2022-05-22 15:27:01', '2022-05-29 20:55:56');
 
 -- ----------------------------
 -- Table structure for permission
@@ -133,7 +153,7 @@ CREATE TABLE `permission`  (
   `user_id` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `role_id` int(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 14 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 18 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of permission
@@ -148,6 +168,10 @@ INSERT INTO `permission` VALUES (9, '0', 7);
 INSERT INTO `permission` VALUES (10, '0', 8);
 INSERT INTO `permission` VALUES (12, '1528213171205128194', 3);
 INSERT INTO `permission` VALUES (13, '1528213171205128194', 7);
+INSERT INTO `permission` VALUES (14, '1528358307016765442', 4);
+INSERT INTO `permission` VALUES (15, '1528358307016765442', 6);
+INSERT INTO `permission` VALUES (16, '1528358307016765442', 7);
+INSERT INTO `permission` VALUES (17, '1529403204062740482', 8);
 
 -- ----------------------------
 -- Table structure for photos
@@ -166,9 +190,17 @@ CREATE TABLE `photos`  (
 -- ----------------------------
 -- Records of photos
 -- ----------------------------
-INSERT INTO `photos` VALUES ('1528602196071964674', '1528602195874832386', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/d48d95a4a352415d9b9240f3fed25a6c9866091_carolin-zhou_1641393112.png', 1, '2022-05-23 13:02:18', '2022-05-23 13:02:18');
-INSERT INTO `photos` VALUES ('1528617602232987649', '1528617602061021186', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/aed4f410e81d4a018e3c995f1888b4589866091_carolin-zhou_1641393112.png', 0, '2022-05-23 14:03:31', '2022-05-23 14:03:31');
-INSERT INTO `photos` VALUES ('1528617766343520258', '1528617766280605698', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/776bdf0d08cf4b60bd9696fb44409f239866091_carolin-zhou_1634606834.png', 1, '2022-05-23 14:04:10', '2022-05-23 14:04:10');
+INSERT INTO `photos` VALUES ('1530438065770758146', '1528227447567302657', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/8a8ad5cc87a547ccb8dbda5f12e002901.png', 0, '2022-05-28 14:37:24', '2022-05-28 14:37:24');
+INSERT INTO `photos` VALUES ('1530438077925851138', '1528227447567302657', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/f992971a691c47fda3cf375ea6d33ba62.png', 0, '2022-05-28 14:37:27', '2022-05-28 14:37:27');
+INSERT INTO `photos` VALUES ('1530457310806159361', '1528359301754765313', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/e7cf90fb2584482fb07b92cd7579bae61.png', 0, '2022-05-28 15:53:52', '2022-05-28 15:53:52');
+INSERT INTO `photos` VALUES ('1530502751266574338', '1528359301754765313', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/ff6a51d2163f450db03261de19e0e154课表.png', 1, '2022-05-28 18:54:26', '2022-05-28 18:54:26');
+INSERT INTO `photos` VALUES ('1530558416789991426', '1528359301754765313', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/89c488565ef94502aae86a8c42621403[2222]第二地区-59695820.png', 0, '2022-05-28 22:35:38', '2022-05-28 22:35:38');
+INSERT INTO `photos` VALUES ('1530698086815404033', '1528359301754765313', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/42c0d0e607204d45991b402987ae9140[2375]№白◆Tiger-64141182.png', 0, '2022-05-29 07:50:38', '2022-05-29 07:50:38');
+INSERT INTO `photos` VALUES ('1530698086815404034', '1528359301754765313', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/6d36b69cb40e45d6b14cf04db165014b[2300]青龍っ娘ちゃん-59227888.png', 0, '2022-05-29 07:50:38', '2022-05-29 07:50:38');
+INSERT INTO `photos` VALUES ('1530698087255805954', '1528359301754765313', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/2387c2264ba74412baecbc4dc460f6de[2378]黑翼-65215835.png', 0, '2022-05-29 07:50:38', '2022-05-29 07:50:38');
+INSERT INTO `photos` VALUES ('1530698097846423554', '1528359301754765313', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/a959ad8955094202890b520a220ccc54[2639]春のささやき-62668066.png', 0, '2022-05-29 07:50:40', '2022-05-29 07:50:40');
+INSERT INTO `photos` VALUES ('1530830429928656898', '1530789837718708225', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/3c693513c0454d5880c140ebb4e1982b[2242]猫-64711786.jpg', 0, '2022-05-29 16:36:31', '2022-05-29 16:36:31');
+INSERT INTO `photos` VALUES ('1531263488104669185', '1531263487915925505', 'sdfsdg', 0, '2022-05-30 21:17:20', '2022-05-30 21:17:20');
 
 -- ----------------------------
 -- Table structure for role
@@ -237,7 +269,28 @@ CREATE TABLE `scenic_spot`  (
 -- ----------------------------
 -- Records of scenic_spot
 -- ----------------------------
-INSERT INTO `scenic_spot` VALUES ('1528251322355183618', '游子山景区', '国家4A旅游景区', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/aed4f410e81d4a018e3c995f1888b4589866091_carolin-zhou_1641393112.png', 1, 0, '2022-05-22 13:48:03', '2022-05-22 14:57:35');
+INSERT INTO `scenic_spot` VALUES ('1528251322355183618', '游子山景区', '国家4A旅游景区', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/48275b6cc0364a1e8ca68393bf2685f8[10328]陨石来临-60277048.jpg', 1, 0, '2022-05-22 13:48:03', '2022-05-29 20:41:56');
+
+-- ----------------------------
+-- Table structure for tourist
+-- ----------------------------
+DROP TABLE IF EXISTS `tourist`;
+CREATE TABLE `tourist`  (
+  `id` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `nickName` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `telephone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `email` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `is_deleted` tinyint(0) NOT NULL,
+  `create_time` datetime(0) NOT NULL,
+  `modify_time` datetime(0) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of tourist
+-- ----------------------------
+INSERT INTO `tourist` VALUES ('1531255715816026114', 'qaq', 'sds', '123456', 'dsfg', 0, '2022-05-30 20:46:27', '2022-05-30 20:46:27');
 
 -- ----------------------------
 -- Table structure for tourist_route
@@ -265,8 +318,7 @@ INSERT INTO `tourist_route` VALUES ('1528314711727235073', '快乐一日游', 'q
 DROP TABLE IF EXISTS `travel_note`;
 CREATE TABLE `travel_note`  (
   `id` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '游记id',
-  `nickName` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '游客昵称',
-  `mail` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '游客邮箱',
+  `tourist_id` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '游客id',
   `content` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '游记内容',
   `is_deleted` tinyint(0) NOT NULL COMMENT '逻辑删除',
   `create_time` datetime(0) NOT NULL COMMENT '添加时间',
@@ -277,8 +329,8 @@ CREATE TABLE `travel_note`  (
 -- ----------------------------
 -- Records of travel_note
 -- ----------------------------
-INSERT INTO `travel_note` VALUES ('1528359301754765313', 'zj', 'qqq@qq.com', '奥里给', 0, '2022-05-22 20:57:08', '2022-05-22 20:57:08');
-INSERT INTO `travel_note` VALUES ('1528602195874832386', 'zj', 'qqq@qq.com', '奥里给', 1, '2022-05-23 13:02:18', '2022-05-23 13:02:18');
-INSERT INTO `travel_note` VALUES ('1528617602061021186', 'zj', 'qqq@qq.com', '奥里给', 0, '2022-05-23 14:03:31', '2022-05-23 14:03:31');
+INSERT INTO `travel_note` VALUES ('1528359301754765313', 'zj', '奥里给', 0, '2022-05-22 20:57:08', '2022-05-22 20:57:08');
+INSERT INTO `travel_note` VALUES ('1528602195874832386', 'zj', '奥里给', 1, '2022-05-23 13:02:18', '2022-05-23 13:02:18');
+INSERT INTO `travel_note` VALUES ('1528617602061021186', 'zj', '奥里给', 1, '2022-05-23 14:03:31', '2022-05-23 14:03:31');
 
 SET FOREIGN_KEY_CHECKS = 1;

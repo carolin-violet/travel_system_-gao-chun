@@ -87,8 +87,8 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.OPTIONS).permitAll()  // 通过所有OPTION请求
 
                 // 以下为登录后无需权限就能访问的
-                .antMatchers(HttpMethod.POST, "/travel_system/oss/picture").permitAll()
-                .antMatchers(HttpMethod.POST, "/travel_system/oss/picture/addPhoto/**").permitAll()
+                .antMatchers(HttpMethod.POST, "/travel_system/oss/picture").permitAll()  // 新增相关物件时添加相关展示图片
+                .antMatchers(HttpMethod.POST, "/travel_system/oss/picture/addPhoto/**").permitAll() // 根据物件mark_id添加更多的详情图片
                 .anyRequest().authenticated()
 
                 .and()
@@ -135,6 +135,7 @@ public class TokenWebSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         // 此处配置不需要通过过滤链的访问
         web.ignoring().antMatchers(
+                "/travel_system/front/**",  //  所有前台数据不过滤
                 "/travel_system/msm/send/**",
                 "/swagger-resources/**",
                 "/webjars/**", "/v2/**", "/swagger-ui.html/**"

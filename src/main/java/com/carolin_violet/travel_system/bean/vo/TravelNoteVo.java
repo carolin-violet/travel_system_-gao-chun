@@ -21,9 +21,10 @@ public class TravelNoteVo {
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
-    private String nickName;
-
-    private String mail;
+    /**
+     * 游客id
+     */
+    private String touristId;
 
     private String content;
 

@@ -3,8 +3,8 @@ package com.carolin_violet.travel_system.bean;
 import com.baomidou.mybatisplus.annotation.*;
 
 import java.util.Date;
-
 import java.io.Serializable;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -15,47 +15,34 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author carolin-violet
- * @since 2022-05-22
+ * @since 2022-05-30
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Feedback implements Serializable {
+public class Tourist implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * 反馈id
-     */
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
 
-    /**
-     * 游客id
-     */
-    private String touristId;
+    @TableField("nickName")
+    private String nickName;
 
-    /**
-     * 反馈内容
-     */
-    private String content;
+    private String telephone;
 
-    /**
-     * 逻辑删除
-     */
+    private String password;
+
+    private String email;
+
     @TableLogic
     @TableField(fill = FieldFill.INSERT)
     private Integer isDeleted;
 
-    /**
-     * 添加时间
-     */
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
-    /**
-     * 修改时间
-     */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date modifyTime;
 

@@ -52,14 +52,6 @@ public class TravelNoteController {
 
     }
 
-
-    // 添加游记
-    @PostMapping("addNote")
-    public R addNote(@RequestBody TravelNoteVo travelNoteVo) {
-        travelNoteService.addNote(travelNoteVo);
-        return R.ok();
-    }
-
     // 删除游记
     @PreAuthorize("hasAnyAuthority('ROLE_NOTE')")
     @DeleteMapping("{id}")

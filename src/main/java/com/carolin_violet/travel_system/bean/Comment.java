@@ -15,20 +15,25 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author carolin-violet
- * @since 2022-05-22
+ * @since 2022-05-30
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Feedback implements Serializable {
+public class Comment implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     /**
-     * 反馈id
+     * 评论序号
      */
     @TableId(value = "id", type = IdType.ID_WORKER_STR)
     private String id;
+
+    /**
+     * 旅馆、景点、美食等id
+     */
+    private String markId;
 
     /**
      * 游客id
@@ -36,9 +41,9 @@ public class Feedback implements Serializable {
     private String touristId;
 
     /**
-     * 反馈内容
+     * 评论
      */
-    private String content;
+    private String comment;
 
     /**
      * 逻辑删除
@@ -48,16 +53,11 @@ public class Feedback implements Serializable {
     private Integer isDeleted;
 
     /**
-     * 添加时间
+     * 评论时间
      */
     @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
-    /**
-     * 修改时间
-     */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date modifyTime;
-
-
 }

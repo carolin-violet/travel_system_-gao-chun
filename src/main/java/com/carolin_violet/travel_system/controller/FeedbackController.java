@@ -50,13 +50,6 @@ public class FeedbackController {
         return R.ok().data("rows", records).data("total", total);
     }
 
-    // 上传反馈
-    @PostMapping("addFeedback")
-    public R addFeedback(@RequestBody FeedbackVo feedbackVo) {
-        feedbackService.addFeedback(feedbackVo);
-        return R.ok();
-    }
-
     // 删除反馈
     @PreAuthorize("hasAnyAuthority('ROLE_FEEDBACK')")
     @DeleteMapping("{id}")
