@@ -21,14 +21,8 @@
         width="200">
       </el-table-column>
       <el-table-column
-        prop="nickName"
-        label="游客昵称"
-        align="center"
-        width="200">
-      </el-table-column>
-      <el-table-column
-        prop="mail"
-        label="游客邮箱"
+        prop="touristId"
+        label="游客id"
         align="center"
         width="200">
       </el-table-column>
