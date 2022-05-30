@@ -32,7 +32,7 @@ public class DelicacyController {
     @Autowired
     private PhotosService photosService;
 
-    // 查询所有美食
+    // 分页查询所有美食
     @GetMapping("findAll/{cur}/{limit}")
     @PreAuthorize("hasAnyAuthority('ROLE_DELICACY')")
     public R findAllDelicacy(@PathVariable long cur, @PathVariable long limit) {

@@ -1,9 +1,17 @@
 package com.carolin_violet.travel_system.controller;
 
 
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.carolin_violet.travel_system.bean.Comment;
+import com.carolin_violet.travel_system.bean.Tourist;
+import com.carolin_violet.travel_system.service.CommentService;
+import com.carolin_violet.travel_system.utils.R;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 
-import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
 /**
  * <p>
@@ -17,8 +25,34 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/travel_system/comment")
 public class CommentController {
 
-    // 管理员分页查询查看评论
+    @Autowired
+    private CommentService commentService;
 
-    // 管理员删除评论
+    // 分页查询查看所有评论
+    @GetMapping("findAll/{cur}/{limit}")
+    @PreAuthorize("hasAnyAuthority('ROLE_COMMENT')")
+    public R findAllDelicacy(@PathVariable long cur, @PathVariable long limit) {
+        Page<Comment> commentPage = new Page<>(cur, limit);
+        QueryWrapper<Comment> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("create_time");
+
+        commentService.page(commentPage, wrapper);
+
+        long total = commentPage.getTotal();
+        List<Comment> records = commentPage.getRecords();
+        return R.ok().data("items", records).data("total", total);
+    }
+
+    // 逻辑删除评论
+    @PreAuthorize("hasAnyAuthority('ROLE_COMMENT')")
+    @DeleteMapping("{id}")
+    public R removeHotel(@PathVariable String id) {
+        boolean flag = commentService.removeById(id);
+        if (flag) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
 }
 
