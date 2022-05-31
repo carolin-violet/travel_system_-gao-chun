@@ -171,7 +171,7 @@ export default {
     // 查看权限按钮
     handlePermission(index, row) {
       this.$router.push({
-        path: "/manager/permission",
+        path: "/user/permission",
         query: {
           id: row.id
         }

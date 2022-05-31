@@ -77,22 +77,28 @@ export const constantRoutes = [
 export const asyncRoutes = [
   // 超级管理员管理普通管理员
   {
-    path: '/manager',
+    path: '/user',
     component: Layout,
-    redirect: '/manager/managerMenu',
-    name: 'Manager',
+    redirect: '/user/managerMenu',
+    name: 'User',
     meta: { title: '人员管理', icon: 'users', role: 'ROLE_MANAGER' },
     children: [
       {
         path: 'managerMenu',
         name: 'ManagerMenu',
-        component: () => import('@/views/manager/managerMenu/index'),
-        meta: { title: '人员菜单', icon: 'users', role: 'ROLE_MANAGER'}
+        component: () => import('@/views/user/managerMenu/index'),
+        meta: { title: '管理员菜单', icon: 'users', role: 'ROLE_MANAGER'}
+      },
+      {
+        path: 'touristMenu',
+        name: 'TouristMenu',
+        component: () => import('@/views/user/tourist/index'),
+        meta: { title: '游客菜单', icon: 'users', role: 'ROLE_TOURIST'}
       },
       {
         path: 'permission',
         name: 'Permission',
-        component: () => import('@/views/manager/permission/index'),
+        component: () => import('@/views/user/permission/index'),
         meta: { title: '权限管理', icon: 'table', role: 'ROLE_MANAGER' },
         hidden: true
       },
@@ -204,6 +210,20 @@ export const asyncRoutes = [
         name: 'FeedbackMenu',
         component: () => import('@/views/feedback/index'),
         meta: { title: '反馈菜单', icon: 'feedback', role: 'ROLE_FEEDBACK' }
+      }
+    ]
+  },
+
+  // 评论管理
+  {
+    path: '/comment',
+    component: Layout,
+    children: [
+      {
+        path: 'commentMenu',
+        name: 'CommentMenu',
+        component: () => import('@/views/comment/index'),
+        meta: { title: '评论菜单', icon: 'feedback', role: 'ROLE_COMMENT' }
       }
     ]
   },

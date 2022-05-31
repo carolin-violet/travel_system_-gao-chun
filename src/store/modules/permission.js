@@ -45,7 +45,7 @@ const actions = {
   generateRoutes({ commit }, roles) {
     return new Promise(resolve => {
       let accessedRoutes = []
-      if (roles.length === 8) {
+      if (roles.length === 10) {  // 管理员有所有的10种权限
         accessedRoutes = asyncRoutes || []
       } else {
         accessedRoutes = filterAsyncRoutes(asyncRoutes, roles)
