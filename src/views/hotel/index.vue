@@ -205,6 +205,8 @@ export default {
         this.dialogFormVisible = false
         this.$message.success("添加成功")
         this.getPageHotel()
+        this.curHotel = {}
+        this.dialogImageUrl = ''
       } else {
         this.$message.error("添加失败")
       }
@@ -217,6 +219,8 @@ export default {
         this.dialogFormVisible = false
         this.$message.success("修改成功")
         this.getPageHotel()
+        this.dialogImageUrl = ''
+        this.curHotel = {}
       } else {
         this.$message.error("修改失败")
       }
@@ -232,6 +236,8 @@ export default {
         let res = await hotel.removeHotel(data.id)
         if (res.code == 20000) {
           this.getPageHotel()
+          this.dialogImageUrl = ''
+          this.curHotel = {}
           this.$message.success("删除成功")
         } else {
           this.$message.error("删除失败")

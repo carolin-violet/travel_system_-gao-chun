@@ -81,13 +81,13 @@ export const asyncRoutes = [
     component: Layout,
     redirect: '/user/managerMenu',
     name: 'User',
-    meta: { title: '人员管理', icon: 'users', role: 'ROLE_MANAGER' },
+    meta: { title: '人员管理', icon: 'el-icon-user-solid', role: 'ROLE_MANAGER' },
     children: [
       {
         path: 'managerMenu',
         name: 'ManagerMenu',
         component: () => import('@/views/user/managerMenu/index'),
-        meta: { title: '管理员菜单', icon: 'users', role: 'ROLE_MANAGER'}
+        meta: { title: '管理员菜单', icon: 'el-icon-s-management', role: 'ROLE_MANAGER'}
       },
       {
         path: 'touristMenu',
@@ -223,7 +223,7 @@ export const asyncRoutes = [
         path: 'commentMenu',
         name: 'CommentMenu',
         component: () => import('@/views/comment/index'),
-        meta: { title: '评论菜单', icon: 'feedback', role: 'ROLE_COMMENT' }
+        meta: { title: '评论菜单', icon: 'el-icon-s-comment', role: 'ROLE_COMMENT' }
       }
     ]
   },

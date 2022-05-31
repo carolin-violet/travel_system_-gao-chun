@@ -206,6 +206,8 @@ export default {
         this.dialogFormVisible = false
         this.$message.success("添加成功")
         this.getPageScenicSpot()
+        this.curScenicSpot = {}
+        this.dialogImageUrl = ''
       } else {
         this.$message.error("添加失败")
       }
@@ -218,6 +220,8 @@ export default {
         this.dialogFormVisible = false
         this.$message.success("修改成功")
         this.getPageScenicSpot()
+        this.curScenicSpot = {}
+        this.dialogImageUrl = ''
       } else {
         this.$message.error("修改失败")
       }
@@ -234,6 +238,8 @@ export default {
         if (res.code == 20000) {
           this.getPageScenicSpot()
           this.$message.success("删除成功")
+          this.curScenicSpot = {}
+          this.dialogImageUrl = ''
         } else {
           this.$message.error("删除失败")
         }
