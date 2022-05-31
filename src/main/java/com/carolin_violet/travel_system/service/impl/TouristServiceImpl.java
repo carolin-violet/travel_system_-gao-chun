@@ -8,6 +8,7 @@ import com.carolin_violet.travel_system.bean.TravelNote;
 import com.carolin_violet.travel_system.mapper.TouristMapper;
 import com.carolin_violet.travel_system.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,15 +38,8 @@ public class TouristServiceImpl extends ServiceImpl<TouristMapper, Tourist> impl
     private PhotosService photosService;
 
     @Override
-    public boolean removeAll(String id) {
-        // 删除反馈
-        QueryWrapper<Feedback> wrapper1 = new QueryWrapper<>();
-        wrapper1.eq("tourist_id", id);
-        List<Feedback> feedbackList = feedbackService.list(wrapper1);
-        for (Feedback feedback : feedbackList) {
-            photosService.removePhotos(feedback.getId());
-        }
-        feedbackService.remove(wrapper1);
+    public void removeAll(String id) {
+
 
         // 删除评论
         QueryWrapper<Comment> wrapper2 = new QueryWrapper<>();
@@ -53,14 +47,32 @@ public class TouristServiceImpl extends ServiceImpl<TouristMapper, Tourist> impl
         commentService.remove(wrapper2);
 
 
-        // 删除游记
-        QueryWrapper<TravelNote> wrapper3 = new QueryWrapper<>();
-        wrapper3.eq("tourist_id", id);
-        List<TravelNote> travelNoteList = travelNoteService.list(wrapper3);
-        for (TravelNote travelNote: travelNoteList) {
-            photosService.removePhotos(travelNote.getId());
+        try {
+            System.out.println("88888888888888888888888888888");
+            // 删除反馈
+            QueryWrapper<Feedback> wrapper1 = new QueryWrapper<>();
+            wrapper1.eq("tourist_id", id);
+            List<Feedback> feedbackList = feedbackService.list(wrapper1);
+            if (feedbackList.size() > 0) {
+                for (Feedback feedback : feedbackList) {
+                    photosService.removePhotos(feedback.getId());
+                }
+                feedbackService.remove(wrapper1);
+            }
+
+            // 删除游记
+            QueryWrapper<TravelNote> wrapper3 = new QueryWrapper<>();
+            wrapper3.eq("tourist_id", id);
+            List<TravelNote> travelNoteList = travelNoteService.list(wrapper3);
+            System.out.println("9999999999999999999999999999999");
+            if (travelNoteList.size() > 0) {
+                for (TravelNote travelNote: travelNoteList) {
+                    photosService.removePhotos(travelNote.getId());
+                }
+                travelNoteService.remove(wrapper3);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        travelNoteService.remove(wrapper3);
-        return true;
     }
 }

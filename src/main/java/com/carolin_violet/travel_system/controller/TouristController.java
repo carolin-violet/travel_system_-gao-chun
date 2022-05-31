@@ -40,7 +40,7 @@ public class TouristController {
     // 分页查询查看所有游客信息
     @GetMapping("findAll/{cur}/{limit}")
     @PreAuthorize("hasAnyAuthority('ROLE_TOURIST')")
-    public R findAllDelicacy(@PathVariable long cur, @PathVariable long limit) {
+    public R findAllTourist(@PathVariable long cur, @PathVariable long limit) {
         Page<Tourist> touristPage = new Page<>(cur, limit);
         QueryWrapper<Tourist> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("create_time");
@@ -49,15 +49,17 @@ public class TouristController {
 
         long total = touristPage.getTotal();
         List<Tourist> records = touristPage.getRecords();
-        return R.ok().data("items", records).data("total", total);
+        return R.ok().data("rows", records).data("total", total);
     }
 
     // 逻辑删除游客
-    // TODO 删除游客游记、反馈、照片
     @PreAuthorize("hasAnyAuthority('ROLE_TOURIST')")
     @DeleteMapping("{id}")
-    public R removeHotel(@PathVariable String id) {
-        boolean flag = touristService.removeAll(id);
+    public R removeTourist(@PathVariable String id) {
+        // 先删除所有附属数据
+        touristService.removeAll(id);
+        // 删除游客
+        boolean flag = touristService.removeById(id);
         if (flag) {
             return R.ok();
         } else {

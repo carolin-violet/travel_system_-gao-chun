@@ -2,16 +2,15 @@ package com.carolin_violet.travel_system.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.carolin_violet.travel_system.bean.Comment;
 import com.carolin_violet.travel_system.bean.Tourist;
 import com.carolin_violet.travel_system.bean.vo.FeedbackVo;
 import com.carolin_violet.travel_system.bean.vo.TravelNoteVo;
-import com.carolin_violet.travel_system.service.FeedbackService;
-import com.carolin_violet.travel_system.service.OssService;
-import com.carolin_violet.travel_system.service.TouristService;
-import com.carolin_violet.travel_system.service.TravelNoteService;
+import com.carolin_violet.travel_system.service.*;
 import com.carolin_violet.travel_system.utils.JwtUtils;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -40,6 +39,9 @@ public class FrontController {
     @Autowired
     private TouristService touristService;
 
+    @Autowired
+    private CommentService commentService;
+
     // 游客登录
     @PostMapping("login")
     public R login(@RequestBody Tourist tourist) {
@@ -48,7 +50,7 @@ public class FrontController {
         Tourist tourist1 = touristService.getOne(wrapper);
         if (tourist1!=null) {
             String token = JwtUtils.getJwtToken(tourist1.getId(), tourist1.getNickName());
-            return R.ok().data("token", token);
+            return R.ok().data("token", token).data("info", tourist1);
         } else {
             return R.error().message("登录失败");
         }
@@ -64,7 +66,6 @@ public class FrontController {
             return R.error();
         }
     }
-
 
     // 游客修改信息
     @PostMapping("updateInfo")
@@ -99,6 +100,17 @@ public class FrontController {
     public R addFeedback(@RequestBody FeedbackVo feedbackVo) {
         feedbackService.addFeedback(feedbackVo);
         return R.ok();
+    }
+
+    // 游客添加评论
+    @PostMapping("addComment")
+    public R addComment(@RequestBody Comment comment) {
+        boolean save = commentService.save(comment);
+        if (save) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
     }
 
     // TODO 。。。。(首屏数据做redis缓存)

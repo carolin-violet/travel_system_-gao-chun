@@ -31,7 +31,7 @@ public class CommentController {
     // 分页查询查看所有评论
     @GetMapping("findAll/{cur}/{limit}")
     @PreAuthorize("hasAnyAuthority('ROLE_COMMENT')")
-    public R findAllDelicacy(@PathVariable long cur, @PathVariable long limit) {
+    public R findAllComment(@PathVariable long cur, @PathVariable long limit) {
         Page<Comment> commentPage = new Page<>(cur, limit);
         QueryWrapper<Comment> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("create_time");
@@ -40,13 +40,13 @@ public class CommentController {
 
         long total = commentPage.getTotal();
         List<Comment> records = commentPage.getRecords();
-        return R.ok().data("items", records).data("total", total);
+        return R.ok().data("rows", records).data("total", total);
     }
 
     // 逻辑删除评论
     @PreAuthorize("hasAnyAuthority('ROLE_COMMENT')")
     @DeleteMapping("{id}")
-    public R removeHotel(@PathVariable String id) {
+    public R removeComment(@PathVariable String id) {
         boolean flag = commentService.removeById(id);
         if (flag) {
             return R.ok();

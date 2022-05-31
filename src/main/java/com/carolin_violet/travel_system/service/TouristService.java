@@ -13,5 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface TouristService extends IService<Tourist> {
 
-    boolean removeAll(String id);
+    void removeAll(String id);
 }
