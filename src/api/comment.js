@@ -19,5 +19,13 @@ export default {
       url: `/travel_system/comment/${id}`,
       method: 'delete'
     })
+  },
+
+  // 更新情感倾向
+  updateSentiment() {
+    return request({
+      url: '/travel_system/comment/analyse-sentiment',
+      method: 'post'
+    })
   }
 }

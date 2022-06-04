@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+    <el-button type="primary" @click="updateSentiment">更新情感倾向</el-button>
 
     <!--   展示表格 -->
     <el-table
@@ -125,6 +126,14 @@ export default {
       }).catch(() => {
         this.$message.info("已取消删除")
       });
+    },
+
+    // 跟新情感倾向
+    async updateSentiment() {
+      let res = await comment.updateSentiment()
+      if (res.code == 20000) {
+        this.$message.success("更新成功")
+      }
     },
 
     // 删除按钮
