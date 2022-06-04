@@ -6,7 +6,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.carolin_violet.travel_system.bean.Comment;
 import com.carolin_violet.travel_system.bean.Tourist;
 import com.carolin_violet.travel_system.service.CommentService;
+import com.carolin_violet.travel_system.utils.BaiDuSentiment;
 import com.carolin_violet.travel_system.utils.R;
+import com.google.gson.JsonObject;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +57,23 @@ public class CommentController {
         } else {
             return R.error();
         }
+    }
+
+    // 查找没有进行情感分析的评论进行情感分析
+    @PreAuthorize("hasAnyAuthority('ROLE_COMMENT')")
+    @PostMapping("analyse-sentiment")
+    public R analyseSentiment() {
+        List<Comment> list = commentService.list(null);
+        for (Comment comment : list) {
+            if (comment.getSentiment() == null) {
+                JSONObject sentimentRes = new BaiDuSentiment().getSentimentRes(comment.getComment());
+                Object o = sentimentRes.getJSONArray("items").getJSONObject(0).get("sentiment");
+                Integer sentiment = (Integer) o;
+                comment.setSentiment(sentiment);
+                commentService.updateById(comment);
+            }
+        }
+        return R.ok();
     }
 }
 

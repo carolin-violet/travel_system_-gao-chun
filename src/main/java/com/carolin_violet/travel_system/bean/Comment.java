@@ -46,6 +46,11 @@ public class Comment implements Serializable {
     private String comment;
 
     /**
+     * 情感倾向
+     */
+    private Integer sentiment;
+
+    /**
      * 逻辑删除
      */
     @TableLogic

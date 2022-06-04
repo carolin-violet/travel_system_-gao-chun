@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.carolin_violet.travel_system.bean.Comment;
 import com.carolin_violet.travel_system.bean.Tourist;
 import com.carolin_violet.travel_system.bean.vo.FeedbackVo;
+import com.carolin_violet.travel_system.bean.vo.TouristVo;
 import com.carolin_violet.travel_system.bean.vo.TravelNoteVo;
 import com.carolin_violet.travel_system.service.*;
 import com.carolin_violet.travel_system.utils.JwtUtils;
@@ -44,13 +45,13 @@ public class FrontController {
 
     // 游客登录
     @PostMapping("login")
-    public R login(@RequestBody Tourist tourist) {
+    public R login(@RequestBody TouristVo touristVo) {
         QueryWrapper<Tourist> wrapper = new QueryWrapper<>();
-        wrapper.eq("telephone", tourist.getTelephone()).eq("password", tourist.getPassword());
-        Tourist tourist1 = touristService.getOne(wrapper);
-        if (tourist1!=null) {
-            String token = JwtUtils.getJwtToken(tourist1.getId(), tourist1.getNickName());
-            return R.ok().data("token", token).data("info", tourist1);
+        wrapper.eq("telephone", touristVo.getTelephone()).eq("password", touristVo.getPassword());
+        Tourist tourist = touristService.getOne(wrapper);
+        if (tourist!=null) {
+            String token = JwtUtils.getJwtToken(tourist.getId(), tourist.getNickName());
+            return R.ok().data("token", token).data("info", tourist);
         } else {
             return R.error().message("登录失败");
         }
@@ -115,6 +116,10 @@ public class FrontController {
 
     // TODO 。。。。(首屏数据做redis缓存)
     // 获取首屏数据
+    @GetMapping("getIndexContent")
+    public R getIndexContent() {
+        return R.ok();
+    }
 
 
     // 获取酒店列表数据(简介和封面图)
