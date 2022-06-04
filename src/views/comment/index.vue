@@ -40,6 +40,18 @@
         width="480">
       </el-table-column>
       <el-table-column
+        prop="sentiment"
+        label="情感倾向"
+        align="center"
+        show-overflow-tooltip
+        width="100">
+        <template slot-scope="scope">
+          <el-tag
+            :type="scope.row.sentiment === 2 ? 'success' : 'danger'"
+            disable-transitions>{{scope.row.sentiment === 2 ? "好评" : "差评"}}</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column
         label="发布时间"
         align="center"
         width="200">

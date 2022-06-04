@@ -35,7 +35,6 @@
 
 <script>
 import photos from "@/api/photos";
-import delicacy from "@/api/delicacy";
 
 export default {
   name: "index",
