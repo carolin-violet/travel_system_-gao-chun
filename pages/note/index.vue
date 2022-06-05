@@ -1,6 +1,8 @@
 <template>
   <div class="relative note-container w-screen h-auto">
-    <el-button @click="dialog = true" class="absolute top-1/4">上传游记</el-button>
+
+    <el-button @click="dialog = true" class="absolute top-32 right-4 w-16 h-16" type="primary" icon="el-icon-edit" circle></el-button>
+
     <section class="w-4/5 h-auto mx-auto pt-32">
       <noteFeedback/>
       <noteFeedback/>
@@ -15,27 +17,39 @@
 
 <!--    上传部分-->
     <el-drawer
-      title="我嵌套了 Form !"
-      :before-close="handleClose"
+      title="游记上传"
       :visible.sync="dialog"
       direction="ltr"
       custom-class="demo-drawer"
       ref="drawer"
+      :before-close="handleClose"
+      style="width: 2500px"
     >
+      <!--  上传图片  -->
+      <div class="pl-28 pb-16">
+        <span>上传照片</span>
+        <el-upload
+          action=""
+          list-type="picture-card"
+          :on-preview="handlePictureCardPreview"
+          :on-remove="handleRemove"
+          :on-success="handleUploadSuccess"
+        >
+          <i class="el-icon-plus"></i>
+        </el-upload>
+        <el-dialog :visible.sync="dialogVisible">
+          <img width="100%" :src="dialogImageUrl" alt="">
+        </el-dialog>
+      </div>
+
       <div class="demo-drawer__content">
-        <el-form :model="form">
-          <el-form-item label="活动名称" :label-width="formLabelWidth">
-            <el-input v-model="form.name" autocomplete="off"></el-input>
-          </el-form-item>
-          <el-form-item label="活动区域" :label-width="formLabelWidth">
-            <el-select v-model="form.region" placeholder="请选择活动区域">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
+        <el-form :model="note">
+          <el-form-item label="游记内容:" :label-width="formLabelWidth">
+            <el-input v-model="note.content" autocomplete="off" type="textarea" :rows="12" placehoder="请填写游玩感受"></el-input>
           </el-form-item>
         </el-form>
         <div class="demo-drawer__footer">
-          <el-button @click="cancelForm">取 消</el-button>
+          <el-button @click="cancelForm" class="ml-36">取 消</el-button>
           <el-button type="primary" @click="$refs.drawer.closeDrawer()" :loading="loading">{{ loading ? '提交中 ...' : '确 定' }}</el-button>
         </div>
       </div>
@@ -56,22 +70,24 @@ export default {
   data() {
     return {
       formLabelWidth: '80px',
-      timer: null,
-      dialog: false,
       loading: false,
-      form: {
-        name: '',
-        region: '',
-        date1: '',
-        date2: '',
-        delivery: false,
-        type: [],
-        resource: '',
-        desc: ''
+      dialog: false,
+      timer: null,
+      note: {
+        content: null,
+        pictures: []
       },
+      dialogImageUrl: '',
+      dialogVisible: false,
     }
   },
   methods: {
+    cancelForm() {
+      this.loading = false;
+      this.dialog = false;
+      clearTimeout(this.timer);
+    },
+
     handleClose(done) {
       if (this.loading) {
         return;
@@ -89,11 +105,18 @@ export default {
         })
         .catch(_ => {});
     },
-    cancelForm() {
-      this.loading = false;
-      this.dialog = false;
-      clearTimeout(this.timer);
-    }
+
+    handlePictureCardPreview() {
+
+    },
+
+    handleRemove() {
+
+    },
+
+    handleUploadSuccess () {
+
+    },
   }
 }
 </script>
