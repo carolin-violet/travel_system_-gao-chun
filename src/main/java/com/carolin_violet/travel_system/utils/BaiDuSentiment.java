@@ -1,7 +1,6 @@
 package com.carolin_violet.travel_system.utils;
 
 import com.baidu.aip.nlp.AipNlp;
-import com.google.gson.JsonObject;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -14,7 +13,7 @@ import java.util.HashMap;
  * @Version 1.0
  */
 public class BaiDuSentiment {
-    public static final String APP_ID = "26374241";
+    public static final String APP_ID = "";
     public static final String API_KEY = "";
     public static final String SECRET_KEY = "";
 

@@ -1,5 +1,8 @@
 package com.carolin_violet.travel_system;
 
+import com.carolin_violet.travel_system.utils.BaiDuSentiment;
+import com.tencentcloudapi.cme.v20191029.models.VODExportInfo;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -22,6 +25,12 @@ class TravelSystemApplicationTests {
         flag = new BCryptPasswordEncoder().matches(encodedPassword, "545");
         System.out.println(flag);
 
+    }
+
+    @Test
+    void sentimentTest() {
+        JSONObject res = new BaiDuSentiment().getSentimentRes("bilibili太香啦");
+        System.out.println(res);
     }
 
 }
