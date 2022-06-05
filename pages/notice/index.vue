@@ -1,11 +1,11 @@
 <template>
   <div class="notice-container w-screen h-auto pt-32 pb-6">
     <section class="w-full h-auto space-y-16">
-      <notice/>
-      <notice/>
-      <notice/>
-      <notice/>
-      <notice/>
+      <noticeComponent/>
+      <noticeComponent/>
+      <noticeComponent/>
+      <noticeComponent/>
+      <noticeComponent/>
     </section>
     <section class="w-full h-auto mt-6">
       <pagination/>
@@ -14,13 +14,13 @@
 </template>
 
 <script>
-import notice from "@/components/notice";
+import noticeComponent from "~/components/noticeComponent";
 import pagination from "@/components/pagination";
 
 export default {
   name: "index",
   components: {
-    notice,
+    noticeComponent,
     pagination
   }
 }
