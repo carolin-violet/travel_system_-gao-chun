@@ -1,0 +1,58 @@
+{
+  "id": "3444903",
+  "name": "travel_system",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6841090",
+      "name": "flag",
+      "font_class": "flag",
+      "unicode": "e664",
+      "unicode_decimal": 58980
+    },
+    {
+      "icon_id": "4766293",
+      "name": "user",
+      "font_class": "user",
+      "unicode": "e7ae",
+      "unicode_decimal": 59310
+    },
+    {
+      "icon_id": "11488087",
+      "name": "password",
+      "font_class": "password",
+      "unicode": "e75b",
+      "unicode_decimal": 59227
+    },
+    {
+      "icon_id": "4546492",
+      "name": "weibo",
+      "font_class": "weibo",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "15933094",
+      "name": "微信",
+      "font_class": "weixin",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "1222014",
+      "name": "arrow-down",
+      "font_class": "arrowdown",
+      "unicode": "e692",
+      "unicode_decimal": 59026
+    },
+    {
+      "icon_id": "7736204",
+      "name": "long-arrow-right",
+      "font_class": "long-arrow-right",
+      "unicode": "e8fe",
+      "unicode_decimal": 59646
+    }
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "name": "front",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@moefe/vue-aplayer": "^2.0.0-beta.5",
+    "axios": "^0.27.2",
+    "core-js": "^3.19.3",
+    "element-ui": "^2.15.8",
+    "font-awesome": "^4.7.0",
+    "less": "^4.1.1",
+    "less-loader": "^7.3.0",
+    "nuxt": "^2.15.8",
+    "swiper": "^3.4.2",
+    "vue": "^2.6.14",
+    "vue-aplayer": "^1.6.1",
+    "vue-awesome-swiper": "^4.1.1",
+    "vue-server-renderer": "^2.6.14",
+    "vue-template-compiler": "^2.6.14",
+    "webpack": "^4.46.0"
+  },
+  "devDependencies": {
+    "@nuxtjs/tailwindcss": "^4.2.1",
+    "node-sass": "^7.0.1",
+    "postcss": "^8.4.4",
+    "sass-loader": "^13.0.0",
+    "scss-loader": "^0.0.1"
+  },
+  "config": {
+    "nuxt": {
+      "host": "localhost",
+      "port": "5678"
+    }
+  }
+}
