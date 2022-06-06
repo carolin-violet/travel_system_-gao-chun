@@ -4,7 +4,7 @@
       size="small"
       type="primary"
       style="margin: 5px 20px"
-      @click="handleAdd"><i class="el-icon-circle-plus-outline"></i>添加线路
+      @click="handleAdd"><i class="el-icon-circle-plus-outline"></i>添加站点
     </el-button>
 
     <!--   展示表格 -->

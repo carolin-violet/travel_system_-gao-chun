@@ -92,6 +92,7 @@
       @current-change="handleCurrentChange"
       :current-page="current"
       layout="prev, pager, next, total"
+      :page-size="limit"
       :total="total">
     </el-pagination>
 
@@ -302,16 +303,17 @@ export default {
     handleBeforeUpload(file) {
       const isJPG = file.type === 'image/jpeg';
       const isPng = file.type === 'image/png';
+      const isWebp = file.type === 'image/webp';
       const isLt30M = file.size / 1024 / 1024 < 30;
 
-      if (!isJPG && !isPng) {
-        this.$message.error('上传头像图片只能是 JPG或PNG 格式!');
+      if (!isJPG && !isPng && !isWebp) {
+        this.$message.error('上传头像图片只能是 JPG或PNG或WEBP 格式!');
       }
 
       if (!isLt30M) {
         this.$message.error('上传图片大小不能超过 30MB!');
       }
-      return isJPG || isPng && isLt30M;
+      return isJPG || isPng || isWebp && isLt30M;
     },
 
     // 文件上传时的钩子，使得表单显示加载中不可点击
