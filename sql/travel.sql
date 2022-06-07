@@ -11,7 +11,7 @@
  Target Server Version : 80025
  File Encoding         : 65001
 
- Date: 06/06/2022 20:04:49
+ Date: 07/06/2022 14:50:16
 */
 
 SET NAMES utf8mb4;
@@ -493,7 +493,7 @@ CREATE TABLE `tourist`  (
   `id` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `nickName` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `telephone` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `password` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `email` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `is_deleted` tinyint(0) NOT NULL,
   `create_time` datetime(0) NOT NULL,
@@ -504,6 +504,7 @@ CREATE TABLE `tourist`  (
 -- ----------------------------
 -- Records of tourist
 -- ----------------------------
+INSERT INTO `tourist` VALUES ('1534064312866316290', '青青草原扛把子', '12345678920', '$2a$10$zH4m4GppiITg1q2cEuXAu.QV7L/CWB/HvPRauGYt8DRWtcTNVTY8C', '123456@qq.com', 0, '2022-06-07 14:46:48', '2022-06-07 14:46:48');
 
 -- ----------------------------
 -- Table structure for tourist_route

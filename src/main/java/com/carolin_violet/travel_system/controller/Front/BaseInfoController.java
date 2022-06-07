@@ -7,6 +7,8 @@ import com.carolin_violet.travel_system.service.*;
 import com.carolin_violet.travel_system.utils.JwtUtils;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -30,11 +32,20 @@ public class BaseInfoController {
     public R login(@RequestBody TouristVo touristVo) {
         QueryWrapper<Tourist> wrapper = new QueryWrapper<>();
         System.out.println(touristVo.toString());
-        wrapper.eq("telephone", touristVo.getTelephone()).eq("password", touristVo.getPassword());
+        wrapper.eq("telephone", touristVo.getTelephone());
         Tourist tourist = touristService.getOne(wrapper);
+        // 判断游客是否存在
         if (tourist!=null) {
-            String token = JwtUtils.getJwtToken(tourist.getId(), tourist.getNickName());
-            return R.ok().data("token", token).data("info", tourist);
+            // 判断密码是否正确
+            System.out.println(touristVo.getPassword());
+            System.out.println(tourist.getPassword());
+            boolean matches = BCrypt.checkpw(touristVo.getPassword(), tourist.getPassword());
+            if (matches) {
+                String token = JwtUtils.getJwtToken(tourist.getId(), tourist.getNickName());
+                return R.ok().data("token", token).data("info", tourist);
+            } else {
+                return R.error().message("密码错误");
+            }
         } else {
             return R.error().message("登录失败");
         }
@@ -43,6 +54,13 @@ public class BaseInfoController {
     // 游客注册
     @PostMapping("register")
     public R register(@RequestBody Tourist tourist) {
+        QueryWrapper<Tourist> wrapper = new QueryWrapper<>();
+        wrapper.eq("telephone", tourist.getTelephone());
+        Tourist one = touristService.getOne(wrapper);
+        if (one != null) {
+            return R.error().message("该手机号已经被注册");
+        }
+        tourist.setPassword(BCrypt.hashpw(tourist.getPassword(), BCrypt.gensalt()));
         boolean save = touristService.save(tourist);
         if (save) {
             return R.ok();
