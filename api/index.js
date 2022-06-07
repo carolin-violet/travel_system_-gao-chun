@@ -75,5 +75,10 @@ export function getDelicacyDetail(id) {
   })
 }
 
-
-
+// 获取评论
+export function getComment(markId, cur, limit) {
+  return request({
+    url: `comment/${markId}/${cur}/${limit}`,
+    method: 'get'
+  })
+}

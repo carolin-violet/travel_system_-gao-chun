@@ -24,7 +24,6 @@ export default {
   methods: {
     async getDetail() {
       let res = await getDelicacyDetail(this.$route.params.id)
-      console.log(res.data)
       this.detailData = res.data
     }
   }

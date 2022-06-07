@@ -123,7 +123,7 @@ export default {
   },
   async asyncData() {
     let res = await getIndexContent()
-    return {...res.data.items}
+    return res.data.items
   }
 }
 </script>

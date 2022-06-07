@@ -82,6 +82,7 @@
 <script>
 import detailSwiper from "~/components/detailSwiper";
 import pagination from "@/components/pagination";
+import {getComment} from "@/api";
 
 export default {
   name: "detail",
@@ -89,6 +90,21 @@ export default {
   components: {
     detailSwiper,
     pagination
+  },
+  data() {
+    return {
+      cur: 1,
+      limit: 5
+    }
+  },
+  created() {
+    this.getComments()
+  },
+  methods: {
+    async getComments() {
+      let res = await getComment(this.$route.params.id, this.cur, this.limit)
+      console.log(res)
+    }
   }
 }
 </script>
