@@ -4,14 +4,14 @@
 <!--    登录框-->
     <section class="login-form absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 h-1/3 text-center space-y-4 text-4xl pt-24 text-indigo-300">
       <div class="relative w-1/2 h-1/6 mx-auto">
-        <input type="text" id="username" placeholder="请输入手机号" class="absolute block w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
+        <input type="text" id="username" placeholder="请输入手机号" autocomplete="false" v-model="loginForm.telephone" class="absolute block w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
         <i class="iconfont icon-user absolute left-2 top-1/2 transform -translate-y-1/2 text-4xl"></i>
       </div>
       <div class="relative w-1/2 h-1/6 mx-auto">
-        <input type="password" id="password" placeholder="请输入密码" class="absolute block w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
+        <input type="password" id="password" placeholder="请输入密码" v-model="loginForm.password" class="absolute block w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
         <i class="iconfont icon-password absolute left-2 top-1/2 transform -translate-y-1/2 text-4xl"></i>
       </div>
-        <button class="w-1/5 h-1/5 rounded-2xl border-2 border-indigo-200">登录</button>
+        <button class="w-1/5 h-1/5 rounded-2xl border-2 border-indigo-200" @click="handleLogin">登录</button>
     </section>
 
     <ul class="background">
@@ -32,8 +32,32 @@
 </template>
 
 <script>
+import {login} from "@/api";
+
 export default {
-  name: "login"
+  name: "login",
+  data() {
+    return {
+      loginForm: {
+        telephone: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    async handleLogin() {
+      let res = await login(this.loginForm)
+      console.log(res)
+      if (res.code === 20000) {
+        this.$message.success("登录成功")
+        this.$router.push({
+          path: '/'
+        })
+      } else {
+        this.$message.error("登录失败")
+      }
+    }
+  }
 }
 </script>
 

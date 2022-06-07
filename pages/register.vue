@@ -4,22 +4,22 @@
     <!--    登录框-->
     <section class="login-form absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1/3 h-2/3 text-center space-y-4 text-4xl pt-24 text-indigo-300">
       <div class=" w-1/2 h-20 mx-auto">
-        <input type="text" placeholder="请输入昵称" class=" w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
+        <input type="text" placeholder="请输入昵称" v-model="registerForm.nickName" class=" w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
       </div>
       <div class=" w-1/2 h-20 mx-auto">
-        <input type="text" placeholder="请输入密码" class=" w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
+        <input type="text" placeholder="请输入密码" v-model="registerForm.password" class=" w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
       </div>
       <div class=" w-1/2 h-20 mx-auto">
-        <input type="text" placeholder="请输入邮箱" class=" w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
+        <input type="text" placeholder="请输入邮箱" v-model="registerForm.email" class=" w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
       </div>
       <div class=" w-1/2 h-20 mx-auto">
-        <input type="text" placeholder="请输入手机号" class=" w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
+        <input type="text" placeholder="请输入手机号" v-model="registerForm.telephone" class=" w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
       </div>
-      <div class="w-1/2 h-20 mx-auto flex">
-        <input type="text" placeholder="验证码" class="block w-1/2 h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
-        <div class="w-1/2 h-20 text-3xl pt-4 cursor-pointer">获取验证码</div>
-      </div>
-      <button class="w-1/5 h-28 rounded-2xl border-2 border-indigo-200">点击注册</button>
+<!--      <div class="w-1/2 h-20 mx-auto flex">-->
+<!--        <input type="text" placeholder="验证码" class="block w-1/2 h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">-->
+<!--        <div class="w-1/2 h-20 text-3xl pt-4 cursor-pointer">获取验证码</div>-->
+<!--      </div>-->
+      <button class="w-1/5 h-28 rounded-2xl border-2 border-indigo-200" @click="handleRegister">点击注册</button>
     </section>
 
     <ul class="background">
@@ -40,8 +40,33 @@
 </template>
 
 <script>
+import {register} from "@/api";
+
 export default {
-  name: "register"
+  name: "register",
+  data() {
+    return {
+      registerForm: {
+        nickName: '',
+        telephone: '',
+        password: '',
+        email: ''
+      }
+    }
+  },
+  methods: {
+    async handleRegister() {
+      let res = await register(this.registerForm)
+      if (res.code === 20000) {
+        this.$message.success("注册成功")
+        this.$router.push({
+          path: '/login'
+        })
+      } else {
+        this.$message.error("注册失败:" + res)
+      }
+    }
+  }
 }
 </script>
 
