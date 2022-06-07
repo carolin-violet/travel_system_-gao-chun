@@ -1,11 +1,12 @@
 <template>
   <div class="hotel-container relative w-full h-full">
-    <photoPanel :image-list="imageList"/>
+    <photoPanel :image-list="delicacyList"/>
   </div>
 </template>
 
 <script>
 import photoPanel from "@/components/photoPanel";
+import {getDelicacies} from "@/api";
 
 export default {
   name: "delicacy",
@@ -14,10 +15,13 @@ export default {
   },
   data() {
     return {
-      imageList: ['固城湖.webp','固城湖.webp','固城湖.webp','固城湖.webp','固城湖.webp','固城湖.webp','固城湖.webp','固城湖.webp','固城湖.webp','固城湖.webp','固城湖.webp','固城湖.webp','固城湖.webp']
     }
   },
   methods: {
+  },
+  async asyncData() {
+    let res = await getDelicacies()
+    return res.data
   }
 }
 </script>
