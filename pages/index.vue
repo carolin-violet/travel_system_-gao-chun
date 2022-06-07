@@ -38,11 +38,11 @@
           <span class="block text-4xl">RESORT HOTEL</span>
           <span class="block w-24 h-2 rounded-3xl bg-indigo-300 mx-auto"></span>
         </div>
-        <div class="triangle absolute w-1/6 h-12 right-0 bottom-1 text-2xl text-right pr-16 bg-indigo-300 text-white pt-2">
+        <div class="triangle absolute w-1/6 h-12 right-0 bottom-1 text-2xl text-right pr-16 bg-indigo-300 text-white pt-2 cursor-pointer" @click="getMore(mark[0])">
           了解更多 <i class="iconfont icon-long-arrow-right"></i>
         </div>
       </section>
-      <indexSwiper :list="list"></indexSwiper>
+      <indexSwiper :list="hotelList" :mark="mark[0]"></indexSwiper>
 
       <!--      轮播图上面的一些小信息-->
       <section class="relative w-full h-48">
@@ -51,11 +51,11 @@
           <span class="block text-4xl">POPULAR AREA</span>
           <span class="block w-24 h-2 rounded-3xl bg-indigo-300 mx-auto"></span>
         </div>
-        <div class="triangle absolute w-1/6 h-12 right-0 bottom-1 text-2xl text-right pr-16 bg-indigo-300 text-white pt-2">
+        <div class="triangle absolute w-1/6 h-12 right-0 bottom-1 text-2xl text-right pr-16 bg-indigo-300 text-white pt-2 cursor-pointer" @click="getMore(mark[1])">
           了解更多 <i class="iconfont icon-long-arrow-right"></i>
         </div>
       </section>
-      <indexSwiper :list="list"></indexSwiper>
+      <indexSwiper :list="scenicSpotList" :mark="mark[1]"></indexSwiper>
 
       <!--      轮播图上面的一些小信息-->
       <section class="relative w-full h-48">
@@ -64,11 +64,11 @@
           <span class="block text-4xl">FANTASTIC FOOD</span>
           <span class="block w-24 h-2 rounded-3xl bg-indigo-300 mx-auto"></span>
         </div>
-        <div class="triangle absolute w-1/6 h-12 right-0 bottom-1 text-2xl text-right pr-16 bg-indigo-300 text-white pt-2">
+        <div class="triangle absolute w-1/6 h-12 right-0 bottom-1 text-2xl text-right pr-16 bg-indigo-300 text-white pt-2 cursor-pointer" @click="getMore(mark[2])">
           了解更多 <i class="iconfont icon-long-arrow-right"></i>
         </div>
       </section>
-      <indexSwiper :list="list"></indexSwiper>
+      <indexSwiper :list="delicacyList" :mark="mark[2]"></indexSwiper>
 
     </section>
   </div>
@@ -76,6 +76,7 @@
 
 <script>
 import indexSwiper from "~/components/index/indexSwiper";
+import {getIndexContent} from "@/api";
 
 export default {
   name: 'IndexPage',
@@ -99,7 +100,7 @@ export default {
         }
       ],
       articleIndex: 1,
-      list: ['/固城湖.webp','/固城湖.webp','/固城湖.webp','/固城湖.webp','/固城湖.webp']
+      mark:['hotel', 'scenic', 'delicacy']
     }
   },
   methods: {
@@ -111,7 +112,18 @@ export default {
     // 屏幕下滑
     handleScroll() {
       window.scroll(0, window.screen.height*0.85)
+    },
+
+    // 查看更多
+    getMore(mark) {
+      this.$router.push({
+        path: `/${mark}`
+      })
     }
+  },
+  async asyncData() {
+    let res = await getIndexContent()
+    return {...res.data.items}
   }
 }
 </script>

@@ -19,3 +19,10 @@ export function register(data) {
   })
 }
 
+// 获取首屏数据
+export function getIndexContent() {
+  return request({
+    url: "getIndexContent",
+    method: 'get'
+  })
+}
