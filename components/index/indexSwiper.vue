@@ -7,13 +7,14 @@
         <div>
           <img
             :src="item.picture"
-            class="w-full mb-20 obejct-cover"
+            class="w-full mb-20 object-cover"
             style="height: 352px; border-radius: 8px"
             alt=""
           />
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -29,17 +30,27 @@ export default {
         autoplay: true,
         speed: 3000,
         parallax: true,
+        on: {
+          mouseover() {
+            console.log("a")
+          },
+          mouseout() {
+            console.log("b")
+          }
+        }
       },
     };
   },
   props: ["list", "mark"],
   methods: {
+    // 查看详情
     toDetail(id) {
       console.log(this.mark)
       this.$router.push({
         path: `/${this.mark}/${id}`
       })
-    }
+    },
+
   }
 };
 </script>

@@ -1,11 +1,12 @@
 <template>
   <div class="">
-    <detail/>
+    <detail :detailData="detailData"/>
   </div>
 </template>
 
 <script>
 import detail from "@/components/detail";
+import {getDelicacyDetail} from "@/api";
 
 export default {
   name: "delicacy_detail",
@@ -14,11 +15,18 @@ export default {
   },
   data() {
     return {
-
+      detailData: {}
     }
   },
   created() {
-    console.log(this.$route.params.id)
+    this.getDetail()
+  },
+  methods: {
+    async getDetail() {
+      let res = await getDelicacyDetail(this.$route.params.id)
+      console.log(res.data)
+      this.detailData = res.data
+    }
   }
 }
 </script>

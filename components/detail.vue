@@ -4,9 +4,9 @@
       <!--    上半部分介绍-->
       <section class="info-container w-full h-auto">
         <div class="float-left mx-48" style="width: 640px; height: 400px">
-          <detail-swiper/>
+          <detail-swiper :photosList="detailData.photosList"/>
         </div>
-        <div class="float-left text-3xl px-8 pt-6 bg-black bg-opacity-60 text-white" style="width: 900px; height: 400px">&nbsp;&nbsp;奥里给</div>
+        <div class="float-left text-3xl px-8 pt-6 bg-black bg-opacity-60 text-white" style="width: 900px; height: 400px">&nbsp;&nbsp;{{ detailData.description}}</div>
       </section>
 
       <!--      评论区-->
@@ -66,8 +66,8 @@
 <!--        写评论-->
         <section class="flex-1 h-full text-center pt-16">
           <div class="w-4/5 h-3/5 mx-auto text-4xl space-y-16">
-            <h2 class="text-left">好评率：97%</h2>
-            <h3 class="text-black">尊敬的游客，您可以在下方发表您的意见</h3>
+            <h2 class="text-left">好评率：{{ detailData.positiveNum }}|{{ detailData.positiveNum + detailData.negativeNum }}</h2>
+            <h3 class="text-black">{{detailData.commentNum}}尊敬的游客，您可以在下方发表您的意见</h3>
             <div class="w-full h-96">
               <textarea name="" id="" cols="30" rows="10" class="w-full h-full bg-indigo-300 bg-opacity-70 backdrop-filter backdrop-blur-3xl rounded-3xl focus:outline-none text-white pl-6 pt-6"></textarea>
             </div>
@@ -85,12 +85,10 @@ import pagination from "@/components/pagination";
 
 export default {
   name: "detail",
+  props: ['detailData'],
   components: {
     detailSwiper,
     pagination
-  },
-  created() {
-    console.log(this.$route.params.id)
   }
 }
 </script>

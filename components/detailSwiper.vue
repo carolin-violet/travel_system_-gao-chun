@@ -2,18 +2,43 @@
 <!--  我的轮播图组件，第一张和最后一张都是一样的-->
   <div class="w-full h-full overflow-x-hidden">
     <div class="image-container h-full">
-      <img src="/固城湖.webp" alt="" class="w-1/5 h-full object-cover float-left">
-      <img src="/高淳老街.jpg" alt="" class="w-1/5 h-full object-cover float-left ">
-      <img src="/高淳老街.jpg" alt="" class="w-1/5 h-full object-cover float-left ">
-      <img src="/高淳老街.jpg" alt="" class="w-1/5 h-full object-cover float-left">
-      <img src="/固城湖.webp" alt="" class="w-1/5 h-full object-cover float-left">
+      <img v-for="img in imageList" :src="img" alt="" class="w-1/5 h-full object-cover float-left">
     </div>
   </div>
 </template>
 
 <script>
+import {getRandomList ,fillList} from "@/utils/arrayUtil";
+
 export default {
-  name: "detailSwiper"
+  name: "detailSwiper",
+  props: ['photosList'],
+  computed: {
+    imageList() {
+      if (this.photosList === undefined) {
+        return []
+      }
+      let list = []
+      for (const photo of this.photosList) {
+        list.push(photo.picture)
+      }
+
+      let newList = []
+
+      // 多于4张照片就随机取4张
+      if (list.length > 4) {
+        newList = getRandomList(list, 4)
+      } else if (list.length < 4) { //少于4张照片就补齐4张
+        newList = fillList(list, 4)
+      } else {
+        newList = list
+      }
+      newList.push(newList[0])
+      return newList
+    }
+  },
+  methods: {
+  }
 }
 </script>
 
