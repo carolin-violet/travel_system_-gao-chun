@@ -1,11 +1,7 @@
 <template>
   <div class="notice-container w-screen h-auto pt-32 pb-6">
     <section class="w-full h-auto space-y-16">
-      <noticeComponent/>
-      <noticeComponent/>
-      <noticeComponent/>
-      <noticeComponent/>
-      <noticeComponent/>
+      <noticeComponent v-for="notice in noticeList" :key="notice.id" :notice="notice"/>
     </section>
     <section class="w-full h-auto mt-6">
       <pagination/>
@@ -24,10 +20,21 @@ export default {
     noticeComponent,
     pagination
   },
-  async asyncData() {
-    let res = await getNotice()
-    console.log(res.data)
-    return res.data
+  created() {
+    this.getPageData()
+  },
+  data() {
+    return {
+      cur: 1,
+      limit: 5,
+      noticeList: []
+    }
+  },
+  methods: {
+    async getPageData() {
+      let res = await getNotice(this.cur, this.limit)
+      this.noticeList = res.data.items
+    }
   }
 }
 </script>

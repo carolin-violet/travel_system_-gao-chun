@@ -98,10 +98,10 @@ export default {
     }
   },
   created() {
-    this.getComments()
+    this.getPageData()
   },
   methods: {
-    async getComments() {
+    async getPageData() {
       let res = await getComment(this.$route.params.id, this.cur, this.limit)
       console.log(res)
     }
