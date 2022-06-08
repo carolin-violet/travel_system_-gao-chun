@@ -245,7 +245,6 @@ export default {
 
     // 添加按钮
     handleAdd() {
-      this.curNotice = {}
       this.flag = 1
       this.dialogFormVisible = true
     },
