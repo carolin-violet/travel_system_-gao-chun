@@ -1,14 +1,14 @@
 <template>
-  <div class="route-container w-screen h-screen overflow-scroll pt-48">
-    <section class="w-4/5 h-auto mx-auto space-y-16">
-      <collapse :route="route"/>
-      <collapse :route="route1"/>
+  <div class="route-container w-screen h-auto pt-48">
+    <section class="w-4/5 h-auto mx-auto space-y-16 pb-16">
+      <collapse v-for="(route, index) in items" :key='index'  :route="route"/>
     </section>
   </div>
 </template>
 
 <script>
 import collapse from "@/components/index/collapse";
+import {getRouteInfo} from "@/api";
 
 export default {
   name: "route",
@@ -17,9 +17,13 @@ export default {
   },
   data() {
     return {
-      route: {title: "hi", reason: '奥里给', sites: [{site: '游子山', sort: 1, description: "aaa", startTime: '12:23:12', endTime: '19:32:54'},{site: '游子山', sort: 2, description: "aaa", startTime: '12:23:12', endTime: '19:32:54'}], showContent: false},
-      route1: {title: "hi", reason: '奥里给', sites: [{site: '游子山', sort: 1, description: "aaa", startTime: '12:23:12', endTime: '19:32:54'},{site: '游子山', sort: 2, description: "aaa", startTime: '12:23:12', endTime: '19:32:54'}], showContent: false}
+
     }
+  },
+  async asyncData() {
+    let res = await getRouteInfo()
+    console.log(res.data)
+    return res.data
   }
 }
 </script>

@@ -2,23 +2,23 @@
 <!--  一个折叠面板-->
   <div class="w-full h-auto shadow-2xl">
 <!--    显示部分-->
-    <section class="w-full h-24 bg-white text-3xl space-x-16 transition-all duration-500 hover:bg-indigo-400 transform hover:scale-y-105 hover:text-white" @click="route.showContent = !route.showContent">
-      <div class="route-title relative inline-block w-1/4 h-full">
+    <section class="w-full h-36 bg-white text-3xl space-x-16 transition-all duration-500 hover:bg-indigo-400 transform hover:scale-y-105 hover:text-white" @click="route.showContent = !route.showContent">
+      <div class="route-title relative float-left w-1/4 h-full pt-4 pl-4">
         <span>{{route.title}}</span>
       </div>
-      <div class="inline-block w-2/3 h-full">
-        <span class="overflow-ellipsis">{{route.reason}}</span>
+      <div class="float-left w-2/3 h-full overflow-scroll pt-4">
+        <span>{{route.reason}}</span>
       </div>
     </section>
 <!--    隐藏部分-->
     <section class="hidden-content w-full h-auto bg-white rounded-b-xl pb-6 pl-4 pt-4" v-show="route.showContent">
-      <div class="" v-for="site in route.sites" :key="site.sort">
+      <div class="" v-for="site in route.siteList" :key="site.sort">
         <div class="space-x-5 text-3xl">
           <i class="iconfont icon-flag text-4xl"></i>
           <span>{{site.site}}</span>
           <span>{{site.startTime}}—{{site.endTime}}</span>
         </div>
-        <div class="w-4/5 ml-16 text-2xl">{{site.description}}</div>
+        <div class="w-4/5 ml-16 text-2xl">详情：{{site.description}}</div>
       </div>
     </section>
   </div>

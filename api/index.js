@@ -82,3 +82,12 @@ export function getComment(markId, cur, limit) {
     method: 'get'
   })
 }
+
+
+// 获取所有线路及站点相关信息
+export function getRouteInfo() {
+  return request({
+    url: '/getRouteInfo',
+    method: 'get'
+  })
+}

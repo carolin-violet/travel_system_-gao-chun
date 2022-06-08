@@ -58,7 +58,7 @@
           </section>
 <!--          分页器-->
           <section class="w-full h-1/6">
-            <div class="w-2/3 h-32 mx-auto space-x-3 text-center pt-8 bg-blue-400">
+            <div class="w-2/3 h-32 mx-auto space-x-3 text-center pt-8">
               <pagination/>
             </div>
           </section>
