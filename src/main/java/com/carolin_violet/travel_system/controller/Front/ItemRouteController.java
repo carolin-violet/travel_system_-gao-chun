@@ -51,6 +51,7 @@ public class ItemRouteController {
             wrapper.eq("route_id", route.getId());
             List<RouteDetail> siteList = routeDetailService.list(wrapper);
             map.put("siteList", siteList);
+            map.put("showContent", false);
 
             routeDetailList.add(map);
         }

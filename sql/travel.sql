@@ -11,7 +11,7 @@
  Target Server Version : 80025
  File Encoding         : 65001
 
- Date: 07/06/2022 14:50:16
+ Date: 08/06/2022 14:01:08
 */
 
 SET NAMES utf8mb4;
@@ -138,9 +138,9 @@ INSERT INTO `manager` VALUES ('1533712536019427330', '张三', '12345678913', '$
 DROP TABLE IF EXISTS `notice`;
 CREATE TABLE `notice`  (
   `id` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告id',
-  `name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告名称',
+  `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告名称',
   `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告描述',
-  `picture` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '公告图片',
+  `picture` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '公告图片',
   `is_deleted` tinyint(0) NOT NULL COMMENT '逻辑删除',
   `create_time` datetime(0) NOT NULL COMMENT '创建时间',
   `modify_time` datetime(0) NOT NULL COMMENT '修改时间',
@@ -150,6 +150,12 @@ CREATE TABLE `notice`  (
 -- ----------------------------
 -- Records of notice
 -- ----------------------------
+INSERT INTO `notice` VALUES ('1534412199945048065', '又是一年重阳时，高淳慢城两大景点免费福利大放送！', '碧云天黄叶地，又到重阳时节。恰逢国庆长假尾声，让我们为父母策划一场说走就走的旅行，来慢城感受金风送爽，丹桂飘香。小慢要告诉大家的是，固城湖水慢城和桠溪国际慢城，可都有免费活动奉上呦~快跟我看看去！NO.1  10月7日60周岁以上老人凭本人身份证可免费入园！NO.2  10月7日70周岁以上老人可携1名子女陪同免费游园！NO.3  水慢城特别推出【重阳养生套餐】，再加1元可获1只固城湖大闸蟹！', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/6f4a40c26993447a819d3177a0ab5ec2640.webp', 0, '2022-06-08 13:49:11', '2022-06-08 13:49:11');
+INSERT INTO `notice` VALUES ('1534412756822790145', '秋意正浓，不负慢城赏花好时光！更有玻璃栈道、萌娃晒照等你来参与~', '秋意正浓，不染离愁。慢城终于迎来了一年里最美的季节，秋雨凉心时，素雅、静美；阳光明媚时，娇艳、繁盛。是时候去慢城走一走了，在萧瑟冬日来临前，收藏五彩斑斓的秋日盛景，不负这慢城赏花好时光！仓央嘉措曾写过一首关于格桑花的诗，“格桑花开了，开在对岸，看上去很美。看得见却够不着，够不着也一样的美。”\n\n格桑花又称格桑梅朵，花语是“怜取眼前人”。在藏语中，“格桑”是“美好时光”或“幸福”的意思，“梅朵”是花的意思，所以格桑花也叫幸福花。\n\n这不，仓央嘉措的格桑花看得见够不着，桠溪慢城吕家大草坪的格桑花，却是五彩斑斓，近在眼前。', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/9e2dffd48a5749a5835daa0bef81b321640 (1).webp', 0, '2022-06-08 13:51:24', '2022-06-08 13:51:24');
+INSERT INTO `notice` VALUES ('1534413075606671362', '瑜伽露营节|夜阑观星，草地为席，一起去水慢城感受自然！', '今年，水慢城继续以“瑜伽”为约！“高淳国际慢城瑜伽露营节”，本周末在水慢城盛大启幕！\n\n一场千人相聚回归自然的体验，草地上露营、星空下冥想、晨曦中练习瑜伽……与花海、湖水、绿氧相遇，留下最美伽人丽影！', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/2bf60ec3594e46d4b46ebd907b81e2f1640.webp', 0, '2022-06-08 13:52:40', '2022-06-08 13:52:40');
+INSERT INTO `notice` VALUES ('1534414666803978241', '高马报名满额，下周日不见不散', '2019高淳国际慢城马拉松赛将于11月3日在我区举行。为确保比赛安全顺利进行，届时将对双高路、双湖路、永城路、古檀大道、宝塔路（宝丹路口至财产保险公司路口）、固城湖南路、淳兴路（牛头山至官溪路路口）、湖滨大道、永成路、迎湖路、水慢城内部道路、双湖南路实行交通管控，并在相邻外围道路同步采取分流措施。', NULL, 0, '2022-06-08 13:58:59', '2022-06-08 13:58:59');
+INSERT INTO `notice` VALUES ('1534414848325066753', '高淳蟹王蟹后争霸赛诞生“双料冠军”，重量竟达......', '今天下午，第十九届固城湖螃蟹节蟹王、蟹后争霸赛在高淳区水产技术推广站拉开帷幕，高淳区砖墙、阳江、淳溪、古柏、固城五个街镇均选送了最为“膘肥体壮的选手”参加比赛。公蟹螯大体壮，母蟹腹饱丰满，“参赛者”们亮相后，观众席发出阵阵惊叹声，“真大！”最终，古柏街道选送的螃蟹以555克和455克的重量，一举夺下蟹王、蟹后两项殊荣，成为本次比赛的“双料冠军”！', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/55dba501d6fe40a98a21401120c489a2640 (1).webp', 0, '2022-06-08 13:59:43', '2022-06-08 13:59:43');
+INSERT INTO `notice` VALUES ('1534414948770258946', '展会速递|2019南京融交会高淳老街·国际慢城展区精彩等您来看！', '今天，10月25日，\n\n2019南京融交会开幕啦！\n\n这次展会紧扣“新时代 新体系 新体验”的展览主题\n\n硬核科技 / 光影世界\n\n文化之旅 / 头脑风暴 \n\n…… \n\n16个国家文化和科技融合示范基地\n\n近百场活动 400+企业\n\n带你感受一波“文化&科技”的冲击！', 'https://edu-19527.oss-cn-nanjing.aliyuncs.com/travel_GaoChun/bd2c46770e7a473abd6293e0999aa3b4640.webp', 0, '2022-06-08 14:00:07', '2022-06-08 14:00:07');
 
 -- ----------------------------
 -- Table structure for permission
@@ -160,7 +166,7 @@ CREATE TABLE `permission`  (
   `user_id` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `role_id` int(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of permission
