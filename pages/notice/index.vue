@@ -12,7 +12,6 @@
 <script>
 import noticeComponent from "~/components/noticeComponent";
 import pagination from "@/components/pagination";
-import {getNotice} from "@/api";
 
 export default {
   name: "index",
@@ -31,8 +30,8 @@ export default {
     }
   },
   methods: {
-    async getPageData() {
-      let res = await getNotice(this.cur, this.limit)
+    async getPageData(context) {
+      let res = await context.app.$axios.get(`notice/${this.cur}/${this.limit}`)
       this.noticeList = res.data.items
     }
   }

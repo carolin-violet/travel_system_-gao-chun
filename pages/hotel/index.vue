@@ -6,7 +6,6 @@
 
 <script>
 import photoPanel from "@/components/photoPanel";
-import {getHotels} from "@/api";
 
 export default {
   name: "hotel",
@@ -19,8 +18,8 @@ export default {
   },
   methods: {
   },
-  async asyncData() {
-    let res = await getHotels()
+  async asyncData(context) {
+    let res = await context.app.$axios.get('"/hotel"')
     return res.data
   }
 }

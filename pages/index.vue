@@ -76,7 +76,6 @@
 
 <script>
 import indexSwiper from "~/components/index/indexSwiper";
-import {getIndexContent} from "@/api";
 
 export default {
   name: 'IndexPage',
@@ -121,8 +120,8 @@ export default {
       })
     }
   },
-  async asyncData() {
-    let res = await getIndexContent()
+  async asyncData(context) {
+    let res = await context.app.$axios.get("/getIndexContent")
     return res.data.items
   }
 }

@@ -32,24 +32,25 @@
 </template>
 
 <script>
-import {login} from "@/api";
-
 export default {
   name: "login",
   data() {
     return {
       loginForm: {
-        telephone: '',
-        password: ''
+        telephone: null,
+        password: null
       }
     }
   },
   methods: {
     async handleLogin() {
-      let res = await login(this.loginForm)
+      console.log(this.loginForm)
+      let res = await this.$axios.post('/login', this.loginForm)
       console.log(res)
       if (res.code === 20000) {
         this.$message.success("登录成功")
+        this.$store.commit("setUserInfo", res.data)
+        this.$cookies.set('travel-system-front-token', res.data.token)
         this.$router.push({
           path: '/'
         })

@@ -40,8 +40,6 @@
 </template>
 
 <script>
-import {register} from "@/api";
-
 export default {
   name: "register",
   data() {
@@ -56,7 +54,7 @@ export default {
   },
   methods: {
     async handleRegister() {
-      let res = await register(this.registerForm)
+      let res = await this.$axios.post("/register", this.registerForm)
       if (res.code === 20000) {
         this.$message.success("注册成功")
         this.$router.push({

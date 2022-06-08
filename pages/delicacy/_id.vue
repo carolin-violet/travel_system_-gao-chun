@@ -6,7 +6,6 @@
 
 <script>
 import detail from "@/components/detail";
-import {getDelicacyDetail} from "@/api";
 
 export default {
   name: "delicacy_detail",
@@ -22,8 +21,8 @@ export default {
     this.getDetail()
   },
   methods: {
-    async getDetail() {
-      let res = await getDelicacyDetail(this.$route.params.id)
+    async getDetail(context) {
+      let res = await context.app.$axios.get(`/delicacy/${this.$route.params.id}`)
       this.detailData = res.data
     }
   }

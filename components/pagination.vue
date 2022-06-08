@@ -10,7 +10,8 @@
 
 <script>
 export default {
-  name: "pagination"
+  name: "pagination",
+  props: ['total', 'cur', 'limit']
 }
 </script>
 

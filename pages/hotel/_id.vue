@@ -6,7 +6,6 @@
 
 <script>
 import detail from "@/components/detail";
-import {getHotelDetail} from "@/api";
 
 export default {
   name: "hotel_detail",
@@ -22,8 +21,8 @@ export default {
     this.getDetail()
   },
   methods: {
-    async getDetail() {
-      let res = await getHotelDetail(this.$route.params.id)
+    async getDetail(context) {
+      let res = await context.app.$axios.get(`/hotel/${this.$route.params.id}`)
       this.detailData = res.data
     }
   }

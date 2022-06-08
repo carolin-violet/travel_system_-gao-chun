@@ -6,7 +6,6 @@
 
 <script>
 import detail from "@/components/detail";
-import {getScenicSpotDetail} from "@/api";
 
 export default {
   name: "scenic_detail",
@@ -22,8 +21,8 @@ export default {
     this.getDetail()
   },
   methods: {
-    async getDetail() {
-      let res = await getScenicSpotDetail(this.$route.params.id)
+    async getDetail(context) {
+      let res = await context.app.$axios.get(`/scenic-spot/${this.$route.params.id}`)
       this.detailData = res.data
     }
   }

@@ -6,7 +6,6 @@
 
 <script>
 import photoPanel from "@/components/photoPanel";
-import {getDelicacies} from "@/api";
 
 export default {
   name: "delicacy",
@@ -19,8 +18,8 @@ export default {
   },
   methods: {
   },
-  async asyncData() {
-    let res = await getDelicacies()
+  async asyncData(context) {
+    let res = await context.app.$axios.get("/delicacies")
     return res.data
   }
 }

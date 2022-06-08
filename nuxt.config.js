@@ -31,6 +31,8 @@ export default {
     { src: '@/plugins/font-awesome' },
     { src: '~/plugins/vue-aplayer', mode: 'client' },
     {src: '~/plugins/element-ui', ssr: true },
+    {src:'~/plugins/store-cache', ssr:false},
+    './plugins/axios.js'
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -44,6 +46,8 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    'cookie-universal-nuxt',
+    "@nuxtjs/axios",
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build

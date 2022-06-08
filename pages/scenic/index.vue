@@ -6,7 +6,6 @@
 
 <script>
 import photoPanel from "@/components/photoPanel";
-import {getScenicSpots} from "@/api";
 
 export default {
   name: "scenic",
@@ -19,8 +18,8 @@ export default {
   },
   methods: {
   },
-  async asyncData() {
-    let res = await getScenicSpots()
+  async asyncData(context) {
+    let res = await context.app.$axios.get("/scenic-spots")
     return res.data
   }
 }

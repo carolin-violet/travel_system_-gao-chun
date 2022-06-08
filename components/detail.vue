@@ -60,6 +60,7 @@
           <section class="w-full h-1/6">
             <div class="w-2/3 h-32 mx-auto space-x-3 text-center pt-8">
               <pagination/>
+              {{detailData.commentNum}}
             </div>
           </section>
         </section>
@@ -67,7 +68,7 @@
         <section class="flex-1 h-full text-center pt-16">
           <div class="w-4/5 h-3/5 mx-auto text-4xl space-y-16">
             <h2 class="text-left">好评率：{{ detailData.positiveNum }}|{{ detailData.positiveNum + detailData.negativeNum }}</h2>
-            <h3 class="text-black">{{detailData.commentNum}}尊敬的游客，您可以在下方发表您的意见</h3>
+            <h3 class="text-black">尊敬的游客，您可以在下方发表您的意见</h3>
             <div class="w-full h-96">
               <textarea name="" id="" cols="30" rows="10" class="w-full h-full bg-indigo-300 bg-opacity-70 backdrop-filter backdrop-blur-3xl rounded-3xl focus:outline-none text-white pl-6 pt-6"></textarea>
             </div>
@@ -82,7 +83,6 @@
 <script>
 import detailSwiper from "~/components/detailSwiper";
 import pagination from "@/components/pagination";
-import {getComment} from "@/api";
 
 export default {
   name: "detail",
@@ -94,7 +94,9 @@ export default {
   data() {
     return {
       cur: 1,
-      limit: 5
+      limit: 5,
+      commentList: [],
+      total: null
     }
   },
   created() {
@@ -102,8 +104,9 @@ export default {
   },
   methods: {
     async getPageData() {
-      let res = await getComment(this.$route.params.id, this.cur, this.limit)
-      console.log(res)
+      let res = await this.$axios.get(`comment/${this.$route.params.id}/${this.cur}/${this.limit}`)
+      this.commentList = res.data.commentList
+      this.total = res.data.commentNum
     }
   }
 }

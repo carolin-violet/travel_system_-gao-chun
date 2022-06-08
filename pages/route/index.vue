@@ -8,7 +8,6 @@
 
 <script>
 import collapse from "@/components/index/collapse";
-import {getRouteInfo} from "@/api";
 
 export default {
   name: "route",
@@ -20,8 +19,8 @@ export default {
 
     }
   },
-  async asyncData() {
-    let res = await getRouteInfo()
+  async asyncData(context) {
+    let res = await context.app.$axios.get('/getRouteInfo')
     console.log(res.data)
     return res.data
   }
