@@ -91,3 +91,11 @@ export function getRouteInfo() {
     method: 'get'
   })
 }
+
+// 分页查询公告信息
+export function getNotice(cur, limit) {
+  return request({
+    url: `notice/${cur}/${limit}`,
+    method: 'get'
+  })
+}

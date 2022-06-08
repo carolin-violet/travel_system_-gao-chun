@@ -16,12 +16,18 @@
 <script>
 import noticeComponent from "~/components/noticeComponent";
 import pagination from "@/components/pagination";
+import {getNotice} from "@/api";
 
 export default {
   name: "index",
   components: {
     noticeComponent,
     pagination
+  },
+  async asyncData() {
+    let res = await getNotice()
+    console.log(res.data)
+    return res.data
   }
 }
 </script>
