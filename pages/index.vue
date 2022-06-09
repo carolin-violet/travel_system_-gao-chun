@@ -122,7 +122,6 @@ export default {
   },
   async asyncData(context) {
     let res = await context.app.$axios.get("/getIndexContent")
-    console.log(res.data.items)
     return res.data.items
   }
 }

@@ -1,10 +1,9 @@
-export default function(context) {
-  window.addEventListener('beforeunload', () => {
-    context.$cookies.set("storeCache", JSON.stringify(context.store.state))
-  });
-  let storeCache = context.$cookies.get("storeCache")
-  if (storeCache) {
-    context.store.replaceState(JSON.parse(storeCache));
-  }
-}
+import createPersistedState from 'vuex-persistedstate'
 
+export default ({ store }) => {
+  window.onNuxtReady(() => {
+    createPersistedState({
+      key: "store", // 读取本地存储的数据到store
+    })(store)
+  })
+}
