@@ -1,8 +1,8 @@
 
+
 export const state = () => ({
-  // 这里是全局数据保存的地方
   token:'',
-  userInfo: {},
+  userInfo: {}
 })
 
 export const mutations = {
@@ -15,13 +15,11 @@ export const mutations = {
     state.token = ''
   }
 }
-
 export const actions = {
   nuxtServerInit(store, { app: { $cookies } }) {
     // ...
     // 初始化相关数据存到 store 中
-    const token = $cookies.get('travel-system-front-token') || ''
-    store.commit('', token)
+    const userInfo = $cookies.get('travel_gaochun_store') || ''
+    store.commit('setUserInfo', userInfo)
   }
 }
-
