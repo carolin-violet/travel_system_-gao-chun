@@ -19,9 +19,6 @@ export default {
     noticeComponent,
     pagination
   },
-  created() {
-    this.getPageData()
-  },
   data() {
     return {
       cur: 1,
@@ -29,12 +26,15 @@ export default {
       noticeList: []
     }
   },
+  created() {
+    this.getPageData()
+  },
   methods: {
-    async getPageData(context) {
-      let res = await context.app.$axios.get(`notice/${this.cur}/${this.limit}`)
+    async getPageData() {
+      let res = await this.$axios.get(`notice/${this.cur}/${this.limit}`)
       this.noticeList = res.data.items
     }
-  }
+  },
 }
 </script>
 
