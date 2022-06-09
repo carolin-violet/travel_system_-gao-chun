@@ -70,7 +70,7 @@
             <h2 class="text-left">好评率：{{ detailData.positiveNum }}|{{ detailData.positiveNum + detailData.negativeNum }}</h2>
             <h3 class="text-black">尊敬的游客，您可以在下方发表您的意见</h3>
             <div class="w-full h-96">
-              <textarea name="" id="" cols="30" rows="10" class="w-full h-full bg-indigo-300 bg-opacity-70 backdrop-filter backdrop-blur-3xl rounded-3xl focus:outline-none text-white pl-6 pt-6"></textarea>
+              <textarea v-model="comment" cols="30" rows="10" class="w-full h-full bg-indigo-300 bg-opacity-70 backdrop-filter backdrop-blur-3xl rounded-3xl focus:outline-none text-white pl-6 pt-6"></textarea>
             </div>
             <button class="w-32 h-24 bg-blue-400">确定</button>
           </div>
@@ -96,7 +96,8 @@ export default {
       cur: 1,
       limit: 5,
       commentList: [],
-      total: null
+      total: null,
+      comment: null
     }
   },
   created() {

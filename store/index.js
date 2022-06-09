@@ -7,7 +7,7 @@ export const state = () => ({
 
 export const mutations = {
   setUserInfo(state, data) {
-    state.userInfo = data.info
+    state.userInfo = {...data.info}
     state.token = data.token
   },
   logout(state){
