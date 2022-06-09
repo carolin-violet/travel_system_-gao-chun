@@ -78,6 +78,14 @@ public class MainInfoController {
         // 旅馆信息
         Hotel hotel = hotelService.getById(id);
 
+        // 最近5条评论
+        Page<Comment> commentPage = new Page<>(1, 5);
+        QueryWrapper<Comment> wrapper2 = new QueryWrapper<>();
+        wrapper2.eq("mark_id", id).orderByDesc("create_time");
+        commentService.page(commentPage, wrapper2);
+        List<Comment> records = commentPage.getRecords();
+        long commentNum = commentPage.getTotal();
+
         // 获取好评数与差评数
         QueryWrapper<Comment> wrapper3 = new QueryWrapper<>();
         wrapper3.eq("sentiment", 2).eq("mark_id", id);
@@ -86,7 +94,7 @@ public class MainInfoController {
         wrapper4.eq("sentiment", 0).eq("mark_id", id);
         int negativeNum = commentService.count(wrapper4);
 
-        return R.ok().data("photosList", photosList).data("description", hotel.getDescription()).data("positiveNum", positiveNum).data("negativeNum", negativeNum);
+        return R.ok().data("photosList", photosList).data("description", hotel.getDescription()).data("positiveNum", positiveNum).data("negativeNum", negativeNum).data("commentNum", commentNum);
     }
 
 
@@ -98,7 +106,7 @@ public class MainInfoController {
         wrapper1.eq("mark_id", id).orderByDesc("create_time").last("limit 5");
         List<Photos> photosList = photosService.list(wrapper1);
 
-        // 旅馆信息
+        // 美食信息
         Delicacy delicacy = delicacyService.getById(id);
 
         // 最近5条评论
@@ -143,7 +151,7 @@ public class MainInfoController {
         wrapper1.eq("mark_id", id).orderByDesc("create_time").last("limit 5");
         List<Photos> photosList = photosService.list(wrapper1);
 
-        // 旅馆信息
+        // 景点信息
         ScenicSpot scenicSpot = scenicSpotService.getById(id);
 
         // 最近5条评论
