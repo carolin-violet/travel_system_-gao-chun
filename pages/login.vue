@@ -44,9 +44,7 @@ export default {
   },
   methods: {
     async handleLogin() {
-      console.log(this.loginForm)
       let res = await this.$axios.post('/login', this.loginForm)
-      console.log(res)
       if (res.code === 20000) {
         this.$message.success("登录成功")
         this.$store.commit("setUserInfo", res.data)
