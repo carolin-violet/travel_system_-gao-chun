@@ -1,12 +1,9 @@
 export default function(context) {
-  //离开页面 刷新前 将store中的数据存到localStorage
   window.addEventListener('beforeunload', () => {
-    localStorage.setItem("storeCache", JSON.stringify(context.store.state))
+    context.$cookies.set("storeCache", JSON.stringify(context.store.state))
   });
-  // 获取localStorage中的store数据
-  let storeCache = localStorage.getItem("storeCache")
+  let storeCache = context.$cookies.get("storeCache")
   if (storeCache) {
-    // 将localStorage中的store数据替换到store中
     context.store.replaceState(JSON.parse(storeCache));
   }
 }
