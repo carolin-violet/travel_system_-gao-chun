@@ -19,7 +19,7 @@ export default {
   methods: {
   },
   async asyncData(context) {
-    let res = await context.app.$axios.get('"/hotel"')
+    let res = await context.app.$axios.get('/hotel')
     return res.data
   }
 }
