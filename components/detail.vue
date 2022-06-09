@@ -72,7 +72,7 @@
             <div class="w-full h-96">
               <textarea v-model="comment" cols="30" rows="10" class="w-full h-full bg-indigo-300 bg-opacity-70 backdrop-filter backdrop-blur-3xl rounded-3xl focus:outline-none text-white pl-6 pt-6"></textarea>
             </div>
-            <button class="w-32 h-24 bg-blue-400">确定</button>
+            <button class="w-32 h-24 bg-blue-400" @click="uploadComment">确定</button>
           </div>
         </section>
       </section>
@@ -83,6 +83,7 @@
 <script>
 import detailSwiper from "~/components/detailSwiper";
 import pagination from "@/components/pagination";
+import {mapState} from 'vuex'
 
 export default {
   name: "detail",
@@ -100,14 +101,35 @@ export default {
       comment: null
     }
   },
+  computed: {
+    ...mapState({
+      userInfo: state => state.userInfo,
+      token: state => state.token
+    })
+  },
   created() {
     this.getPageData()
   },
   methods: {
     async getPageData() {
-      let res = await this.$axios.get(`comment/${this.$route.params.id}/${this.cur}/${this.limit}`)
+      let res = await this.$axios.get(`/comment/${this.$route.params.id}/${this.cur}/${this.limit}`)
       this.commentList = res.data.commentList
       this.total = res.data.commentNum
+    },
+    async uploadComment() {
+      const data = {
+        comment: this.comment,
+        markId: this.$route.params.id,
+        touristId: this.userInfo.id
+      }
+      let res = await this.$axios.post('/addComment', data)
+      console.log(res)
+      if (res.code === 20000) {
+        this.$message.success('添加评论成功')
+        this.comment = null
+      } else {
+        this.$message.error('添加评论失败')
+      }
     }
   }
 }
