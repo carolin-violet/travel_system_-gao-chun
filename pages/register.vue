@@ -19,7 +19,7 @@
 <!--        <input type="text" placeholder="验证码" class="block w-1/2 h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">-->
 <!--        <div class="w-1/2 h-20 text-3xl pt-4 cursor-pointer">获取验证码</div>-->
 <!--      </div>-->
-      <button class="w-1/5 h-28 rounded-2xl border-2 border-indigo-200 transform focus:scale-95" @click="handleRegister">点击注册</button>
+      <button class="register-button w-1/5 h-28 rounded-2xl border-2 border-indigo-200" @click="handleRegister">点击注册</button>
     </section>
 
     <ul class="background">
@@ -87,6 +87,11 @@ export default {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.2);
+}
+
+
+.register-button{
+  transform: scale(0.98);
 }
 
 
