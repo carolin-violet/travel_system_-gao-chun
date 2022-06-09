@@ -21,8 +21,8 @@ export default {
     this.getDetail()
   },
   methods: {
-    async getDetail(context) {
-      let res = await context.app.$axios.get(`/delicacy/${this.$route.params.id}`)
+    async getDetail() {
+      let res = await this.$axios.get(`/delicacy/${this.$route.params.id}`)
       this.detailData = res.data
     }
   }
