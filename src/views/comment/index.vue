@@ -1,6 +1,7 @@
 <template>
   <div class="app-container">
     <el-button type="primary" @click="updateSentiment">更新情感倾向</el-button>
+    <span>(百度api限制了一次只能更新2条未进行情感分析的数据)</span>
 
     <!--   展示表格 -->
     <el-table
@@ -153,6 +154,7 @@ export default {
       let res = await comment.updateSentiment()
       if (res.code == 20000) {
         this.$message.success("更新成功")
+        this.getPageComment()
       }
     },
 
