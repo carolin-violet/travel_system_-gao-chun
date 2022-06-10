@@ -29,7 +29,7 @@
       <div class="pl-28 pb-16">
         <span>上传照片</span>
         <el-upload
-          action="http://localhost:8091//travel_system/front/upload/picture"
+          action="http://localhost:8091/travel_system/front/upload/picture"
           list-type="picture-card"
           :on-preview="handlePictureCardPreview"
           :on-remove="handleRemove"
@@ -60,6 +60,7 @@
 <script>
 import noteFeedback from "~/components/noteFeedback";
 import pagination from "~/components/pagination";
+import {mapState} from 'vuex'
 
 export default {
   name: "note",
@@ -86,6 +87,11 @@ export default {
       dialogVisible: false,
     }
   },
+  computed: {
+    ...mapState({
+      userInfo: state => state.userInfo
+    })
+  },
   methods: {
     changePage(page) {
       this.cur = page
@@ -106,6 +112,7 @@ export default {
         .then(_ => {
           this.loading = true;
           this.timer = setTimeout(() => {
+            this.uploadTravelNote()
             done();
             // 动画关闭需要一定的时间
             setTimeout(() => {
@@ -116,17 +123,36 @@ export default {
         .catch(_ => {});
     },
 
-    handlePictureCardPreview() {
-
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
     },
 
-    handleRemove() {
-
+    handleRemove(file, fileList) {
+      console.log(file, fileList);
     },
 
-    handleUploadSuccess () {
-
+    handleUploadSuccess (res, file, fileList) {
+      if (res.code == 20000) {
+        this.$message.success("上传图片成功")
+        this.note.photoUrlList = fileList.map(file => {
+          return file.response.data.url
+        })
+      } else {
+        this.$message.error("上传图片失败")
+      }
     },
+
+    async uploadTravelNote() {
+      this.note.touristId = this.userInfo.id
+      let res = await this.$axios.post('/addNote', this.note)
+      if (res.code === 20000) {
+        this.$message.success('上传游记成功')
+        this.note = {}
+      } else {
+        this.$message.error('上传游记失败')
+      }
+    }
   }
 }
 </script>
