@@ -1,17 +1,62 @@
 <template>
-  <div class="w-96 h-16 mx-auto">
-    <span class="inline-block w-20 h-12 text-center rounded-2xl bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer">上一页</span>
-    <span class="inline-block w-12 h-12 text-center rounded-full bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer">1</span>
-    <span class="inline-block w-12 h-12 text-center rounded-full bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer">2</span>
-    <span class="inline-block w-12 h-12 text-center rounded-full bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer">3</span>
-    <span class="inline-block w-20 h-12 text-center rounded-2xl bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer">下一页</span>
+  <div class="w-auto h-16 mx-auto space-x-5">
+    <button class="inline-block w-20 h-12 text-center rounded-2xl bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer" :disabled="cur === 1" @click="changeCurPage(cur - 1)">上一页</button>
+    <button class="inline-block w-12 h-12 text-center rounded-full bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer" v-if="startAndEnd.start > 1 "  :class="{active: cur === 1}" @click="changeCurPage(1)">1</button>
+    <button class="inline-block w-12 h-12 text-center rounded-full bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer" v-if="startAndEnd.start > 2 ">...</button>
+
+    <button
+      class="inline-block w-12 h-12 text-center rounded-full bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer"
+      v-for="(page, index) in startAndEnd.end"
+      :key="index"
+      v-if="page >= startAndEnd.start"
+      @click="changeCurPage(page)"
+    >
+      {{ page }}
+    </button>
+
+
+    <button class="inline-block w-12 h-12 text-center rounded-full bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer" v-if="startAndEnd.end < totalPage - 1">...</button>
+    <button class="inline-block w-12 h-12 text-center rounded-full bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer" v-if="startAndEnd.end < totalPage" :class="{active: cur === totalPage}" @click="changeCurPage(totalPage)">{{ totalPage }}</button>
+    <button class="inline-block w-20 h-12 text-center rounded-2xl bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer" :disabled="cur === totalPage" @click="changeCurPage(cur + 1)">下一页</button>
+    <button class="inline-block w-20 h-12 text-center rounded-2xl bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer"> 共{{ total }}条 </button>
   </div>
 </template>
 
 <script>
 export default {
   name: "pagination",
-  props: ['total', 'cur', 'limit']
+  props: ['total', 'cur', 'limit', 'continueNum'],
+  computed: {
+    totalPage() {
+      // 向上取整
+      return Math.ceil(this.total / this.limit)
+    },
+    startAndEnd() {
+      const {cur, totalPage, continueNum} = this
+      let start = 0, end = 0
+      if (continueNum > totalPage) {
+        start = 1
+        end = totalPage
+      } else {
+        start = cur - continueNum/2
+        end = cur + continueNum/2
+
+        if (start < 1) {
+          start = 1
+          end = continueNum
+        } else if (end > totalPage) {
+          end = totalPage
+          start = end - continueNum + 1
+        }
+      }
+      return {start, end}
+    }
+  },
+  methods: {
+    changeCurPage(page) {
+      this.$emit('changePage', page)
+    }
+  }
 }
 </script>
 

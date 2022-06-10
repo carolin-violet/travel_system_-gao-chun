@@ -15,52 +15,19 @@
         <section class="flex-1 h-full">
 <!--          用户评论-->
           <section class="w-11/12 h-5/6 space-y-10">
-            <div class="relative w-5/6 h-1/6 bg-purple-500 mx-auto text-black">
+            <div class="relative w-5/6 h-1/6 bg-purple-500 mx-auto text-black" v-for="comment in commentList" :key="comment.id">
               <div class="absolute w-48 h-full bg-yellow-300 space-y-3 text-center pt-3.5">
                 <div class="w-16 h-16 mx-auto"><img src="/固城湖.webp" alt="" class="w-16 h-16 rounded-full"></div>
-                <div class="text-2xl">游客A</div>
-                <div class="text-xl">2020/3/6</div>
+                <div class="text-2xl">{{ comment.nickName }}</div>
+                <div class="text-xl">{{ comment.time }}</div>
               </div>
-              <div class="absolute relative w-4/5 h-full left-48 bg-gray-600 text-2xl pt-3.5">&nbsp;&nbsp;saf</div>
-            </div>
-            <div class="relative w-5/6 h-1/6 bg-purple-500 mx-auto text-black">
-              <div class="absolute w-48 h-full bg-yellow-300 space-y-3 text-center pt-3.5">
-                <div class="w-16 h-16 mx-auto"><img src="/固城湖.webp" alt="" class="w-16 h-16 rounded-full"></div>
-                <div class="text-2xl">游客A</div>
-                <div class="text-xl">2020/3/6</div>
-              </div>
-              <div class="absolute relative w-4/5 h-full left-48 bg-gray-600 text-2xl pt-3.5">&nbsp;&nbsp;saf</div>
-            </div>
-            <div class="relative w-5/6 h-1/6 bg-purple-500 mx-auto text-black">
-              <div class="absolute w-48 h-full bg-yellow-300 space-y-3 text-center pt-3.5">
-                <div class="w-16 h-16 mx-auto"><img src="/固城湖.webp" alt="" class="w-16 h-16 rounded-full"></div>
-                <div class="text-2xl">游客A</div>
-                <div class="text-xl">2020/3/6</div>
-              </div>
-              <div class="absolute relative w-4/5 h-full left-48 bg-gray-600 text-2xl pt-3.5">&nbsp;&nbsp;saf</div>
-            </div>
-            <div class="relative w-5/6 h-1/6 bg-purple-500 mx-auto text-black">
-              <div class="absolute w-48 h-full bg-yellow-300 space-y-3 text-center pt-3.5">
-                <div class="w-16 h-16 mx-auto"><img src="/固城湖.webp" alt="" class="w-16 h-16 rounded-full"></div>
-                <div class="text-2xl">游客A</div>
-                <div class="text-xl">2020/3/6</div>
-              </div>
-              <div class="absolute relative w-4/5 h-full left-48 bg-gray-600 text-2xl pt-3.5">&nbsp;&nbsp;saf</div>
-            </div>
-            <div class="relative w-5/6 h-1/6 bg-purple-500 mx-auto text-black">
-              <div class="absolute w-48 h-full bg-yellow-300 space-y-3 text-center pt-3.5">
-                <div class="w-16 h-16 mx-auto"><img src="/固城湖.webp" alt="" class="w-16 h-16 rounded-full"></div>
-                <div class="text-2xl">游客A</div>
-                <div class="text-xl">2020/3/6</div>
-              </div>
-              <div class="absolute relative w-4/5 h-full left-48 bg-gray-600 text-2xl pt-3.5">&nbsp;&nbsp;saf</div>
+              <div class="absolute relative w-4/5 h-full left-48 bg-gray-600 text-2xl pt-3.5">&nbsp;&nbsp;{{ comment.comment }}</div>
             </div>
           </section>
 <!--          分页器-->
           <section class="w-full h-1/6">
-            <div class="w-2/3 h-32 mx-auto space-x-3 text-center pt-8">
-              <pagination/>
-              {{detailData.commentNum}}
+            <div class="w-full h-32 mx-auto space-x-3 text-center pt-8">
+              <pagination :cur="cur" :limit="limit" :total="total" :continueNum="continueNum" @changePage="changePage"/>
             </div>
           </section>
         </section>
@@ -98,6 +65,7 @@ export default {
       limit: 5,
       commentList: [],
       total: null,
+      continueNum: 3,
       comment: null
     }
   },
@@ -111,10 +79,15 @@ export default {
     this.getPageData()
   },
   methods: {
+    changePage(page) {
+      this.cur = page
+      this.getPageData()
+    },
     async getPageData() {
       let res = await this.$axios.get(`/comment/${this.$route.params.id}/${this.cur}/${this.limit}`)
-      this.commentList = res.data.commentList
+      this.commentList = res.data.CommentDetailList
       this.total = res.data.commentNum
+      console.log(res.data)
     },
     async uploadComment() {
       const data = {
