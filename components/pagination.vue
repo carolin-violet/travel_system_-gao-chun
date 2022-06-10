@@ -1,5 +1,5 @@
 <template>
-  <div class="w-auto h-16 mx-auto space-x-5">
+  <div class="w-auto h-16 mx-auto space-x-5 text-white">
     <button class="inline-block w-20 h-12 text-center rounded-2xl bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer" :disabled="cur === 1" @click="changeCurPage(cur - 1)">上一页</button>
     <button class="inline-block w-12 h-12 text-center rounded-full bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer" v-if="startAndEnd.start > 1 "  :class="{active: cur === 1}" @click="changeCurPage(1)">1</button>
     <button class="inline-block w-12 h-12 text-center rounded-full bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer" v-if="startAndEnd.start > 2 ">...</button>
@@ -18,7 +18,7 @@
     <button class="inline-block w-12 h-12 text-center rounded-full bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer" v-if="startAndEnd.end < totalPage - 1">...</button>
     <button class="inline-block w-12 h-12 text-center rounded-full bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer" v-if="startAndEnd.end < totalPage" :class="{active: cur === totalPage}" @click="changeCurPage(totalPage)">{{ totalPage }}</button>
     <button class="inline-block w-20 h-12 text-center rounded-2xl bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer" :disabled="cur === totalPage" @click="changeCurPage(cur + 1)">下一页</button>
-    <button class="inline-block w-20 h-12 text-center rounded-2xl bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer"> 共{{ total }}条 </button>
+    <button class="inline-block w-20 h-12 text-center rounded-2xl bg-indigo-300 bg-opacity-80 leading-10 cursor-pointer"> 共{{ total || 0 }}条 </button>
   </div>
 </template>
 

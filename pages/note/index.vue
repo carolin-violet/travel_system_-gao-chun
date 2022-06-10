@@ -12,7 +12,7 @@
     </section>
 
     <section class="w-screen h-auto">
-      <pagination :cur="cur" :limit="limit" :total="total" :continueNum="continueNum" @changePage="changePage"/>
+      <pagination :cur="cur" :limit="limit" :total="total" :continueNum="continueNum" @changePage="changePage" class="w-1/4 mx-auto"/>
     </section>
 
 <!--    上传部分-->
