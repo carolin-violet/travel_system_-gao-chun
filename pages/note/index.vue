@@ -12,7 +12,7 @@
     </section>
 
     <section class="w-screen h-auto">
-      <pagination/>
+      <pagination :cur="cur" :limit="limit" :total="total" :continueNum="continueNum" @changePage="changePage"/>
     </section>
 
 <!--    上传部分-->
@@ -69,6 +69,10 @@ export default {
   },
   data() {
     return {
+      cur: null,
+      limit: 5,
+      continueNum: 3,
+      total: null,
       formLabelWidth: '80px',
       loading: false,
       dialog: false,
@@ -82,6 +86,11 @@ export default {
     }
   },
   methods: {
+    changePage(page) {
+      this.cur = page
+      this.getPageData()
+    },
+
     cancelForm() {
       this.loading = false;
       this.dialog = false;
