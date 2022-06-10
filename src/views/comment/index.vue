@@ -45,11 +45,11 @@
         label="情感倾向"
         align="center"
         show-overflow-tooltip
-        width="100">
+        width="150">
         <template slot-scope="scope">
           <el-tag
-            :type="scope.row.sentiment === 2 ? 'success' : 'danger'"
-            disable-transitions>{{scope.row.sentiment === 2 ? "好评" : "差评"}}</el-tag>
+            :type="scope.row.sentiment | sentimentFilter"
+            disable-transitions>{{ scope.row.sentiment | sentimentNameFilter }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -89,6 +89,24 @@ import comment from "@/api/comment";
 
 export default {
   name: "Comment",
+  filters: {
+    sentimentFilter(sentiment) {
+      const sentimentMap = {
+        2: 'success',
+        0: 'danger',
+        null: 'info'
+      }
+      return sentimentMap[sentiment]
+    },
+    sentimentNameFilter(sentiment) {
+      const sentimentNameMap = {
+        2: '好评',
+        0: '差评',
+        null: '未进行分析'
+      }
+      return sentimentNameMap[sentiment]
+    }
+  },
   data () {
     return {
       commentList: [],
@@ -106,6 +124,7 @@ export default {
     // 调用接口获取所有评论信息
     async getPageComment() {
       let res = await comment.getPageComment(this.current, this.limit)
+      console.log(res.data.rows)
       this.commentList = res.data.rows
       this.total = res.data.total
     },
