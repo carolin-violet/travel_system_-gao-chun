@@ -19,7 +19,8 @@
       </section>
 <!--      个人头像信息-->
       <section class="absolute w-1/6 h-14  right-5 pt-2 pl-32">
-        <span class="text-xl ml-2 text-white">{{ userInfo.nickName }}</span>
+        <span class="text-xl ml-3 text-white leading-10" v-if="userInfo.nickName">{{ userInfo.nickName }}</span>
+        <a href="/login" v-if="!userInfo.nickName" class="text-xl text-white ml-3 leading-10">登录</a>
         <img class="float-left h-10 w-10 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
       </section>
     </header>
