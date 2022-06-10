@@ -29,7 +29,7 @@
       <div class="pl-28 pb-16">
         <span>上传照片</span>
         <el-upload
-          action=""
+          action="http://localhost:8091//travel_system/front/upload/picture"
           list-type="picture-card"
           :on-preview="handlePictureCardPreview"
           :on-remove="handleRemove"
@@ -78,8 +78,9 @@ export default {
       dialog: false,
       timer: null,
       note: {
+        touristId: null,
         content: null,
-        pictures: []
+        photoUrlList: []
       },
       dialogImageUrl: '',
       dialogVisible: false,
