@@ -57,7 +57,8 @@ public class ItemCommentController {
             wrapper.eq("id", comment.getTouristId());
             Tourist tourist = touristService.getOne(wrapper);
 
-            map.put("name", tourist.getNickName());
+            map.put("nickName", tourist.getNickName());
+            map.put("id", comment.getId());
 
             CommentDetailList.add(map);
         }
