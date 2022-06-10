@@ -17,9 +17,9 @@
           <section class="w-11/12 h-5/6 space-y-10" v-if="commentList.length > 1">
             <div class="relative w-5/6 h-1/6 bg-purple-500 mx-auto text-black" v-for="comment in commentList" :key="comment.id">
               <div class="absolute w-48 h-full bg-yellow-300 space-y-3 text-center pt-3.5">
-                <div class="w-16 h-16 mx-auto"><img src="/固城湖.webp" alt="" class="w-16 h-16 rounded-full"></div>
-                <div class="text-2xl">{{ comment.nickName }}</div>
-                <div class="text-xl">{{ comment.time }}</div>
+                <div class="w-12 h-12 mx-auto"><img src="/固城湖.webp" alt="" class="w-12 h-12 rounded-full"></div>
+                <div class="text-xl overflow-x-hidden">{{ comment.nickName }}</div>
+                <div class="text-xl">{{ formatDateTime(comment.time) }}</div>
               </div>
               <div class="absolute relative w-4/5 h-full left-48 bg-gray-600 text-2xl pt-3.5">&nbsp;&nbsp;{{ comment.comment }}</div>
             </div>
@@ -56,6 +56,7 @@
 import detailSwiper from "~/components/detailSwiper";
 import pagination from "@/components/pagination";
 import {mapState} from 'vuex'
+import { format } from 'date-fns'
 
 export default {
   name: "detail",
@@ -84,6 +85,10 @@ export default {
     this.getPageData()
   },
   methods: {
+    formatDateTime(time) {
+      const commentTime = format(new Date(time), 'yyyy-MM-dd HH:mm:ss')
+      return commentTime
+    },
     changePage(page) {
       this.cur = page
       this.getPageData()
@@ -92,7 +97,6 @@ export default {
       let res = await this.$axios.get(`/comment/${this.$route.params.id}/${this.cur}/${this.limit}`)
       this.commentList = res.data.CommentDetailList
       this.total = res.data.commentNum
-      console.log(res.data)
     },
     async uploadComment() {
       const data = {
