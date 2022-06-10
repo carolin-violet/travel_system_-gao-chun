@@ -1,14 +1,10 @@
 <template>
-  <div class="relative note-container w-screen h-auto">
+  <div class="relative note-container w-screen h-auto min-h-screen">
 
     <el-button @click="dialog = true" class="absolute top-32 right-4 w-16 h-16" type="primary" icon="el-icon-edit" circle></el-button>
 
     <section class="w-4/5 h-auto mx-auto pt-32">
-      <noteFeedback/>
-      <noteFeedback/>
-      <noteFeedback/>
-      <noteFeedback/>
-      <noteFeedback/>
+      <noteFeedback v-for="(item, index) in noteList" :key="index" :item="item"/>
     </section>
 
     <section class="w-screen h-auto">
@@ -70,10 +66,11 @@ export default {
   },
   data() {
     return {
-      cur: null,
+      cur: 1,
       limit: 5,
       continueNum: 3,
       total: null,
+      noteList: [],
       formLabelWidth: '80px',
       loading: false,
       dialog: false,
@@ -91,6 +88,9 @@ export default {
     ...mapState({
       userInfo: state => state.userInfo
     })
+  },
+  created() {
+    this.getPageData()
   },
   methods: {
     changePage(page) {
@@ -147,11 +147,18 @@ export default {
       this.note.touristId = this.userInfo.id
       let res = await this.$axios.post('/addNote', this.note)
       if (res.code === 20000) {
+        this.getPageData()
         this.$message.success('上传游记成功')
         this.note = {}
       } else {
         this.$message.error('上传游记失败')
       }
+    },
+
+    async getPageData() {
+      let res = await this.$axios.get(`note/${this.cur}/${this.limit}`)
+      this.total = res.data.total
+      this.noteList = res.data.items
     }
   }
 }
