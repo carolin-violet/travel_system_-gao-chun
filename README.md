@@ -16,16 +16,18 @@
 
 成品展示：
 
-![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\1.webp)
+![](https://gitee.com/carolin-violet/travel_system_-gao-chun/raw/management-platform/markdown_images/1.webp)
 
-![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\2.webp)
+![](https://gitee.com/carolin-violet/travel_system_-gao-chun/raw/management-platform/markdown_images/2.webp)
 
-![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\3.webp)![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\4.webp)
+![](https://gitee.com/carolin-violet/travel_system_-gao-chun/raw/management-platform/markdown_images/3.webp)
 
-![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\5.webp)
+![](https://gitee.com/carolin-violet/travel_system_-gao-chun/raw/management-platform/markdown_images/4.webp)
 
-![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\6.webp)
+![](https://gitee.com/carolin-violet/travel_system_-gao-chun/raw/management-platform/markdown_images/5.webp)
 
-![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\7.webp)
+![](https://gitee.com/carolin-violet/travel_system_-gao-chun/raw/management-platform/markdown_images/6.webp)
 
-![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\8.webp)
+![](https://gitee.com/carolin-violet/travel_system_-gao-chun/raw/management-platform/markdown_images/7.webp)
+
+![](https://gitee.com/carolin-violet/travel_system_-gao-chun/raw/management-platform/markdown_images/8.webp)
