@@ -21,7 +21,17 @@ export default {
   async asyncData(context) {
     let res = await context.app.$axios.get("/scenic-spots")
     return res.data
+  },
+  head(){
+    return{
+      title:'高淳景点',
+      meta:[{
+        'name':'keywords',
+        'content': '慢城、遗址、老街、古村落'
+      }]
+    }
   }
+
 }
 </script>
 

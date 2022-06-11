@@ -21,6 +21,15 @@ export default {
   async asyncData(context) {
     let res = await context.app.$axios.get("/delicacies")
     return res.data
+  },
+  head(){
+    return{
+      title:'高淳美食',
+      meta:[{
+        'name':'keywords',
+        'content': '大闸蟹、蟹黄汤包、固城湖水八仙'
+      }]
+    }
   }
 }
 </script>

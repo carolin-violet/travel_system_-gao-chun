@@ -161,7 +161,17 @@ export default {
       console.log(res.data)
       this.total = res.data.total
       this.feedbackList = res.data.items
+    },
+    head(){
+      return{
+        title:'高淳反馈',
+        meta:[{
+          'name':'keywords',
+          'content': '游客、反馈、高淳国际慢城'
+        }]
+      }
     }
+
   }
 }
 </script>

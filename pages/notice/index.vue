@@ -40,7 +40,17 @@ export default {
     changePage(page) {
       this.cur = page
       this.getPageData()
+    },
+    head(){
+      return{
+        title:'慢城咨询',
+        meta:[{
+          'name':'keywords',
+          'content': '公告、咨询、高淳国际慢城'
+        }]
+      }
     }
+
   },
 }
 </script>

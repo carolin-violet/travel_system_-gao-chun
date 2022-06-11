@@ -21,7 +21,17 @@ export default {
   async asyncData(context) {
     let res = await context.app.$axios.get('/hotels')
     return res.data
+  },
+  head(){
+    return{
+      title:'高淳旅馆',
+      meta:[{
+        'name':'keywords',
+        'content': '民宿、酒店、度假村'
+      }]
+    }
   }
+
 }
 </script>
 

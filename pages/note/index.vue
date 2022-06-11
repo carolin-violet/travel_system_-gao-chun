@@ -159,7 +159,17 @@ export default {
       let res = await this.$axios.get(`note/${this.cur}/${this.limit}`)
       this.total = res.data.total
       this.noteList = res.data.items
+    },
+    head(){
+      return{
+        title:'高淳游记',
+        meta:[{
+          'name':'keywords',
+          'content': '游客、游记、高淳国际慢城'
+        }]
+      }
     }
+
   }
 }
 </script>

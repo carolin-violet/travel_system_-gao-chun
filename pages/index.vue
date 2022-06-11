@@ -8,7 +8,7 @@
         <section class="absolute w-1/2 h-1/2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-40 text-white rounded-lg shadow-2xl">
           <article class="absolute w-full top-10 left-1/2 transform -translate-x-1/2 text-left text-3xl font-serif px-8">
 <!--            文章标题-->
-            <h1 class="text-center">{{ article[articleIndex].title }}</h1>
+            <h2 class="text-center">{{ article[articleIndex].title }}</h2>
 <!--            文章内容-->
             <span class="tracking-widest leading-10">&nbsp;&nbsp;&nbsp;&nbsp;{{ article[articleIndex].content }}
             </span>
@@ -21,11 +21,11 @@
           </div>
         </section>
 <!--        屏幕下滑按钮-->
-        <section  @click="handleScroll" class="absolute w-40 h-40 bottom-8 left-1/2 transform -translate-x-1/2 text-center">
+        <section @click="handleScroll" class="absolute w-40 h-40 bottom-8 left-1/2 transform -translate-x-1/2 text-center">
           <i class="iconfont icon-arrowdown text-9xl text-indigo-300 cursor-pointer"></i>
         </section>
 <!--        首页背景图-->
-        <img class="w-full h-full overflow-x-hidden" src="/固城湖.webp" alt="">
+        <img class="w-full h-full overflow-x-hidden" src="/固城湖.webp" alt="固城湖" title="高淳-固城湖">
       </div>
     </section>
 

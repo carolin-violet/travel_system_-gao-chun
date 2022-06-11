@@ -23,7 +23,17 @@ export default {
     let res = await context.app.$axios.get('/getRouteInfo')
     console.log(res.data)
     return res.data
+  },
+  head(){
+    return{
+      title:'推荐旅游线路',
+      meta:[{
+        'name':'keywords',
+        'content': '固城湖、老街、慢城'
+      }]
+    }
   }
+
 }
 </script>
 
