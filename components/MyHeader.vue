@@ -8,14 +8,30 @@
       </section>
 <!--      导航栏-->
       <section class="absolute w-3/5 h-14 left-1/2 transform -translate-x-1/2 inline-flex text-center items-center text-white  font-serif text-3xl font-black">
-        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200" @click="$router.push('/')">首页</div>
-        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200" @click="$router.push('/hotel')">旅馆</div>
-        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200" @click="$router.push('/delicacy')">美食</div>
-        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200" @click="$router.push('/scenic')">景点</div>
-        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200" @click="$router.push('/route')">旅游路线</div>
-        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200" @click="$router.push('/notice')">公告</div>
-        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200" @click="$router.push('/note')">游记</div>
-        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200" @click="$router.push('/feedback')">反馈</div>
+        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
+          <a href="/">首页</a>
+        </div>
+        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
+          <a href="/hotel">旅馆</a>
+        </div>
+        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
+          <a href="/delicacy">美食</a>
+        </div>
+        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
+          <a href="/scenic">景点</a>
+        </div>
+        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
+          <a href="/route">旅游路线</a>
+        </div>
+        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200" @click="$router.push('/notice')">
+          <a href="/notice">公告</a>
+        </div>
+        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
+          <a href="/note">游记</a>
+        </div>
+        <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
+          <a href="/feedback">反馈</a>
+        </div>
       </section>
 <!--      个人头像信息-->
       <section class="absolute w-1/6 h-14  right-5 pt-2 pl-32">

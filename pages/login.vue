@@ -11,7 +11,11 @@
         <input type="password" id="password" placeholder="请输入密码" v-model="loginForm.password" class="absolute block w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
         <i class="iconfont icon-password absolute left-2 top-1/2 transform -translate-y-1/2 text-4xl"></i>
       </div>
-        <button class="login-button w-1/5 h-1/5 rounded-2xl border-2 border-indigo-200" @click="handleLogin">登录</button>
+      <button class="login-button w-1/5 h-1/5 rounded-2xl border-2 border-indigo-200" @click="handleLogin">登录</button>
+      <div>
+        <span>没有账号？</span>
+        <a href="/register" class="underline">前往注册</a>
+      </div>
     </section>
 
     <ul class="background">
