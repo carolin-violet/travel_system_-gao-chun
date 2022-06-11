@@ -9,28 +9,28 @@
 <!--      导航栏-->
       <section class="absolute w-3/5 h-14 left-1/2 transform -translate-x-1/2 inline-flex text-center items-center text-white  font-serif text-3xl font-black">
         <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
-          <a href="/">首页</a>
+          <a href="/" title="游高淳-首页">首页</a>
         </div>
         <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
-          <a href="/hotel">旅馆</a>
+          <a href="/hotel" title="游高淳-旅馆">旅馆</a>
         </div>
         <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
-          <a href="/delicacy">美食</a>
+          <a href="/delicacy" title="游高淳-美食">美食</a>
         </div>
         <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
-          <a href="/scenic">景点</a>
+          <a href="/scenic" title="游高淳-景点">景点</a>
         </div>
         <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
-          <a href="/route">旅游路线</a>
+          <a href="/route" title="游高淳-旅游线路">旅游路线</a>
         </div>
         <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200" @click="$router.push('/notice')">
-          <a href="/notice">公告</a>
+          <a href="/notice" title="游高淳-公告">公告</a>
         </div>
         <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
-          <a href="/note">游记</a>
+          <a href="/note" title="游高淳-游记">游记</a>
         </div>
         <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
-          <a href="/feedback">反馈</a>
+          <a href="/feedback" title="游高淳-反馈">反馈</a>
         </div>
       </section>
 <!--      个人头像信息-->
