@@ -39,7 +39,7 @@
 <!--        写评论-->
         <section class="flex-1 h-full text-center pt-16">
           <div class="w-4/5 h-3/5 mx-auto text-4xl space-y-16">
-            <h2 class="text-left">好评率：{{ detailData.positiveNum }}|{{ detailData.positiveNum + detailData.negativeNum }}</h2>
+            <h2 class="text-left">好评率：{{ applauseRate }}</h2>
             <h3 class="text-black">尊敬的游客，您可以在下方发表您的意见</h3>
             <div class="w-full h-96">
               <textarea v-model="comment" cols="30" rows="10" class="w-full h-full bg-indigo-300 bg-opacity-70 backdrop-filter backdrop-blur-3xl rounded-3xl focus:outline-none text-white pl-6 pt-6"></textarea>
@@ -79,7 +79,11 @@ export default {
     ...mapState({
       userInfo: state => state.userInfo,
       token: state => state.token
-    })
+    }),
+    applauseRate() {
+      const rate = this.detailData.positiveNum / (this.detailData.positiveNum + this.detailData.negativeNum) * 100
+      return rate.toFixed(2) + '%'
+    }
   },
   created() {
     this.getPageData()

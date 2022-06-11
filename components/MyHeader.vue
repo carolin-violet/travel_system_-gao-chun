@@ -4,7 +4,7 @@
     <header class="relative w-auto h-14">
 <!--      logo-->
       <section class="absolute w-1/5 h-12 transform -translate-y-1/2">
-        <img class="h-32 w-32" src="logo.png" alt="">
+        <img class="h-32 w-32" src="logo.png" alt="美丽高淳-南京后花园" title="美丽高淳-南京后花园">
       </section>
 <!--      导航栏-->
       <section class="absolute w-3/5 h-14 left-1/2 transform -translate-x-1/2 inline-flex text-center items-center text-white  font-serif text-3xl font-black">

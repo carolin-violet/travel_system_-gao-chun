@@ -9,7 +9,8 @@
             :src="item.picture"
             class="w-full mb-20 object-cover"
             style="height: 352px; border-radius: 8px"
-            alt=""
+            :alt="item.name"
+            :title="item.description"
           />
         </div>
       </div>
