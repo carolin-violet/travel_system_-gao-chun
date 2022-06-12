@@ -8,9 +8,9 @@
         <section class="absolute w-1/2 h-1/2 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-black bg-opacity-40 text-white rounded-lg shadow-2xl">
           <article class="absolute w-full top-10 left-1/2 transform -translate-x-1/2 text-left text-3xl font-serif px-8">
 <!--            文章标题-->
-            <h2 class="text-center text-4xl">{{ article[articleIndex].title }}</h2>
+            <h2 class="text-center text-6xl">{{ article[articleIndex].title }}</h2>
 <!--            文章内容-->
-            <span class="tracking-widest leading-10 text-2xl">&nbsp;&nbsp;&nbsp;&nbsp;{{ article[articleIndex].content }}
+            <span class="tracking-widest leading-10 text-3xl">&nbsp;&nbsp;&nbsp;&nbsp;{{ article[articleIndex].content }}
             </span>
           </article>
 <!--          切换按钮-->

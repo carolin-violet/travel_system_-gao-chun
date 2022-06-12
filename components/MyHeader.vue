@@ -37,7 +37,13 @@
       <section class="absolute w-1/6 h-14  right-5 pt-2 pl-32">
         <span class="text-xl ml-3 text-white leading-10" v-if="userInfo.nickName">{{ userInfo.nickName }}</span>
         <a href="/login" class="text-xl text-white ml-3 leading-10" v-else>登录</a>
-        <img class="float-left h-10 w-10 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+        <div class="relative float-left h-10 w-10 group">
+          <img class="tourist-avatar h-10 w-10 rounded-full ring-2 ring-white" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="">
+          <div class="avatar-nav absolute w-24 h-18 pt-2 space-y-2 text-indigo-300 text-xl mt-1 pl-1 opacity-0 transition-all duration-300 group-hover:opacity-100">
+            <div class="cursor-pointer"><a href="" class="hover:underline">个人信息</a></div>
+            <div class="cursor-pointer"><a href="/" class="hover:underline" @click="handleLogout">退出登录</a></div>
+          </div>
+        </div>
       </section>
     </header>
   </div>
@@ -52,6 +58,11 @@ export default {
     ...mapState({
       userInfo: state => state.userInfo
     })
+  },
+  methods: {
+    handleLogout() {
+      this.$store.commit('logout')
+    }
   }
 }
 </script>
@@ -77,4 +88,5 @@ export default {
 .nav-item:hover:after{
   width: 60%;
 }
+
 </style>
