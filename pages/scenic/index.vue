@@ -1,6 +1,8 @@
 <template>
   <div class="hotel-container w-full h-full">
-    <section class="bg-wrapper w-screen h-screen"></section>
+    <section class="bg-wrapper relative w-screen h-screen">
+      <h1 class="absolute top-1/3 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-9xl">欢迎浏览著名景点</h1>
+    </section>
     <photoPanel class="photo-wrapper relative" :image-list="scenicSpotList"/>
   </div>
 </template>
