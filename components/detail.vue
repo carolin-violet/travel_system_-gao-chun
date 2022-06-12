@@ -14,7 +14,7 @@
 <!--        评论展示-->
         <section class="flex-1 h-full">
 <!--          用户评论-->
-          <section class="w-11/12 h-5/6 space-y-10" v-if="commentList.length > 1">
+          <section class="w-11/12 h-5/6 space-y-10" v-if="total > 1">
             <div class="relative w-5/6 h-1/6 bg-purple-500 mx-auto text-black" v-for="comment in commentList" :key="comment.id">
               <div class="absolute w-48 h-full bg-yellow-300 space-y-3 text-center pt-3.5">
                 <div class="w-12 h-12 mx-auto"><img src="/固城湖.webp" alt="" class="w-12 h-12 rounded-full"></div>
@@ -30,7 +30,7 @@
 
 
 <!--          分页器-->
-          <section class="w-full h-1/6" v-show="commentList.length > 1">
+          <section class="w-full h-1/6" v-show="total > 1">
             <div class="w-full h-32 mx-auto space-x-3 text-center pt-8">
               <pagination :cur="cur" :limit="limit" :total="total" :continueNum="continueNum" @changePage="changePage"/>
             </div>

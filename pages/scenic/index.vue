@@ -1,6 +1,7 @@
 <template>
-  <div class="hotel-container relative w-full h-full">
-    <photoPanel :image-list="scenicSpotList"/>
+  <div class="hotel-container w-full h-full">
+    <section class="bg-wrapper w-screen h-screen"></section>
+    <photoPanel class="photo-wrapper relative" :image-list="scenicSpotList"/>
   </div>
 </template>
 
@@ -36,7 +37,10 @@ export default {
 </script>
 
 <style scoped>
-.hotel-container:before{
+.bg-wrapper{
+  background: url("/bg2.webp") no-repeat center center/cover;
+}
+.photo-wrapper:before{
   content: "";
   position: absolute;
   top: 0;
@@ -46,7 +50,5 @@ export default {
   backdrop-filter: blur(6px);
   background-color: #8EC5FC;
   background-image: linear-gradient(156deg, #8EC5FC 0%, #E0C3FC 50%, #a5b4fc 100%);
-
-
 }
 </style>
