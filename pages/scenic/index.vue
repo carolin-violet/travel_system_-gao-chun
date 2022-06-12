@@ -38,7 +38,7 @@ export default {
 
 <style scoped>
 .bg-wrapper{
-  background: url("/bg2.webp") no-repeat center center/cover;
+  background: url("/bg3.webp") no-repeat center center/cover;
 }
 .photo-wrapper:before{
   content: "";
