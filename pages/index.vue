@@ -38,8 +38,8 @@
           <span class="block text-4xl">RESORT HOTEL</span>
           <span class="block w-24 h-2 rounded-3xl bg-indigo-300 mx-auto"></span>
         </div>
-        <div class="triangle absolute w-1/6 h-12 right-0 bottom-1 text-2xl text-right pr-16 bg-indigo-300 text-white pt-2 cursor-pointer" @click="getMore(mark[0])">
-          了解更多 <i class="iconfont icon-long-arrow-right"></i>
+        <div class="triangle absolute w-1/6 h-12 right-0 bottom-1 text-2xl text-right pr-16 bg-indigo-300 text-white pt-2 cursor-pointer transform hover:scale-105 hover:text-purple-200" @click="getMore(mark[0])">
+          <span>了解更多</span> <i class="iconfont icon-long-arrow-right"></i>
         </div>
       </section>
       <indexSwiper :list="hotelList" :mark="mark[0]"></indexSwiper>
@@ -51,8 +51,8 @@
           <span class="block text-4xl">POPULAR AREA</span>
           <span class="block w-24 h-2 rounded-3xl bg-indigo-300 mx-auto"></span>
         </div>
-        <div class="triangle absolute w-1/6 h-12 right-0 bottom-1 text-2xl text-right pr-16 bg-indigo-300 text-white pt-2 cursor-pointer" @click="getMore(mark[1])">
-          了解更多 <i class="iconfont icon-long-arrow-right"></i>
+        <div class="triangle absolute w-1/6 h-12 right-0 bottom-1 text-2xl text-right pr-16 bg-indigo-300 text-white pt-2 cursor-pointer transform hover:scale-105 hover:text-purple-200" @click="getMore(mark[1])">
+          <span>了解更多</span> <i class="iconfont icon-long-arrow-right"></i>
         </div>
       </section>
       <indexSwiper :list="scenicSpotList" :mark="mark[1]"></indexSwiper>
@@ -64,8 +64,8 @@
           <span class="block text-4xl">FANTASTIC FOOD</span>
           <span class="block w-24 h-2 rounded-3xl bg-indigo-300 mx-auto"></span>
         </div>
-        <div class="triangle absolute w-1/6 h-12 right-0 bottom-1 text-2xl text-right pr-16 bg-indigo-300 text-white pt-2 cursor-pointer" @click="getMore(mark[2])">
-          了解更多 <i class="iconfont icon-long-arrow-right"></i>
+        <div class="triangle absolute w-1/6 h-12 right-0 bottom-1 text-2xl text-right pr-16 bg-indigo-300 text-white pt-2 cursor-pointer transform hover:scale-105 hover:text-purple-200" @click="getMore(mark[2])">
+          <span>了解更多</span> <i class="iconfont icon-long-arrow-right"></i>
         </div>
       </section>
       <indexSwiper :list="delicacyList" :mark="mark[2]"></indexSwiper>
