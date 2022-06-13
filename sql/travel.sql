@@ -11,7 +11,7 @@
  Target Server Version : 80025
  File Encoding         : 65001
 
- Date: 10/06/2022 20:19:49
+ Date: 13/06/2022 19:05:48
 */
 
 SET NAMES utf8mb4;
@@ -175,7 +175,7 @@ CREATE TABLE `permission`  (
   `user_id` char(19) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `role_id` int(0) NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of permission
@@ -425,7 +425,7 @@ CREATE TABLE `role`  (
   `role_name` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `role_desc` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role
@@ -524,6 +524,7 @@ CREATE TABLE `tourist`  (
 -- Records of tourist
 -- ----------------------------
 INSERT INTO `tourist` VALUES ('1534064312866316290', '青青草原扛把子', '12345678920', '$2a$10$zH4m4GppiITg1q2cEuXAu.QV7L/CWB/HvPRauGYt8DRWtcTNVTY8C', '123456@qq.com', 0, '2022-06-07 14:46:48', '2022-06-07 14:46:48');
+INSERT INTO `tourist` VALUES ('1536303574819078146', '时空之殇', '17075256495', '$2a$10$V3bYmN/9AmtW22nmYAnMKu5s24APK5zAMOCf9pp.BnnufFC5.zJJi', '2976008778@qq.com', 0, '2022-06-13 19:04:50', '2022-06-13 19:04:50');
 
 -- ----------------------------
 -- Table structure for tourist_route

@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
  * @Version 1.0
  */
 @RestController
-@RequestMapping("/travel_system/msm")
+@RequestMapping("/travel_system/front")
 @CrossOrigin
 public class MsmController {
     @Autowired
