@@ -1,9 +1,9 @@
 <template>
-  <div class="notice-container w-screen h-auto pt-32 pb-6">
-    <section class="w-full h-auto min-h-screen  space-y-16">
+  <div class="notice-container relative w-screen h-auto pt-32 pb-6">
+    <section class="w-full h-auto min-h-screen space-y-16">
       <noticeComponent v-for="notice in noticeList" :key="notice.id" :notice="notice"/>
     </section>
-    <section class="w-full h-auto mt-6">
+    <section class=" w-full h-auto mt-6">
       <pagination :cur="cur" :limit="limit" :total="total" :continueNum="continueNum" @changePage="changePage" class="mx-auto w-1/4"/>
     </section>
   </div>
@@ -57,7 +57,16 @@ export default {
 
 <style scoped>
 .notice-container{
-  background-color: #8EC5FC;
-  background-image: linear-gradient(156deg, #8EC5FC 0%, #E0C3FC 50%, #a5b4fc 100%);
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("assets/images/notice.webp");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center center;
 }
 </style>
