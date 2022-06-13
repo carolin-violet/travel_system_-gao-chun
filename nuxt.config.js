@@ -23,7 +23,8 @@ export default {
   css: [                        //  全局css（会进行webpack打包处理）
     '~assets/css/normalize.css',
     'element-ui/lib/theme-chalk/index.css',
-    "~assets/iconfont/iconfont.css"
+    "~assets/iconfont/iconfont.css",
+    "~assets/font/font.css"
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
