@@ -68,4 +68,5 @@ export default {
   backdrop-filter: blur(6px);
   background-image: linear-gradient(to bottom, #fda085 0%, #fff 100%);
 }
+
 </style>
