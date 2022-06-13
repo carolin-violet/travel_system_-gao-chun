@@ -110,7 +110,10 @@ export default {
 
     // 屏幕下滑
     handleScroll() {
-      window.scroll(0, window.screen.height*0.85)
+      window.scroll({
+        top: window.innerHeight,
+        behavior: 'smooth'
+      })
     },
 
     // 查看更多

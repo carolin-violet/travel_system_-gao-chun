@@ -13,7 +13,7 @@ export default {
       { name: 'format-detection', content: 'telephone=no' }
     ],
     link: [            //  favicon，若引用css不会进行打包处理
-      { rel: 'icon', type: 'image/png', href: '/logo.png' }
+      { rel: 'icon', type: 'image/png', href: '/logo.png' },
     ],
     script: [
       {src: 'https://sidecar.gitter.im/dist/sidecar.v1.js', async: true , defer: true},

@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "29923311",
+      "name": "rcd-angle-double-down",
+      "font_class": "rcd-angle-double-down",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
       "icon_id": "6841090",
       "name": "flag",
       "font_class": "flag",
