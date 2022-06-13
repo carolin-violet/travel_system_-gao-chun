@@ -24,7 +24,7 @@ export function getRandomList(list, num) {
 * */
 export function fillList(list, num) {
   while (list.length < num) {
-    list.push('/bg2.webp')
+    list.push('@/assets/images/bg1.webp')
   }
   return list
 }
