@@ -31,7 +31,7 @@
       <li></li>
     </ul>
 
-    <img class="w-full h-full" src="/高淳老街.jpg" alt="">
+    <img class="w-full h-full" src="@/assets/images/高淳老街.jpg" alt="">
   </div>
 </template>
 

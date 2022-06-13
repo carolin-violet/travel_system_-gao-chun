@@ -123,7 +123,7 @@ export default {
 
 <style scoped>
 .detail-container{
-  background-image: url("/bg1.webp");
+  background-image: url("@/assets/images/bg2.webp");
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;

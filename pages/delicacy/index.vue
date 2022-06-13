@@ -1,11 +1,11 @@
 <template>
   <div class="hotel-container w-full h-full">
     <section class="show-container relative w-screen h-screen flex justify-center items-center">
-      <div class="show-item absolute border-white transform hover:scale-110 transition-transform duration-500 z-10"><img src="/delicacy1.webp" alt="" class="w-full h-full object-cover"></div>
-      <div class="show-item absolute border-white transform hover:scale-110 transition-transform duration-500 translate-x-1/3 translate-y-1/3 origin-top-right -rotate-12"><img src="/delicacy2.webp" alt="" class="w-full h-full object-cover"></div>
-      <div class="show-item absolute border-white transform hover:scale-110 transition-transform duration-500 translate-x-1/2 -translate-y-1/2 origin-bottom-left rotate-6"><img src="/delicacy3.webp" alt="" class="w-full h-full object-cover"></div>
-      <div class="show-item absolute border-white transform hover:scale-110 transition-transform duration-500 -translate-x-1/2 translate-y-1/2 rotate-12"><img src="/delicacy4.webp" alt="" class="w-full h-full object-cover"></div>
-      <div class="show-item absolute border-white transform hover:scale-110 transition-transform duration-500 -translate-x-1/2 -translate-y-1/3 origin-top-left -rotate-12"><img src="/delicacy5.webp" alt="" class="w-full h-full object-cover"></div>
+      <div class="show-item absolute border-white transform hover:scale-110 transition-transform duration-500 z-10"><img src="@/assets/images/delicacy1.webp" alt="" class="w-full h-full object-cover"></div>
+      <div class="show-item absolute border-white transform hover:scale-110 transition-transform duration-500 translate-x-1/3 translate-y-1/3 origin-top-right -rotate-12"><img src="@/assets/images/delicacy2.webp" alt="" class="w-full h-full object-cover"></div>
+      <div class="show-item absolute border-white transform hover:scale-110 transition-transform duration-500 translate-x-1/2 -translate-y-1/2 origin-bottom-left rotate-6"><img src="@/assets/images/delicacy3.webp" alt="" class="w-full h-full object-cover"></div>
+      <div class="show-item absolute border-white transform hover:scale-110 transition-transform duration-500 -translate-x-1/2 translate-y-1/2 rotate-12"><img src="@/assets/images/delicacy4.webp" alt="" class="w-full h-full object-cover"></div>
+      <div class="show-item absolute border-white transform hover:scale-110 transition-transform duration-500 -translate-x-1/2 -translate-y-1/3 origin-top-left -rotate-12"><img src="@/assets/images/delicacy5.webp" alt="" class="w-full h-full object-cover"></div>
     </section>
     <photoPanel class="photo-container relative" :image-list="delicacyList"/>
 

@@ -25,7 +25,7 @@
           <i class="iconfont icon-arrowdown text-9xl text-indigo-300 cursor-pointer"></i>
         </section>
 <!--        首页背景图-->
-        <img class="w-full h-full overflow-x-hidden" src="/固城湖.webp" alt="固城湖" title="高淳-固城湖">
+        <img class="w-full h-full overflow-x-hidden" src="@/assets/images/固城湖.webp" alt="固城湖" title="高淳-固城湖">
       </div>
     </section>
 
