@@ -4,7 +4,7 @@
       <noticeComponent v-for="notice in noticeList" :key="notice.id" :notice="notice"/>
     </section>
     <section class=" w-full h-auto mt-6">
-      <pagination :cur="cur" :limit="limit" :total="total" :continueNum="continueNum" @changePage="changePage" class="mx-auto w-1/4"/>
+      <pagination :cur="cur" :limit="limit" :total="total" :continueNum="continueNum" :color="'bg-green-500'" @changePage="changePage" class="mx-auto w-1/4"/>
     </section>
   </div>
 </template>
@@ -68,5 +68,6 @@ export default {
   background-attachment: fixed;
   background-size: cover;
   background-position: center center;
+  font-family: Aa元气满满;
 }
 </style>
