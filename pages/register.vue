@@ -15,10 +15,10 @@
       <div class=" w-1/2 h-20 mx-auto">
         <input type="text" placeholder="请输入手机号" v-model="registerForm.telephone" class=" w-full h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
       </div>
-<!--      <div class="w-1/2 h-20 mx-auto flex">-->
-<!--        <input type="text" placeholder="验证码" class="block w-1/2 h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">-->
-<!--        <div class="w-1/2 h-20 text-3xl pt-4 cursor-pointer">获取验证码</div>-->
-<!--      </div>-->
+      <div class="w-1/2 h-20 mx-auto flex space-x-5">
+        <input type="text" placeholder="验证码" v-model="registerForm.code" class="block w-1/2 h-full 2xl:focus:placeholder-indigo-300 rounded-2xl bg-transparent border-2 border-indigo-200 focus:outline-none pl-12">
+        <div class="w-1/2 h-20 text-3xl pt-4 cursor-pointer border-2 border-indigo-200 rounded-2xl" @click="getCode">获取验证码</div>
+      </div>
       <button class="register-button w-1/5 h-28 rounded-2xl border-2 border-indigo-200" @click="handleRegister">点击注册</button>
     </section>
 
@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import {validateRegister} from "@/utils/validate";
+
 export default {
   name: "register",
   data() {
@@ -48,20 +50,26 @@ export default {
         nickName: '',
         telephone: '',
         password: '',
-        email: ''
+        email: '',
+        code: ''
       }
     }
   },
   methods: {
+    async getCode() {
+
+    },
     async handleRegister() {
-      let res = await this.$axios.post("/register", this.registerForm)
-      if (res.code === 20000) {
-        this.$message.success("注册成功")
-        this.$router.push({
-          path: '/login'
-        })
-      } else {
-        this.$message.error("注册失败:" + res)
+      if (validateRegister(this.registerForm)) {
+        let res = await this.$axios.post("/register", this.registerForm)
+        if (res.code === 20000) {
+          this.$message.success("注册成功")
+          this.$router.push({
+            path: '/login'
+          })
+        } else {
+          this.$message.error("注册失败:" + res)
+        }
       }
     }
   }
