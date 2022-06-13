@@ -56,7 +56,12 @@ export default {
   },
   methods: {
     async getCode() {
-
+      let res = await this.$axios.get(`send/${this.registerForm.telephone}`)
+      if (res.code === 20000) {
+        this.$message.success('短信发送成功')
+      } else {
+        this.$message.error('短信发送失败')
+      }
     },
     async handleRegister() {
       if (this.validateRegister(this.registerForm)) {
