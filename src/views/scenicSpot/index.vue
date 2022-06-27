@@ -19,6 +19,7 @@
       <el-table-column
         type="index"
         :index="calcIndex"
+        align="center"
         width="50">
       </el-table-column>
       <el-table-column
@@ -57,7 +58,19 @@
         prop="popular"
         label="优先级"
         align="center"
-        width="100">
+        width="50">
+      </el-table-column>
+      <el-table-column
+        prop="price"
+        label="单价"
+        align="center"
+        width="50">
+      </el-table-column>
+      <el-table-column
+        prop="discountPrice"
+        label="折扣价"
+        align="center"
+        width="50">
       </el-table-column>
       <el-table-column
         label="添加时间"
@@ -151,10 +164,16 @@
         <el-form-item label="景点优先级" :label-width="formLabelWidth">
           <el-input v-model="curScenicSpot.popular"  autocomplete="off"></el-input>
         </el-form-item>
+        <el-form-item label="景点单价" :label-width="formLabelWidth">
+          <el-input v-model="curScenicSpot.price"  autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="景点折扣价" :label-width="formLabelWidth">
+          <el-input v-model="curScenicSpot.discountPrice"  autocomplete="off"></el-input>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleModify">确 定</el-button>
+        <el-button type="primary" @click="handleModify" :loading="buttonLoading">确 定</el-button>
       </div>
 
       <el-dialog :visible.sync="dialogVisible">
@@ -184,7 +203,8 @@ export default {
       limit: 5,
       total: null,
       BASE_API: process.env.VUE_APP_BASE_API,
-      loading: false
+      loading: false,
+      buttonLoading: false
     }
   },
 
@@ -203,6 +223,7 @@ export default {
     // 调用接口添加景点信息
     async addScenicSpot(data) {
       let res = await scenicSpot.addScenicSpot(data)
+      this.buttonLoading = false
       if (res.code == 20000) {
         this.dialogFormVisible = false
         this.$message.success("添加成功")
@@ -217,6 +238,7 @@ export default {
     // 调用接口修改景点信息
     async updateScenicSpot(data) {
       let res = await scenicSpot.updateScenicSpot(data)
+      this.buttonLoading = false
       if (res.code == 20000) {
         this.dialogFormVisible = false
         this.$message.success("修改成功")
@@ -280,6 +302,7 @@ export default {
 
     // 确定按钮, flag为1就添加景点，为0就修改景点
     handleModify() {
+      this.buttonLoading = true
       if (this.flag === 1) {
         this.addScenicSpot(this.curScenicSpot)
       } else {
