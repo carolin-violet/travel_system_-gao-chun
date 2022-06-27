@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="tourist-container">
 
     <!--   展示表格 -->
     <el-table

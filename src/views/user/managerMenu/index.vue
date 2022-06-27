@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="manager-container">
     <el-button
       size="small"
       type="primary"

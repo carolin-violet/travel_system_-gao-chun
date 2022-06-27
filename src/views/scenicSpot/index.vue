@@ -38,7 +38,7 @@
       <el-table-column
         label="景点图片"
         align="center"
-        width="280">
+        width="200">
         <template slot-scope="scope">
           <el-image
             style="width: 100px; height: 100px"
