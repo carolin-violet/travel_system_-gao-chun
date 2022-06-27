@@ -64,13 +64,13 @@
         prop="price"
         label="单价"
         align="center"
-        width="50">
+        width="75">
       </el-table-column>
       <el-table-column
         prop="discountPrice"
         label="折扣价"
         align="center"
-        width="50">
+        width="75">
       </el-table-column>
       <el-table-column
         label="添加时间"

@@ -19,6 +19,7 @@
       <el-table-column
         type="index"
         :index="calcIndex"
+        align="center"
         width="50">
       </el-table-column>
       <el-table-column
@@ -39,7 +40,7 @@
         label="线路描述"
         align="center"
         show-overflow-tooltip
-        width="400">
+        width="300">
       </el-table-column>
       <el-table-column
         prop="reason"
@@ -47,6 +48,18 @@
         align="center"
         show-overflow-tooltip
         width="280">
+      </el-table-column>
+      <el-table-column
+        prop="price"
+        label="单价"
+        align="center"
+        width="75">
+      </el-table-column>
+      <el-table-column
+        prop="discountPrice"
+        label="折扣价"
+        align="center"
+        width="75">
       </el-table-column>
       <el-table-column
         label="添加时间"
@@ -110,10 +123,16 @@
             :rows="3"
             placeholder="请输入内容"></el-input>
         </el-form-item>
+        <el-form-item label="线路单价" :label-width="formLabelWidth">
+          <el-input v-model="curRoute.price"  autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="线路折扣价" :label-width="formLabelWidth">
+          <el-input v-model="curRoute.discountPrice"  autocomplete="off"></el-input>
+        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleModify">确 定</el-button>
+        <el-button type="primary" @click="handleModify" :loading="buttonLoading">确 定</el-button>
       </div>
     </el-dialog>
 
@@ -134,7 +153,8 @@ export default {
       formLabelWidth: "120px",
       current: 1,
       limit: 10,
-      total: null
+      total: null,
+      buttonLoading: false
     }
   },
 
@@ -153,6 +173,7 @@ export default {
     // 调用接口添加线路信息
     async addRoute(data) {
       let res = await touristRoute.addRoute(data)
+      this.buttonLoading = false
       if (res.code == 20000) {
         this.dialogFormVisible = false
         this.$message.success("添加成功")
@@ -165,6 +186,7 @@ export default {
     // 调用接口修改线路信息
     async updateRoute(data) {
       let res = await touristRoute.updateRoute(data)
+      this.buttonLoading = false
       if (res.code == 20000) {
         this.dialogFormVisible = false
         this.$message.success("修改成功")
@@ -215,6 +237,7 @@ export default {
 
     // 确定按钮, flag为1就添加线路，为0就修改线路
     handleModify() {
+      this.buttonLoading = true
       if (this.flag === 1) {
         this.addRoute(this.curRoute)
       } else {

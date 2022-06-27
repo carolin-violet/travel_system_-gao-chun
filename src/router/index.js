@@ -74,6 +74,8 @@ export const constantRoutes = [
   { path: '*', redirect: '/404', hidden: true }
 ]
 
+
+
 export const asyncRoutes = [
   // 超级管理员管理普通管理员
   {
@@ -102,6 +104,29 @@ export const asyncRoutes = [
         meta: { title: '权限管理', icon: 'table', role: 'ROLE_MANAGER' },
         hidden: true
       },
+    ]
+  },
+
+  // 订单管理
+  {
+    path: '/order',
+    component: Layout,
+    redirect: '/order/ticket',
+    name: 'Order',
+    meta: { title: '订单管理', icon: 'el-icon-user-solid', role: 'ROLE_ORDER' },
+    children: [
+      {
+        path: 'ticket',
+        name: 'Ticket',
+        component: () => import('@/views/order/ticket/index'),
+        meta: { title: '门票订单', icon: 'el-icon-s-management', role: 'ROLE_ORDER'}
+      },
+      {
+        path: 'groupBooking',
+        name: 'GroupBooking',
+        component: () => import('@/views/order/groupBooking/index'),
+        meta: { title: '拼团订单', icon: 'users', role: 'ROLE_ORDER'}
+      }
     ]
   },
 
