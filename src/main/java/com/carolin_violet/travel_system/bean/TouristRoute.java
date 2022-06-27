@@ -45,6 +45,10 @@ public class TouristRoute implements Serializable {
      */
     private String reason;
 
+    private Float price;
+
+    private Float discountPrice;
+
     /**
      * 逻辑删除
      */

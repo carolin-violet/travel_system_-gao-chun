@@ -50,6 +50,10 @@ public class ScenicSpot implements Serializable {
      */
     private Integer popular;
 
+    private Float price;
+
+    private Float discountPrice;
+
     /**
      * 逻辑删除
      */
