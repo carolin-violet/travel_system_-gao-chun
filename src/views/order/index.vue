@@ -161,6 +161,9 @@
         <el-form-item label="预约人姓名" :label-width="formLabelWidth">
           <el-input v-model="curOrder.name"  autocomplete="off"></el-input>
         </el-form-item>
+        <el-form-item label="预约人联系方式" :label-width="formLabelWidth">
+          <el-input v-model="curOrder.phone"  autocomplete="off"></el-input>
+        </el-form-item>
         <el-form-item label="成年人数" :label-width="formLabelWidth">
           <el-input v-model="curOrder.adult"  autocomplete="off"></el-input>
         </el-form-item>
