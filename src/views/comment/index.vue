@@ -14,6 +14,7 @@
       <el-table-column
         type="index"
         :index="calcIndex"
+        align="center"
         width="50">
       </el-table-column>
       <el-table-column

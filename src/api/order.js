@@ -2,10 +2,11 @@ import request from '@/utils/request'
 
 export default {
   // 根据时间进行分页条件查询
-  getOrder(mark, cur, limit, date) {
+  getOrder(cur, limit, data) {
     return request({
-      url: `/travel_system/order/pageOrder/${mark}/${cur}/${limit}/${date}`,
-      method: 'get'
+      url: `/travel_system/order/pageOrder/${cur}/${limit}`,
+      method: 'post',
+      data
     })
   },
 

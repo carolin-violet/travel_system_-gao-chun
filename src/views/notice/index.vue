@@ -19,6 +19,7 @@
       <el-table-column
         type="index"
         :index="calcIndex"
+        align="center"
         width="50">
       </el-table-column>
       <el-table-column
@@ -87,7 +88,7 @@
     </el-pagination>
 
 
-    <!--   添加删除用的表单 -->
+    <!--   添加修改用的表单 -->
     <el-dialog title="公告信息" :visible.sync="dialogFormVisible">
       <el-form
         :model="curNotice"
