@@ -74,10 +74,13 @@
           <el-input v-model="curOrder.phone"  autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="成年人数" :label-width="formLabelWidth">
-          <el-input v-model="curOrder.adult"  autocomplete="off"></el-input>
+          <el-input-number v-model="curOrder.adult" @change="changeAmount" :min="0" :max="50"></el-input-number>
         </el-form-item>
         <el-form-item label="未成年人数" :label-width="formLabelWidth">
-          <el-input v-model="curOrder.child"  autocomplete="off"></el-input>
+          <el-input-number v-model="curOrder.child" @change="changeAmount" :min="0" :max="50"></el-input-number>
+        </el-form-item>
+        <el-form-item>
+          总金额: {{ curOrder.amount }}
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -113,7 +116,12 @@ export default {
       loading: true,
       dialogFormVisible: false,
       formLabelWidth: "120px",
-      curOrder: {},
+      curOrder: {
+        adult: 0,
+        child: 0,
+        mark: 'scenic',
+        amount: 0
+      },
       pickerOptions: {
         shortcuts: [{
           text: '今天',
@@ -198,6 +206,11 @@ export default {
 
     // 填好信息跳转支付
     handlePay() {
+      console.log(this.curOrder)
+    },
+
+    // 人数变化就更新总金额
+    changeAmount() {
 
     }
   }
