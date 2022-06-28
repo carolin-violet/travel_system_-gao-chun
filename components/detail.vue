@@ -41,7 +41,7 @@
 <!--        写评论-->
         <section class="flex-1 h-full text-center pt-16">
           <div class="w-4/5 h-3/5 mx-auto text-4xl space-y-16">
-            <div class="w-full h-32 bg-purple-500 text-left">
+            <div class="w-96 h-24 text-left cursor-pointer text-yellow-300" @click="handleBook">
               <i class="iconfont icon-yuding text-6xl"></i>
               <strong class="text-6xl">点击预订</strong>
             </div>
@@ -54,6 +54,47 @@
           </div>
         </section>
       </section>
+
+
+    <!--   预购表单 -->
+    <el-dialog title="订单信息" :visible.sync="dialogFormVisible">
+      <el-form :model="curOrder">
+        <el-form-item label="订单id" :label-width="formLabelWidth">
+          <el-input v-model="curOrder.id" disabled autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="商品id" :label-width="formLabelWidth">
+          <el-input v-model="curOrder.commodityId" disabled  autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="游客id" :label-width="formLabelWidth">
+          <el-input v-model="curOrder.touristId" disabled autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="预约时间" :label-width="formLabelWidth">
+          <el-date-picker
+            v-model="curOrder.appointmentTime"
+            align="left"
+            value-format="yyyy-MM-dd"
+            placeholder="选择日期"
+            :picker-options="pickerOptions">
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="预约人姓名" :label-width="formLabelWidth">
+          <el-input v-model="curOrder.name"  autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="成年人数" :label-width="formLabelWidth">
+          <el-input v-model="curOrder.adult"  autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="未成年人数" :label-width="formLabelWidth">
+          <el-input v-model="curOrder.child"  autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="总金额" :label-width="formLabelWidth">
+          <el-input v-model="curOrder.amount"  autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">取 消</el-button>
+        <el-button type="primary" @click="handleModify">确 定</el-button>
+      </div>
+    </el-dialog>
 
   </div>
 </template>
@@ -79,7 +120,10 @@ export default {
       total: null,
       continueNum: 3,
       comment: null,
-      loading: true
+      loading: true,
+      dialogFormVisible: false,
+      formLabelWidth: "120px",
+      curOrder: {}
     }
   },
   computed: {
@@ -127,6 +171,9 @@ export default {
     changeLoading() {
       this.loading = false
     },
+    handleBook() {
+      this.dialogFormVisible = true
+    }
   }
 }
 </script>
