@@ -36,10 +36,14 @@ public class OrderFormController {
 
         Page<OrderForm> orderPage = new Page<>(current, limit);
         QueryWrapper<OrderForm> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("create_time").eq("mark", orderVo.getMark());
+        wrapper.orderByDesc("create_time");
 
         if (orderVo.getDate() != null) {
             wrapper.eq("appointment_time", orderVo.getDate());
+        }
+
+        if (orderVo.getMark() != null) {
+            wrapper.eq("mark", orderVo.getMark());
         }
 
         orderFormService.page(orderPage, wrapper);
