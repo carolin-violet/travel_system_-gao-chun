@@ -111,21 +111,12 @@ export const asyncRoutes = [
   {
     path: '/order',
     component: Layout,
-    redirect: '/order/ticket',
-    name: 'Order',
-    meta: { title: '订单管理', icon: 'el-icon-user-solid', role: 'ROLE_ORDER' },
     children: [
       {
-        path: 'ticket',
-        name: 'Ticket',
-        component: () => import('@/views/order/ticket/index'),
-        meta: { title: '门票订单', icon: 'el-icon-s-management', role: 'ROLE_ORDER'}
-      },
-      {
-        path: 'groupBooking',
-        name: 'GroupBooking',
-        component: () => import('@/views/order/groupBooking/index'),
-        meta: { title: '拼团订单', icon: 'users', role: 'ROLE_ORDER'}
+        path: 'orderMenu',
+        name: 'OrderMenu',
+        component: () => import('@/views/order/index'),
+        meta: { title: '订单菜单', icon: 'el-icon-s-management', role: 'ROLE_ORDER'}
       }
     ]
   },

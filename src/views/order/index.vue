@@ -1,5 +1,25 @@
 <template>
   <div class="order-container">
+    <el-row style="margin: 20px 20px" :gutter="20">
+      <el-col :span="8">
+        <el-date-picker
+          v-model="orderVo.date"
+          value-format="yyyy-MM-dd"
+          placeholder="选择日期"
+          :picker-options="pickerOptions">
+        </el-date-picker>
+      </el-col>
+      <el-col :span="8">
+        <el-radio-group v-model="orderVo.mark">
+          <el-radio label="scenic" border>门票订单</el-radio>
+          <el-radio label="route" border>拼团订单</el-radio>
+        </el-radio-group>
+      </el-col>
+      <el-col :span="8">
+        <el-button type="success" @click="resetCondition">重置</el-button>
+        <el-button type="primary" @click="getPageOrder" style="margin-left: 30px">确定</el-button>
+      </el-col>
+    </el-row>
 
     <!--   展示表格 -->
     <el-table
@@ -185,14 +205,13 @@ export default {
   data () {
     return {
       orderVo: {
-        mark: "scenic",
-        date: ''
+        mark: null,
+        date: null
       },
       orderList: [],
       total: null,
       current: 1,
       limit: 10,
-      date: 'all',
       dialogFormVisible: false,
       formLabelWidth: "120px",
       curOrder: {},
@@ -286,6 +305,11 @@ export default {
 
     calcIndex(index) {
       return (this.current -1) * this.limit + index + 1
+    },
+
+    resetCondition() {
+      this.orderVo.mark = null
+      this.orderVo.date = null
     }
   }
 }
