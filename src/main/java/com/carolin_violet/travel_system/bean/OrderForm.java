@@ -1,12 +1,16 @@
 package com.carolin_violet.travel_system.bean;
 
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * <p>
@@ -42,6 +46,7 @@ public class OrderForm implements Serializable {
     /**
      * 预约时间
      */
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd", timezone = "GMT+8")
     private Date appointmentTime;
 
     /**
@@ -72,7 +77,7 @@ public class OrderForm implements Serializable {
     /**
      * 总金额
      */
-    private Integer amount;
+    private Float amount;
 
     /**
      * 是否已支付，支付为1，未支付为0
@@ -82,16 +87,20 @@ public class OrderForm implements Serializable {
     /**
      * 是否删除
      */
+    @TableLogic
+    @TableField(fill = FieldFill.INSERT)
     private Integer isDeleted;
 
     /**
      * 订单创建时间
      */
+    @TableField(fill = FieldFill.INSERT)
     private Date createTime;
 
     /**
      * 订单修改时间
      */
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date modifyTime;
 
 

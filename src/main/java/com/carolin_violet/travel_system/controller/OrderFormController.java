@@ -4,6 +4,7 @@ package com.carolin_violet.travel_system.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.carolin_violet.travel_system.bean.OrderForm;
+import com.carolin_violet.travel_system.bean.vo.OrderVo;
 import com.carolin_violet.travel_system.service.OrderFormService;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +31,15 @@ public class OrderFormController {
 
     // 根据时间、mark进行分页条件查询
     @PreAuthorize("hasAnyAuthority('ROLE_ORDER')")
-    @GetMapping("pageOrder/{mark}/{current}/{limit}/{date}")
-    public R getPageOrder(@PathVariable String mark, @PathVariable long current, @PathVariable long limit, @PathVariable String date) {
+    @PostMapping("pageOrder/{current}/{limit}")
+    public R getPageOrder(@RequestBody OrderVo orderVo, @PathVariable long current, @PathVariable long limit) {
 
         Page<OrderForm> orderPage = new Page<>(current, limit);
         QueryWrapper<OrderForm> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("create_time");
-        wrapper.eq("mark", mark);
+        wrapper.orderByDesc("create_time").eq("mark", orderVo.getMark());
 
-        if (date != null) {
-            wrapper.eq("appointment_time", date);
+        if (orderVo.getDate() != null) {
+            wrapper.eq("appointment_time", orderVo.getDate());
         }
 
         orderFormService.page(orderPage, wrapper);
