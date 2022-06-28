@@ -172,6 +172,8 @@ export default {
       this.loading = false
     },
     handleBook() {
+      this.curOrder.commodityId = this.$route.fullPath.split('/')[2]
+      this.curOrder.touristId = this.userInfo.id
       this.dialogFormVisible = true
     }
   }
