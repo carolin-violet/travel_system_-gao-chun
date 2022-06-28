@@ -40,7 +40,7 @@
         <div class="relative float-left h-10 w-10 group">
           <img class="tourist-avatar h-10 w-10 rounded-full ring-2 ring-white" src="/固城湖.webp" alt="">
           <div class="avatar-nav absolute w-24 h-18 pt-2 space-y-2 text-indigo-300 text-xl mt-1 pl-1 opacity-0 transition-all duration-300 group-hover:opacity-100">
-            <div class="cursor-pointer"><a href="" class="hover:underline">个人信息</a></div>
+            <div class="cursor-pointer"><a rel="nofollow" href="/profile" class="hover:underline">个人信息</a></div>
             <div class="cursor-pointer"><a href="/" class="hover:underline" @click="handleLogout">退出登录</a></div>
           </div>
         </div>

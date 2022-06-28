@@ -2,7 +2,7 @@
   <!--    主体内容-->
   <div class="relative detail-container w-screen h-auto pt-28 bg-black">
       <!--    上半部分介绍-->
-      <section class="info-container w-full h-auto">
+      <section class="relative info-container w-full h-auto">
         <div class="float-left mx-48" style="width: 640px; height: 400px">
           <div class="bg-gray-100 w-full h-full flex justify-center items-center text-white text-6xl" v-if="!detailData.photosList">图片加载中...</div>
           <detail-swiper :photosList="detailData.photosList"/>
@@ -11,16 +11,17 @@
       </section>
 
       <!--      评论区-->
-      <section class="w-full flex mt-3" style="height: 900px ">
+      <section class="relative w-full flex mt-3" style="height: 900px ">
 <!--        评论展示-->
         <section class="flex-1 h-full">
 <!--          用户评论-->
           <section class="w-11/12 h-5/6 space-y-10" v-if="total > 0">
             <div class="relative w-5/6 h-1/6 bg-purple-500 mx-auto text-black" v-for="comment in commentList" :key="comment.id">
-              <div class="absolute w-48 h-full bg-yellow-300 space-y-3 text-center pt-3.5">
+              <div class="absolute w-48 h-full bg-yellow-300 space-y-2 text-center pt-3.5">
                 <div class="w-12 h-12 mx-auto"><img src="/固城湖.webp" alt="" class="w-12 h-12 rounded-full"></div>
-                <div class="text-xl overflow-x-hidden">{{ comment.nickName }}</div>
-                <div class="text-xl">{{ formatDateTime(comment.time) }}</div>
+                <small class="block overflow-x-hidden">{{ comment.nickName }}</small>
+                <br>
+                <small class="block">{{ formatDateTime(comment.time) }}</small>
               </div>
               <div class="absolute relative w-4/5 h-full left-48 bg-gray-600 text-2xl pt-3.5">&nbsp;&nbsp;{{ comment.comment }}</div>
             </div>
@@ -31,7 +32,7 @@
 
 
 <!--          分页器-->
-          <section class="w-full h-1/6" v-show="total > 1">
+          <section class="relative w-full h-1/6" v-show="total > 1">
             <div class="w-full h-32 mx-auto space-x-3 text-center pt-8">
               <pagination :cur="cur" :limit="limit" :total="total" :continueNum="continueNum" @changePage="changePage"/>
             </div>
@@ -40,12 +41,16 @@
 <!--        写评论-->
         <section class="flex-1 h-full text-center pt-16">
           <div class="w-4/5 h-3/5 mx-auto text-4xl space-y-16">
-            <h2 class="text-left" v-if="detailData.positiveNum > 0">好评率：{{ applauseRate }}</h2>
-            <h3 class="text-black">尊敬的游客，您可以在下方发表您的意见</h3>
+            <div class="w-full h-32 bg-purple-500 text-left">
+              <i class="iconfont icon-yuding text-6xl"></i>
+              <strong class="text-6xl">点击预订</strong>
+            </div>
+            <h2 class="text-left text-white" v-if="detailData.positiveNum > 0">好评率：{{ applauseRate }}</h2>
+            <h3 class="text-white">尊敬的游客，您可以在下方发表您的意见</h3>
             <div class="w-full h-96">
               <textarea v-model="comment" cols="30" rows="10" class="w-full h-full bg-indigo-300 bg-opacity-70 backdrop-filter backdrop-blur-3xl rounded-3xl focus:outline-none text-white pl-6 pt-6"></textarea>
             </div>
-            <button class="w-32 h-24 bg-blue-400" @click="uploadComment">确定</button>
+            <button class="relative w-56 h-24 bg-indigo-300 rounded-3xl text-white" @click="uploadComment">确定</button>
           </div>
         </section>
       </section>
