@@ -59,19 +59,9 @@
     <!--   预购表单 -->
     <el-dialog title="订单信息" :visible.sync="dialogFormVisible">
       <el-form :model="curOrder">
-        <el-form-item label="订单id" :label-width="formLabelWidth">
-          <el-input v-model="curOrder.id" disabled autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="商品id" :label-width="formLabelWidth">
-          <el-input v-model="curOrder.commodityId" disabled  autocomplete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="游客id" :label-width="formLabelWidth">
-          <el-input v-model="curOrder.touristId" disabled autocomplete="off"></el-input>
-        </el-form-item>
         <el-form-item label="预约时间" :label-width="formLabelWidth">
           <el-date-picker
             v-model="curOrder.appointmentTime"
-            align="left"
             value-format="yyyy-MM-dd"
             placeholder="选择日期"
             :picker-options="pickerOptions">
@@ -80,19 +70,19 @@
         <el-form-item label="预约人姓名" :label-width="formLabelWidth">
           <el-input v-model="curOrder.name"  autocomplete="off"></el-input>
         </el-form-item>
+        <el-form-item label="预约人联系方式" :label-width="formLabelWidth">
+          <el-input v-model="curOrder.phone"  autocomplete="off"></el-input>
+        </el-form-item>
         <el-form-item label="成年人数" :label-width="formLabelWidth">
           <el-input v-model="curOrder.adult"  autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="未成年人数" :label-width="formLabelWidth">
           <el-input v-model="curOrder.child"  autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="总金额" :label-width="formLabelWidth">
-          <el-input v-model="curOrder.amount"  autocomplete="off"></el-input>
-        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handleModify">确 定</el-button>
+        <el-button type="primary" @click="handlePay">跳转支付</el-button>
       </div>
     </el-dialog>
 
@@ -123,7 +113,29 @@ export default {
       loading: true,
       dialogFormVisible: false,
       formLabelWidth: "120px",
-      curOrder: {}
+      curOrder: {},
+      pickerOptions: {
+        shortcuts: [{
+          text: '今天',
+          onClick(picker) {
+            picker.$emit('pick', new Date());
+          }
+        }, {
+          text: '昨天',
+          onClick(picker) {
+            const date = new Date();
+            date.setTime(date.getTime() - 3600 * 1000 * 24);
+            picker.$emit('pick', date);
+          }
+        }, {
+          text: '一周前',
+          onClick(picker) {
+            const date = new Date();
+            date.setTime(date.getTime() - 3600 * 1000 * 24 * 7);
+            picker.$emit('pick', date);
+          }
+        }]
+      },
     }
   },
   computed: {
@@ -140,19 +152,23 @@ export default {
     this.getPageData()
   },
   methods: {
+    // 格式化日期
     formatDateTime(time) {
       const commentTime = format(new Date(time), 'yyyy-MM-dd HH:mm:ss')
       return commentTime
     },
+    // 改变页码
     changePage(page) {
       this.cur = page
       this.getPageData()
     },
+    // 获取一页评论
     async getPageData() {
       let res = await this.$axios.get(`/comment/${this.$route.params.id}/${this.cur}/${this.limit}`)
       this.commentList = res.data.CommentDetailList
       this.total = res.data.commentNum
     },
+    // 添加评论
     async uploadComment() {
       const data = {
         comment: this.comment,
@@ -168,13 +184,21 @@ export default {
         this.$message.error('添加评论失败')
       }
     },
+
+    // 占位图片的添加与删除
     changeLoading() {
       this.loading = false
     },
+    // 点击预订按钮
     handleBook() {
       this.curOrder.commodityId = this.$route.fullPath.split('/')[2]
       this.curOrder.touristId = this.userInfo.id
       this.dialogFormVisible = true
+    },
+
+    // 填好信息跳转支付
+    handlePay() {
+
     }
   }
 }
