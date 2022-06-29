@@ -2,11 +2,18 @@ package com.carolin_violet.travel_system.controller.Front;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.carolin_violet.travel_system.bean.OrderForm;
+import com.carolin_violet.travel_system.bean.ScenicSpot;
+import com.carolin_violet.travel_system.bean.TouristRoute;
+import com.carolin_violet.travel_system.bean.vo.OrderVo2;
 import com.carolin_violet.travel_system.service.OrderFormService;
+import com.carolin_violet.travel_system.service.ScenicSpotService;
+import com.carolin_violet.travel_system.service.TouristRouteService;
 import com.carolin_violet.travel_system.utils.R;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,14 +33,48 @@ public class ItemOrderController {
     @Autowired
     private OrderFormService orderFormService;
 
-    // 游客查询自己的历史订单
-    @GetMapping("getAllOrder/{tourisId}")
-    public R getAllOrder(@PathVariable String tourisId) {
-        QueryWrapper<OrderForm> wrapper = new QueryWrapper<OrderForm>();
-        wrapper.eq("tourist_id", tourisId);
+    @Autowired
+    private ScenicSpotService scenicSpotService;
 
+    @Autowired
+    private TouristRouteService touristRouteService;
+
+    // 游客查询自己的历史订单
+    @GetMapping("getAllOrder/{touristId}/{isPaid}")
+    public R getAllOrder(@PathVariable String touristId, @PathVariable Integer isPaid) {
+        // 游客查询到自己所有的订单
+        QueryWrapper<OrderForm> wrapper = new QueryWrapper<OrderForm>();
+        wrapper.eq("tourist_id", touristId);
+
+        if (isPaid == 0) {
+            wrapper.eq("is_paid", isPaid);
+        }
         List<OrderForm> orderForms = orderFormService.list(wrapper);
-        return R.ok().data("rows", orderForms);
+
+        // 每一个订单再查询对应的名称(景点、线路拼团)
+        List<OrderVo2> orderList = new ArrayList<>();
+        for (OrderForm order: orderForms) {
+            System.out.println(order.toString());
+            OrderVo2 orderItem = new OrderVo2();
+            orderItem.setId(order.getId());
+            orderItem.setAmount(order.getAmount());
+
+            if ("scenic".equals(order.getMark())) {
+                ScenicSpot scenicSpot = scenicSpotService.getById(order.getCommodityId());
+                orderItem.setTitle(scenicSpot.getName() + "(门票)");
+                orderItem.setPrice(scenicSpot.getPrice());
+                orderItem.setDiscountPrice(scenicSpot.getDiscountPrice());
+            } else if ("route".equals(order.getMark())) {
+                TouristRoute touristRoute = touristRouteService.getById(order.getCommodityId());
+                orderItem.setTitle(touristRoute.getTitle() + "(线路拼团)");
+                orderItem.setPrice(touristRoute.getPrice());
+                orderItem.setDiscountPrice(touristRoute.getDiscountPrice());
+            }
+
+            orderList.add(orderItem);
+        }
+
+        return R.ok().data("rows", orderList);
     }
 
     // 游客新增订单，可以是拼单也可以是单买门票
@@ -58,7 +99,7 @@ public class ItemOrderController {
         }
     }
 
-    // 取消订单
+    // 删除订单
     @DeleteMapping("{id}")
     public R delOrder(@PathVariable String id) {
         boolean flag = orderFormService.removeById(id);
