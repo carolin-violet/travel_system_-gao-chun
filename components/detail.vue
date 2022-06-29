@@ -4,7 +4,6 @@
       <!--    上半部分介绍-->
       <section class="relative info-container w-full h-auto">
         <div class="float-left mx-48" style="width: 640px; height: 400px">
-          <div class="bg-gray-100 w-full h-full flex justify-center items-center text-white text-6xl" v-if="!detailData.photosList">图片加载中...</div>
           <detail-swiper :photosList="detailData.photosList"/>
         </div>
         <div class="float-left text-3xl px-8 pt-6 bg-black bg-opacity-60 text-white" style="width: 900px; height: 400px">&nbsp;&nbsp;{{ detailData.description}}</div>
@@ -92,7 +91,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="handlePay">跳转支付</el-button>
+        <el-button type="primary" @click="handlePay" :loading="loading">跳转支付</el-button>
       </div>
     </el-dialog>
 
@@ -120,14 +119,15 @@ export default {
       total: null,
       continueNum: 3,
       comment: null,
-      loading: true,
+      loading: false,
       dialogFormVisible: false,
       formLabelWidth: "120px",
       curOrder: {
         adult: 0,
         child: 0,
         mark: 'scenic',
-        amount: 0
+        amount: 0,
+        isPaid: 0
       },
       pickerOptions: {
         shortcuts: [{
@@ -200,10 +200,7 @@ export default {
       }
     },
 
-    // 占位图片的添加与删除
-    changeLoading() {
-      this.loading = false
-    },
+
     // 点击预订按钮
     handleBook() {
       this.curOrder.commodityId = this.$route.fullPath.split('/')[2]
@@ -211,9 +208,17 @@ export default {
       this.dialogFormVisible = true
     },
 
-    // 填好信息跳转支付
-    handlePay() {
+    // 提交订单信息并跳转支付
+    async handlePay() {
       console.log(this.curOrder)
+      this.loading = true
+      let res = await this.$axios.post('/addOrder',this.curOrder)
+      if (res.code === 20000) {
+        this.$router.push('/shoppingCart')
+      } else {
+        this.$message.error('创建订单失败')
+      }
+      this.loading = false
     },
 
     // 人数变化就更新总金额
