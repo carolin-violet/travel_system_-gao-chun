@@ -94,7 +94,11 @@ public class MainInfoController {
         wrapper4.eq("sentiment", 0).eq("mark_id", id);
         int negativeNum = commentService.count(wrapper4);
 
-        return R.ok().data("photosList", photosList).data("description", hotel.getDescription()).data("positiveNum", positiveNum).data("negativeNum", negativeNum).data("commentNum", commentNum);
+        return R.ok().data("photosList", photosList)
+                .data("description", hotel.getDescription())
+                .data("positiveNum", positiveNum)
+                .data("negativeNum", negativeNum)
+                .data("commentNum", commentNum);
     }
 
 
@@ -140,7 +144,12 @@ public class MainInfoController {
         wrapper4.eq("sentiment", 0).eq("mark_id", id);
         int negativeNum = commentService.count(wrapper4);
 
-        return R.ok().data("photosList", photosList).data("description", delicacy.getDescription()).data("CommentDetailList", CommentDetailList).data("positiveNum", positiveNum).data("negativeNum", negativeNum).data("commentNum", commentNum);
+        return R.ok().data("photosList", photosList)
+                .data("description", delicacy.getDescription())
+                .data("CommentDetailList", CommentDetailList)
+                .data("positiveNum", positiveNum)
+                .data("negativeNum", negativeNum)
+                .data("commentNum", commentNum);
     }
 
     // 获取景点详情(景点主页),包括5张轮播图壁纸,详情描述、最近的5条评论，好评总数、差评总数
@@ -185,7 +194,14 @@ public class MainInfoController {
         wrapper4.eq("sentiment", 0).eq("mark_id", id);
         int negativeNum = commentService.count(wrapper4);
 
-        return R.ok().data("photosList", photosList).data("description", scenicSpot.getDescription()).data("CommentDetailList", CommentDetailList).data("positiveNum", positiveNum).data("negativeNum", negativeNum).data("commentNum", commentNum);
+        return R.ok().data("photosList", photosList)
+                .data("description", scenicSpot.getDescription())
+                .data("CommentDetailList", CommentDetailList)
+                .data("positiveNum", positiveNum)
+                .data("negativeNum", negativeNum)
+                .data("commentNum", commentNum)
+                .data("price",scenicSpot.getPrice())
+                .data("discountPrice", scenicSpot.getDiscountPrice());
     }
 
 }
