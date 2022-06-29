@@ -6,6 +6,20 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "2076353",
+      "name": "门票",
+      "font_class": "menpiao",
+      "unicode": "e8b1",
+      "unicode_decimal": 59569
+    },
+    {
+      "icon_id": "2272957",
+      "name": "线路",
+      "font_class": "xianlu",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
       "icon_id": "6844456",
       "name": "预订",
       "font_class": "yuding",
