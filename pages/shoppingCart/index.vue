@@ -1,6 +1,6 @@
 <template>
-  <div>
-    pay
+  <div class="w-screen min-h-screen bg-green-300">
+
   </div>
 </template>
 

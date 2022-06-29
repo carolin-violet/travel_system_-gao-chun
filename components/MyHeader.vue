@@ -7,7 +7,7 @@
         <h1><img class="h-32 w-32" src="logo.png" alt="美丽高淳-南京后花园" title="美丽高淳-南京后花园"></h1>
       </section>
 <!--      导航栏-->
-      <section class="absolute w-3/5 h-14 left-1/2 transform -translate-x-1/2 inline-flex text-center items-center text-white  font-serif text-3xl font-black">
+      <section class="absolute w-3/5 h-14 left-1/2 transform -translate-x-1/2 inline-flex text-center items-center text-black font-serif text-3xl font-black">
         <div class="nav-item relative flex-1 cursor-pointer hover:text-indigo-200">
           <a href="/" title="游高淳-首页">首页</a>
         </div>
