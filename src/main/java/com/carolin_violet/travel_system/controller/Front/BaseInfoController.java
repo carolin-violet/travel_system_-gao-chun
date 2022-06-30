@@ -37,8 +37,6 @@ public class BaseInfoController {
         // 判断游客是否存在
         if (tourist!=null) {
             // 判断密码是否正确
-            System.out.println(touristVo.getPassword());
-            System.out.println(tourist.getPassword());
             boolean matches = BCrypt.checkpw(touristVo.getPassword(), tourist.getPassword());
             if (matches) {
                 String token = JwtUtils.getJwtToken(tourist.getId(), tourist.getNickName());
@@ -70,9 +68,10 @@ public class BaseInfoController {
     }
 
     // 游客修改信息
-    @PostMapping("updateInfo")
+    @PutMapping("updateInfo")
     public R updateInfo(@RequestBody Tourist tourist) {
-        boolean save = touristService.save(tourist);
+        tourist.setPassword(BCrypt.hashpw(tourist.getPassword(), BCrypt.gensalt()));
+        boolean save = touristService.updateById(tourist);
         if (save) {
             return R.ok();
         } else {
