@@ -73,7 +73,7 @@
 
       <span slot="footer" class="dialog-footer">
     <el-button type="warning" @click="dialogVisible = false">支付遇到问题?</el-button>
-    <el-button type="primary" @click="dialogVisible = false">已完成支付</el-button>
+    <el-button type="primary" @click="successPay">已完成支付</el-button>
   </span>
     </el-dialog>
   </div>
@@ -204,6 +204,16 @@ export default {
         });
       });
     },
+
+    // 完成支付按钮
+    async successPay() {
+      for (const id of this.payList) {
+        const data = {id, isPaid: 1}
+        let res = await this.$axios.put('/updateOrder', data)
+      }
+      this.getOrders()
+      this.dialogVisible = false
+    }
 
   },
 
