@@ -7,15 +7,19 @@
         <div class="border-b-2" style="height: 48px; line-height: 48px; padding-left: 30px">
           <span class="text-gray-400 text-xl">个人中心</span>
         </div>
-        <div class="cursor-pointer" style="height: 48px; line-height: 48px; padding-left: 30px" @click="changeNav(0, '/profile')" :class="{'bg-blue-300': curIndex===0, 'text-white': curIndex===0}">
+        <div class="cursor-pointer" style="height: 48px; line-height: 48px; padding-left: 30px" @click="changeNav('/profile')" :class="{'bg-blue-300': curTitle === '首页', 'text-white': curTitle === '首页'}">
           <i class="iconfont icon-home"></i>
           <nuxt-link to="/profile">首页</nuxt-link>
         </div>
-        <div class="cursor-pointer" style="height: 48px; line-height: 48px; padding-left: 30px" @click="changeNav(1, '/profile/userInfo')" :class="{'bg-blue-300': curIndex===1, 'text-white': curIndex===1}">
+        <div class="cursor-pointer" style="height: 48px; line-height: 48px; padding-left: 30px" @click="changeNav('/profile/userInfo')" :class="{'bg-blue-300': curTitle === '个人信息', 'text-white': curTitle === '个人信息'}">
           <i class="iconfont icon-user"></i>
           <nuxt-link to="/profile/userInfo">个人信息</nuxt-link>
         </div>
-        <div class="cursor-pointer" style="height: 48px; line-height: 48px; padding-left: 30px" @click="changeNav(2, '/profile/order')" :class="{'bg-blue-300': curIndex===2, 'text-white': curIndex===2}">
+        <div class="cursor-pointer" style="height: 48px; line-height: 48px; padding-left: 30px" @click="changeNav('/profile/password')" :class="{'bg-blue-300': curTitle === '修改密码', 'text-white': curTitle === '修改密码'}">
+          <i class="iconfont icon-password"></i>
+          <nuxt-link to="/profile/userInfo">修改密码</nuxt-link>
+        </div>
+        <div class="cursor-pointer" style="height: 48px; line-height: 48px; padding-left: 30px" @click="changeNav('/profile/order')" :class="{'bg-blue-300': curTitle === '历史订单', 'text-white': curTitle === '历史订单'}">
           <i class="iconfont icon-yuding"></i>
           <nuxt-link to="/profile/order">历史订单</nuxt-link>
         </div>
@@ -38,24 +42,24 @@ export default {
   name: "profile",
   data () {
     return {
-      curIndex: 0
+
     }
   },
   computed: {
     curTitle() {
       let title
-      switch (this.curIndex) {
-        case 0: title = '首页';break;
-        case 1: title = '个人中心';break;
-        case 2: title = '历史订单';break;
+      switch (this.$route.fullPath.split('/')[2]) {
+        case undefined: title = '首页';break;
+        case 'userInfo': title = '个人信息';break;
+        case 'order': title = '历史订单';break;
+        case 'password': title = '修改密码';break;
       }
       return title
     }
   },
 
   methods: {
-    changeNav(index, url) {
-      this.curIndex = index
+    changeNav(url) {
       this.$router.push(url)
     }
   }
