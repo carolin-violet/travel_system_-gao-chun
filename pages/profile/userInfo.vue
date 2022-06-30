@@ -50,7 +50,6 @@ export default {
 
   methods: {
     async changeInfo() {
-      console.log(this.curInfo)
       let res = await this.$axios.put('updateInfo', this.curInfo)
       if (res.code === 20000) {
         this.$message.success('修改信息成功,请重新登录')

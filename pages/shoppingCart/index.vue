@@ -116,7 +116,7 @@ export default {
   methods: {
     // 获取未支付的订单
     async getOrders() {
-      let res = await this.$axios.get(`/getAllOrder/${this.touristId}/0`)
+      let res = await this.$axios.get(`/getUnPaidOrder/${this.touristId}`)
       this.orderList = res.data.rows.map(order => {
         order.checked = false
         return order
