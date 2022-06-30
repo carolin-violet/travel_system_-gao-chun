@@ -16,34 +16,49 @@
           <div class="flex-1">人数统计</div>
           <div class="flex-1">预订时间</div>
           <div class="flex-1">总金额</div>
+          <div class="flex-1">操作</div>
         </section>
 <!--        订单列表-->
-        <section class="order-item w-full flex items-center text-center space-x-5 my-5 py-5 bg-gray-100 rounded-2xl" v-for="order in orderList" :key="order.id">
+        <section class="order-item w-full flex items-center text-center space-x-5 my-5 py-5 bg-gray-100 rounded-2xl" :class="order.checked ? 'bg-red-100 border-2 border-red-500' : ''" v-for="order in orderList" :key="order.id">
           <div class="flex-1">
             <span>选择</span>
             <input type="checkbox" v-model="order.checked" @click="handleCheck(order.id)">
           </div>
           <div class="flex-1">
-            <i :class="{iconfont: true, 'icon-menpiao': order.mark === 'scenic', 'icon-xianlu': order.mark === 'route'}"></i>
-            <a ref="nofollow" :href="order.mark === 'scenic' ? `/scenic/${order.commodityId}` : '/route'">{{ order.title }}</a>
+            <i :class="{iconfont: true, 'icon-menpiao': order.mark === 'scenic', 'icon-xianlu': order.mark === 'route'}" class="text-4xl"></i>
+            <a ref="nofollow" :href="order.mark === 'scenic' ? `/scenic/${order.commodityId}` : '/route'" :title="order.title ">{{ order.title }}</a>
           </div>
           <div class="flex-1">
             <div>成年人数：{{ order.adult }}</div>
             <div class="mt-3">未成年人数：{{ order.child }}</div>
           </div>
           <div class="flex-1">{{ order.appointmentTime }}</div>
-          <div class="flex-1">￥{{ order.amount.toFixed(2) }}</div>
+          <div class="flex-1 text-red-500 font-bold">￥{{ order.amount.toFixed(2) }}</div>
+          <div class="flex-1"><i class="iconfont icon-shanchu font-bold text-3xl cursor-pointer hover:text-red-400" @click="handleDelete(order)"></i></div>
         </section>
       </section>
       <hr>
       <section class="order-footer w-full px-6">
         <div class="float-right my-3">
-          <span>已选商品 <strong>{{ payList.length }}</strong> 件</span>
-          <span>合计: <strong class="text-red-500">{{ allAmount }}</strong></span>
-          <button>结算</button>
+          <span class="text-xl mr-3">已选商品 <strong class="font-bold text-red-500">{{ payList.length }}</strong> 件</span>
+          <span class="text-xl mr-3">合计: <strong class="font-bold text-red-500">{{ allAmount }}</strong></span>
+          <button class="w-28 h-16 rounded-2xl bg-gray-400 text-white text-2xl" :class="payList.length > 0 ? 'bg-red-400' : 'cursor-not-allowed'" :disabled="payList.length===0" @click="dialogVisible = true">结 算</button>
         </div>
       </section>
     </section>
+
+<!--    支付弹框-->
+    <el-dialog
+      title="提示"
+      :visible.sync="dialogVisible"
+      width="30%"
+      :before-close="handleClose">
+      <span>这是一段信息</span>
+      <span slot="footer" class="dialog-footer">
+    <el-button @click="dialogVisible = false">取 消</el-button>
+    <el-button type="warning" @click="dialogVisible = false">支付遇到问题?</el-button>
+  </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -58,6 +73,7 @@ export default {
       allChecked: false,
       allAmount: 0,
       payList: [],  // 存放需要支付的每一个商品的id
+      dialogVisible: false
     }
   },
 
@@ -128,8 +144,49 @@ export default {
       })
       this.payList = list
       this.allAmount = allAmount.toFixed(2)
+    },
+
+    // 判断是否有一个被选中
+    hasChecked() {
+      const checked = this.orderList.some(order => {
+        order.checked = true
+      })
+      console.log(checked)
+    },
+
+    // 支付弹框
+    handleClose(done) {
+      this.$confirm('确认关闭？')
+        .then(_ => {
+          done();
+        })
+        .catch(_ => {});
+    },
+
+    // 点击删除按钮
+    handleDelete(order) {
+      this.$confirm(`此操作将永久删除${order.title}, 是否继续?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'danger'
+      }).then(async () => {
+        let res = await this.$axios.delete(`delOrder/${order.id}`)
+        if (res.code === 20000) {
+          this.$message.success('删除成功!')
+          this.getOrders()
+        } else {
+          this.$message.error('删除失败')
+        }
+
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
     }
-  },
+
+  }
 }
 </script>
 
