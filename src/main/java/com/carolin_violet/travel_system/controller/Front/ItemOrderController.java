@@ -43,7 +43,7 @@ public class ItemOrderController {
     @GetMapping("getAllOrder/{touristId}/{isPaid}")
     public R getAllOrder(@PathVariable String touristId, @PathVariable Integer isPaid) {
         // 游客查询到自己所有的订单
-        QueryWrapper<OrderForm> wrapper = new QueryWrapper<OrderForm>();
+        QueryWrapper<OrderForm> wrapper = new QueryWrapper<>();
         wrapper.eq("tourist_id", touristId);
 
         if (isPaid == 0) {
@@ -56,19 +56,14 @@ public class ItemOrderController {
         for (OrderForm order: orderForms) {
             System.out.println(order.toString());
             OrderVo2 orderItem = new OrderVo2();
-            orderItem.setId(order.getId());
-            orderItem.setAmount(order.getAmount());
+            BeanUtils.copyProperties(order, orderItem);
 
             if ("scenic".equals(order.getMark())) {
                 ScenicSpot scenicSpot = scenicSpotService.getById(order.getCommodityId());
-                orderItem.setTitle(scenicSpot.getName() + "(门票)");
-                orderItem.setPrice(scenicSpot.getPrice());
-                orderItem.setDiscountPrice(scenicSpot.getDiscountPrice());
+                orderItem.setTitle("门票:" + scenicSpot.getName());
             } else if ("route".equals(order.getMark())) {
                 TouristRoute touristRoute = touristRouteService.getById(order.getCommodityId());
-                orderItem.setTitle(touristRoute.getTitle() + "(线路拼团)");
-                orderItem.setPrice(touristRoute.getPrice());
-                orderItem.setDiscountPrice(touristRoute.getDiscountPrice());
+                orderItem.setTitle("拼团:" + touristRoute.getTitle());
             }
 
             orderList.add(orderItem);
@@ -89,7 +84,7 @@ public class ItemOrderController {
     }
 
     // 修改订单信息,支付后修改订单信息为支付成功
-    @PostMapping("updateOrder")
+    @PutMapping("updateOrder")
      public R updateOrder(@RequestBody OrderForm orderForm) {
         boolean flag = orderFormService.updateById(orderForm);
         if (flag) {
@@ -99,8 +94,8 @@ public class ItemOrderController {
         }
     }
 
-    // 删除订单
-    @DeleteMapping("{id}")
+    // 游客删除自己的订单
+    @DeleteMapping("delOrder/{id}")
     public R delOrder(@PathVariable String id) {
         boolean flag = orderFormService.removeById(id);
         if (flag) {

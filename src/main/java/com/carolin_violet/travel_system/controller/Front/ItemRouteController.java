@@ -43,9 +43,12 @@ public class ItemRouteController {
         List routeDetailList = new ArrayList();
         for (TouristRoute route: touristRouteList) {
             Map map = new HashMap();
+            map.put("id", route.getId());
             map.put("title", route.getTitle());
             map.put("reason", route.getReason());
             map.put("description", route.getDescription());
+            map.put("price", route.getPrice());
+            map.put("discountPrice", route.getDiscountPrice());
 
             QueryWrapper<RouteDetail> wrapper = new QueryWrapper<>();
             wrapper.eq("route_id", route.getId());
