@@ -49,11 +49,23 @@
 
 <!--    支付弹框-->
     <el-dialog
-      title="提示"
+      title="请扫码支付"
       :visible.sync="dialogVisible"
       width="30%"
       :before-close="handleClose">
-      <span>这是一段信息</span>
+<!--      支付切换按钮-->
+      <section>
+        <button></button>
+      </section>
+      <section>
+        <span>共{{ allAmount }} 元</span>
+      </section>
+
+<!--      二维码图片-->
+      <section>
+
+      </section>
+
       <span slot="footer" class="dialog-footer">
     <el-button @click="dialogVisible = false">取 消</el-button>
     <el-button type="warning" @click="dialogVisible = false">支付遇到问题?</el-button>
