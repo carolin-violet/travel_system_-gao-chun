@@ -93,7 +93,7 @@
         width="100">
       </el-table-column>
       <el-table-column
-        label="知否支付"
+        label="是否支付"
         align="center"
         width="100">
         <template slot-scope="scope">
