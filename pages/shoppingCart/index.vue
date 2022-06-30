@@ -26,7 +26,7 @@
           </div>
           <div class="flex-1">
             <i :class="{iconfont: true, 'icon-menpiao': order.mark === 'scenic', 'icon-xianlu': order.mark === 'route'}" class="text-4xl"></i>
-            <a ref="nofollow" :href="order.mark === 'scenic' ? `/scenic/${order.commodityId}` : '/route'" :title="order.title ">{{ order.title }}</a>
+            <a rel="nofollow" :href="order.mark === 'scenic' ? `/scenic/${order.commodityId}` : '/route'" :title="order.title ">{{ order.title }}</a>
           </div>
           <div class="flex-1">
             <div>成年人数：{{ order.adult }}</div>
@@ -34,7 +34,7 @@
           </div>
           <div class="flex-1">{{ order.appointmentTime }}</div>
           <div class="flex-1 text-red-500 font-bold">￥{{ order.amount.toFixed(2) }}</div>
-          <div class="flex-1"><i class="iconfont icon-shanchu font-bold text-3xl cursor-pointer hover:text-red-400" @click="handleDelete(order)"></i></div>
+          <div class="flex-1"><i class="iconfont icon-shanchu font-bold text-4xl cursor-pointer hover:text-red-400" @click="handleDelete(order)"></i></div>
         </section>
       </section>
       <hr>
@@ -55,7 +55,10 @@
       :before-close="handleClose">
 <!--      支付切换按钮-->
       <section>
-        <button></button>
+        <el-radio-group v-model="radio" size="small">
+          <el-radio label="weixin" border>微信支付</el-radio>
+          <el-radio label="zhifubao" border>支付宝支付</el-radio>
+        </el-radio-group>
       </section>
       <section>
         <span>共{{ allAmount }} 元</span>
@@ -63,12 +66,14 @@
 
 <!--      二维码图片-->
       <section>
-
+        <client-only>
+          <vue-qr :logo-src="qrLogo" text="Hello!" :size="300"></vue-qr>
+        </client-only>
       </section>
 
       <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
     <el-button type="warning" @click="dialogVisible = false">支付遇到问题?</el-button>
+    <el-button type="primary" @click="dialogVisible = false">已完成支付</el-button>
   </span>
     </el-dialog>
   </div>
@@ -85,7 +90,9 @@ export default {
       allChecked: false,
       allAmount: 0,
       payList: [],  // 存放需要支付的每一个商品的id
-      dialogVisible: false
+      dialogVisible: false,
+      radio: 'weixin',
+      qrLogo: require('@/assets/images/avatar.webp')
     }
   },
 
@@ -196,8 +203,12 @@ export default {
           message: '已取消删除'
         });
       });
-    }
+    },
 
+  },
+
+  mounted() {
+    console.log('mounted')
   }
 }
 </script>

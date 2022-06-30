@@ -34,6 +34,7 @@ export default {
     { src: '~/plugins/vue-aplayer', mode: 'client' },
     {src: '~/plugins/element-ui', ssr: true },
     {src:'~/plugins/store-cache', ssr:false},
+    {src:'~/plugins/vueqr', ssr:false},   // 借鉴https://oitboy.com/detail?id=25  nuxt使用qrcode
     './plugins/axios.js'
   ],
 
