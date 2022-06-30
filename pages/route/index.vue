@@ -21,7 +21,6 @@ export default {
   },
   async asyncData(context) {
     let res = await context.app.$axios.get('/getRouteInfo')
-    console.log(res.data)
     return res.data
   },
   head(){

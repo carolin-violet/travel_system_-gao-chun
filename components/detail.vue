@@ -40,6 +40,7 @@
 <!--        写评论-->
         <section class="flex-1 h-full text-center pt-16">
           <div class="w-4/5 h-3/5 mx-auto text-4xl space-y-16">
+<!--            点击预订-->
             <div class="w-full h-auto text-left text-yellow-300 flex">
               <div class="w-1/2 mt-2 space-y-3">
                 <strong class="text-6xl">￥ {{ detailData.discountPrice }}</strong>
@@ -51,6 +52,7 @@
                 <strong class="text-6xl">点击预订</strong>
               </div>
             </div>
+<!--            写评论-->
             <h2 class="text-left text-white" v-if="detailData.positiveNum > 0">好评率：{{ applauseRate }}</h2>
             <h3 class="text-white">尊敬的游客，您可以在下方发表您的意见</h3>
             <div class="w-full h-96">

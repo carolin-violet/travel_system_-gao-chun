@@ -1,6 +1,6 @@
 <template>
   <div class="relative w-screen min-h-screen bg-gray-200">
-    <section class="order-container absolute w-1/2 h-auto bg-white rounded-3xl mt-36 left-1/2 transform -translate-x-1/2">
+    <section class="order-container absolute w-1/2 h-auto bg-white rounded-3xl mt-36 left-1/2 transform -translate-x-1/2 shadow-2xl">
       <section class="order-header w-full py-3 px-6">
         <strong class="text-3xl">购物车 （全部{{ orderList.length }}）</strong>
       </section>
