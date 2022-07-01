@@ -166,7 +166,11 @@ export default {
     // 调用接口获取所有线路信息
     async getPageRoute() {
       let res = await touristRoute.getPageRoute(this.current, this.limit)
-      this.routeList = res.data.items
+      this.routeList = res.data.items.map(item => {
+        item.price = item.price.toFixed(2)
+        item.discountPrice = item.discountPrice.toFixed(2)
+        return item
+      })
       this.total = res.data.total
     },
 

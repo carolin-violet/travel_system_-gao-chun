@@ -216,7 +216,11 @@ export default {
     // 调用接口获取所有景点信息
     async getPageScenicSpot() {
       let res = await scenicSpot.getPageScenicSpot(this.current, this.limit)
-      this.scenicSpotList = res.data.items
+      this.scenicSpotList = res.data.items.map(item => {
+        item.price = item.price.toFixed(2)
+        item.discountPrice = item.discountPrice.toFixed(2)
+        return item
+      })
       this.total = res.data.total
     },
 
