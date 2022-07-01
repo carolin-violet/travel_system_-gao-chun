@@ -35,6 +35,7 @@
       </section>
 <!--      个人头像信息-->
       <section class="absolute w-1/6 h-14  right-5 pt-2 pl-32">
+        <nuxt-link class="absolute left-16 " rel="nofollow" to="/shoppingCart"><i class="iconfont icon-gouwuchekong text-3xl"></i></nuxt-link>
         <span class="text-xl ml-3 text-white leading-10" v-if="userInfo.nickName">{{ userInfo.nickName }}</span>
         <a href="/login" class="text-xl text-white ml-3 leading-10" v-else>登录</a>
         <div class="relative float-left h-10 w-10 group">

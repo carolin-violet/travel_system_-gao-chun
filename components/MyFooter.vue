@@ -9,17 +9,22 @@
       </section>
 
 <!--      微信二维码、微博号等-->
-      <section class="absolute w-1/6 h-36 left-2/3 top-1/2 transform -translate-y-1/2 flex -space-x-16 pl-24 pt-6 text-center">
+      <section class="absolute w-1/3 h-36 left-2/3 top-1/2 transform -translate-y-1/2 flex -space-x-8 pl-24 pt-6 text-center">
         <div class="w-32">
           <i class="iconfont icon-weixin text-4xl text-green-500 cursor-pointer"></i>
           <div class="weixin-code w-24 h-24 mx-auto">
             <img src="http://www.chinacittaslow.com/statics/common/code_img.png" alt="">
           </div>
-
         </div>
+
         <div class="w-32">
           <i class="iconfont icon-weibo text-4xl text-red-500 cursor-pointer" @click="toWeibo"></i>
           <div class="w-24 h-24 mx-auto"></div>
+        </div>
+
+        <div class="w-96 text-left pl-12">
+          <i class="iconfont icon-dianhua text-4xl"></i>
+          <strong>联系电话：18314014691</strong>
         </div>
       </section>
     </footer>
