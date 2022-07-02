@@ -1,25 +1,25 @@
 <template>
   <div>
-<!--    支付订单与未支付订单的占比饼图-->
-    <div ref="isPaid_ref" style="width: 100vw; height: 100vh"></div>
+<!--   门票与拼团的总数占比饼图 -->
+    <div ref="scenicAndRoute_ref" style="width: 100vw; height: 100vh"></div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "isPaid",
+  name: "scenicAndRoute",
   data () {
     return {
       chartInstance: null,
       titleFontSize: 0,
       allData: [
         {
-          name: '已支付',
+          name: '门票',
           value: 156
         },
         {
-          name: '未支付',
-          value: 12
+          name: '拼团',
+          value: 132
         }
       ]
     }
@@ -48,17 +48,17 @@ export default {
 
   methods: {
     initChart() {
-      this.chartInstance = this.$echarts.init(this.$refs.isPaid_ref, 'chalk')
+      this.chartInstance = this.$echarts.init(this.$refs.scenicAndRoute_ref, 'chalk')
       const initOption = {
         title: {
-          text: '支付订单与未支付订单占比',
+          text: '门票和拼团的订单总数占比',
           left: 20,
           top: 20
         },
         legend: {
           top: '10%',
-          icon: 'circle',
-          right: '100'
+          icon: 'diamond',
+          left: '100',
         },
         tooltip: {
           show: true,
@@ -77,9 +77,6 @@ export default {
             emphasis: {
               label: {
                 show: true
-              },
-              itemStyle: {
-                shadowBlur: 5
               }
             }
           }
@@ -104,7 +101,7 @@ export default {
     },
 
     screenAdapter() {
-      this.titleFontSize = this.$refs.isPaid_ref.offsetWidth / 100 * 3.6
+      this.titleFontSize = this.$refs.scenicAndRoute_ref.offsetWidth / 100 * 3.6
       const adapterOption = {
         title: {
           textStyle: {

@@ -72,7 +72,7 @@ export const constantRoutes = [
 
   {
     path: '/test',
-    component: () => import('@/views/dashboard/charts/isPaid')
+    component: () => import('@/views/dashboard/charts/baseCount')
   },
 
   // 404 page must be placed at the end !!!
