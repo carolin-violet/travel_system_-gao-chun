@@ -11,6 +11,9 @@ export default {
   data() {
     return {
       chartInstance: null,
+      startValue: 0,
+      endValue: 10,
+      timerId: null,
       allData: [
         {
           name: '游子山景区',
@@ -95,15 +98,13 @@ export default {
     this.initChart()
     this.updateChart()
     this.screenAdapter()
+    this.startInterval()
     window.addEventListener('resize', this.screenAdapter)
   },
 
   beforeDestroy() {
     window.removeEventListener('resize', this.screenAdapter)
-  },
-
-  computed: {
-
+    clearInterval(this.timerId)
   },
 
   methods: {
@@ -120,7 +121,7 @@ export default {
           left: '100'
         },
         grid: {
-          top: '15%',
+          top: '35%',
           left: '5%',
           right: '5%',
           bottom: '5%',
@@ -143,6 +144,12 @@ export default {
         ]
       }
       this.chartInstance.setOption(initOption)
+      this.chartInstance.on('mouseover', () => {
+        clearInterval(this.timerId)
+      })
+      this.chartInstance.on('mouseout', () => {
+        this.startInterval()
+      })
     },
 
     updateChart() {
@@ -162,12 +169,21 @@ export default {
             return `${itemObj.name}(${itemObj.mark})的好评率为：${this.getCommentRate(itemObj.value[0], itemObj.value[1])}`
           }
         },
+        dataZoom: {
+          show: false,
+          startValue: this.startValue,
+          endValue: this.endValue
+        },
         xAxis: {
           data: nameList
         },
         series: [
           {
             data: sumCommentList,
+            label: {
+              show: true,
+              position: 'top'
+            },
             itemStyle: {
               color: arg => {
                 let targetArr = null
@@ -217,6 +233,7 @@ export default {
       this.chartInstance.resize()
     },
 
+    // 计算好评率
     getCommentRate(positive, negative) {
       let res = null
       if (negative === 0 && positive !== 0) {
@@ -227,9 +244,24 @@ export default {
         res = positive / (positive + negative)
       }
       return res.toFixed(6)
-    }
-  }
+    },
 
+    // 启动计数器
+    startInterval () {
+      if (this.timerId) {
+        clearInterval(this.timerId)
+      }
+      this.timerId = setInterval(() => {
+        this.startValue++
+        this.endValue++
+        if (this.endValue > this.allData.length - 1) {
+          this.startValue = 0
+          this.endValue = 10
+        }
+        this.updateChart()
+      }, 2000)
+    }
+  },
 
 }
 </script>
