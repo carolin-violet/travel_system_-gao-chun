@@ -1,6 +1,6 @@
 <template>
-  <div style="width: 100vw; height: 100vh; background-color: #40c9c6">
-    <div ref="isPaid_ref"></div>
+  <div>
+    <div ref="isPaid_ref" style="width: 100vw; height: 100vh; background-color: #40c9c6"></div>
   </div>
 </template>
 
@@ -16,7 +16,9 @@ export default {
 
   mounted() {
     this.initChart()
-    this.updateChart()
+    setTimeout(() => {
+      this.updateChart()
+    }, 1000)
   },
 
   methods: {
