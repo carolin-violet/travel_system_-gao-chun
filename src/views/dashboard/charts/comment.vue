@@ -44,7 +44,7 @@ export default {
         },
         {
           name: '桠栖国际慢城',
-          value: [99854, 49],
+          value: [9985, 49],
           mark: '景点'
         },
         {
@@ -57,25 +57,176 @@ export default {
           value: [853, 65],
           mark: '旅馆'
         },
+        {
+          name: '红烧肉',
+          value: [853, 65],
+          mark: '美食'
+        },
+        {
+          name: '鲑鱼',
+          value: [996, 65],
+          mark: '美食'
+        },
+        {
+          name: '陇上',
+          value: [8435, 199],
+          mark: '旅馆'
+        },
+        {
+          name: '固城湾',
+          value: [4597, 65],
+          mark: '景点'
+        },
+        {
+          name: '高淳博物馆',
+          value: [6574, 65],
+          mark: '景点'
+        },
+        {
+          name: '蟹黄包',
+          value: [8539, 65],
+          mark: '美食'
+        },
       ]
     }
   },
 
   mounted() {
+    this.initChart()
+    this.updateChart()
+    this.screenAdapter()
+    window.addEventListener('resize', this.screenAdapter)
+  },
+
+  beforeDestroy() {
+    window.removeEventListener('resize', this.screenAdapter)
+  },
+
+  computed: {
 
   },
 
   methods: {
     initChart() {
-
+      this.chartInstance = this.$echarts.init(this.$refs.comment_ref, 'chalk')
+      const initOption = {
+        title: {
+          text: '评论对比',
+          top: 20,
+          left: 20
+        },
+        legend: {
+          top: '10%',
+          left: '100'
+        },
+        grid: {
+          top: '15%',
+          left: '5%',
+          right: '5%',
+          bottom: '5%',
+          containLabel: true
+        },
+        tooltip: {
+          show: true,
+          trigger: 'axis'
+        },
+        xAxis: {
+          type: 'category'
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            type: 'bar',
+          }
+        ]
+      }
+      this.chartInstance.setOption(initOption)
     },
 
     updateChart() {
-
+      const colorArr = [
+        ['#fbc2eb', '#a6c1ee'],
+        ['#d4fc79', '#96e6a1'],
+        ['#5ee7df', '#b490ca'],
+        ['#b3ffab', '#12fff7']
+      ]
+      this.allData = this.allData.sort((a, b) => (b.value[0] + b.value[1]) - (a.value[0] + a.value[1]))
+      const nameList = this.allData.map(item => item.name)
+      const sumCommentList = this.allData.map(item => item.value[0] + item.value[1])
+      const dataOption = {
+        tooltip: {
+          formatter: arg => {
+            const itemObj = this.allData.find(item => item.name === arg[0].name)
+            return `${itemObj.name}(${itemObj.mark})的好评率为：${this.getCommentRate(itemObj.value[0], itemObj.value[1])}`
+          }
+        },
+        xAxis: {
+          data: nameList
+        },
+        series: [
+          {
+            data: sumCommentList,
+            itemStyle: {
+              color: arg => {
+                let targetArr = null
+                const itemObj = this.allData.find(item => item.name === arg.name)
+                switch (itemObj.mark) {
+                  case '线路' : targetArr = colorArr[3];break;
+                  case '景点' : targetArr = colorArr[1];break;
+                  case '美食' : targetArr = colorArr[0];break;
+                  case '旅馆' : targetArr = colorArr[2];break;
+                }
+                return new this.$echarts.graphic.LinearGradient(0,0,0,1, [
+                  {
+                    offset: 0,
+                    color: targetArr[0]
+                  },
+                  {
+                    offset: 1,
+                    color: targetArr[1]
+                  }
+                ])
+              }
+            }
+          }
+        ]
+      }
+      this.chartInstance.setOption(dataOption)
     },
 
     screenAdapter() {
+      const titleFontSize = this.$refs.comment_ref.offsetWidth / 100 * 3.6
+      const adapterOption = {
+        title: {
+          textStyle: {
+            fontSize: titleFontSize
+          }
+        },
+        series: [
+          {
+            barWidth: titleFontSize,
+            itemStyle: {
+              barBorderRadius: [titleFontSize / 2, titleFontSize / 2, 0, 0]
+            }
+          }
+        ]
+      }
+      this.chartInstance.setOption(adapterOption)
+      this.chartInstance.resize()
+    },
 
+    getCommentRate(positive, negative) {
+      let res = null
+      if (negative === 0 && positive !== 0) {
+        res = negative
+      } else if (positive === 0) {
+        res = 0
+      } else {
+        res = positive / (positive + negative)
+      }
+      return res.toFixed(6)
     }
   }
 
