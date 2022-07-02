@@ -1,20 +1,18 @@
 <template>
   <div class="dashboard-container">
-    <video width="99%" height="90%" controls="controls" autoplay="autoplay" loop="loop">
-      <source
-        src="/石臼湖.mp4"
-        type="video/mp4"
-      />
-    </video>
+    <panel-group></panel-group>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-
+import panelGroup from './panelGroup'
 
 export default {
   name: 'Dashboard',
+  components: {
+    panelGroup
+  },
   computed: {
     ...mapGetters([
       'name'
@@ -26,8 +24,9 @@ export default {
 <style lang="scss" scoped>
 .dashboard-container{
   width: 100%;
-  height: 100%;
-  flex-direction: column;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+  padding: 0 20px 0 20px;
 }
 
 </style>

@@ -116,7 +116,7 @@ export const asyncRoutes = [
         path: 'orderMenu',
         name: 'OrderMenu',
         component: () => import('@/views/order/index'),
-        meta: { title: '订单菜单', icon: 'el-icon-s-management', role: 'ROLE_ORDER'}
+        meta: { title: '订单菜单', icon: 'order', role: 'ROLE_ORDER'}
       }
     ]
   },
@@ -239,7 +239,7 @@ export const asyncRoutes = [
         path: 'commentMenu',
         name: 'CommentMenu',
         component: () => import('@/views/comment/index'),
-        meta: { title: '评论菜单', icon: 'el-icon-s-comment', role: 'ROLE_COMMENT' }
+        meta: { title: '评论菜单', icon: 'comment', role: 'ROLE_COMMENT' }
       }
     ]
   },
