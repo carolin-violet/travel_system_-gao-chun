@@ -53,6 +53,13 @@ export default {
           left: 20,
           top: 20
         },
+        grid: {
+          top:'20%',
+          left:'3%',
+          right:'6%',
+          bottom:'3%',
+          containLabel: true
+        },
         xAxis: {
           type: 'value'
         },
