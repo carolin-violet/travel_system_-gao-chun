@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div ref="isPaid_ref" style="width: 100vw; height: 100vh; background-color: #40c9c6"></div>
+    <div ref="isPaid_ref" style="width: 100vw; height: 100vh"></div>
   </div>
 </template>
 
@@ -10,15 +10,33 @@ export default {
   data () {
     return {
       chartInstance: null,
-      titleFontSize: null
+      titleFontSize: null,
+      data: [
+        {
+          name: '已支付',
+          value: 156
+        },
+        {
+          name: '未支付',
+          value: 12
+        }
+      ]
+    }
+  },
+
+  computed: {
+    total() {
+      let total = 0
+      this.data.forEach(item => {
+        total += item.value
+      })
+      return total
     }
   },
 
   mounted() {
     this.initChart()
-    setTimeout(() => {
-      this.updateChart()
-    }, 1000)
+    this.updateChart()
   },
 
   methods: {
@@ -26,14 +44,29 @@ export default {
       this.chartInstance = this.$echarts.init(this.$refs.isPaid_ref, 'chalk')
       const initOption = {
         title: {
-          text: '支付订单与未支付订单占比'
+          text: '支付订单与未支付订单占比',
+          left: 20,
+          top: 20
+        },
+        legend: {
+          top: '5%',
+          icon: 'circle'
+        },
+        tooltip: {
+          show: true,
+          formatter: arg => {
+            console.log(arg)
+            return `${arg.name}总数：${arg.value}, 占比：${arg.percent}%`
+          }
         },
         series: [
           {
             type: 'pie',
+            // 默认不显示标签
             label: {
               show: false
             },
+            // 悬浮显示标签信息
             emphasis: {
               label: {
                 show: true
@@ -46,15 +79,15 @@ export default {
     },
 
     updateChart() {
-      const seriesData = [156, 12]
-      const legendData = ['已支付', '未支付']
+      const seriesData = this.data.map(item => item.value)
+      const legendData = this.data.map(item => item.name)
       const dataOption = {
         legend: {
           data: legendData
         },
         series: [
           {
-            data: seriesData
+            data: this.data
           }
         ]
       }
