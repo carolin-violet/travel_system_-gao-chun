@@ -72,7 +72,7 @@ export const constantRoutes = [
 
   {
     path: '/test',
-    component: () => import('@/views/dashboard/charts/income')
+    component: () => import('@/views/dashboard/charts/comment')
   },
 
   // 404 page must be placed at the end !!!
