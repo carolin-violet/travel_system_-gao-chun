@@ -1,7 +1,7 @@
 <template>
   <div>
 <!--   门票与拼团的总数占比饼图 -->
-    <div ref="scenicAndRoute_ref" style="width: 100vw; height: 100vh"></div>
+    <div ref="scenicAndRoute_ref" style="width: 100%; height: 100%"></div>
   </div>
 </template>
 
@@ -56,9 +56,10 @@ export default {
           top: 20
         },
         legend: {
-          top: '10%',
+          top: '15%',
           icon: 'diamond',
-          left: '100',
+          left: '20',
+          orient: 'vertical'
         },
         tooltip: {
           show: true,
@@ -93,7 +94,23 @@ export default {
         },
         series: [
           {
-            data: this.allData
+            data: this.allData,
+            itemStyle: {
+              emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.3)'
+              },
+              normal: {
+                color: arg => {
+                  if (arg.name === '门票') {
+                    return '#fffda3'
+                  } else {
+                    return '#adcbff'
+                  }
+                }
+              }
+            }
           }
         ]
       }
@@ -109,16 +126,16 @@ export default {
           }
         },
         legend: {
-          itemWidth: this.titleFontSize,
-          itemHeight: this.titleFontSize,
-          itemGap: this.titleFontSize / 2,
+          itemWidth: this.titleFontSize * 2,
+          itemHeight: this.titleFontSize * 2,
+          itemGap: this.titleFontSize,
           textStyle: {
-            fontSize: this.titleFontSize / 2
+            fontSize: this.titleFontSize
           }
         },
         series: [
           {
-            radius: this.titleFontSize * 4.5,
+            radius: this.titleFontSize * 8,
             center: ['50%', '60%']
           }
         ]

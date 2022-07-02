@@ -1,7 +1,7 @@
 <template>
   <div>
 <!--    支付订单与未支付订单的占比饼图-->
-    <div ref="isPaid_ref" style="width: 100vw; height: 100vh"></div>
+    <div ref="isPaid_ref" style="width: 100%; height: 100%"></div>
   </div>
 </template>
 
@@ -11,7 +11,6 @@ export default {
   data () {
     return {
       chartInstance: null,
-      titleFontSize: 0,
       allData: [
         {
           name: '已支付',
@@ -56,9 +55,9 @@ export default {
           top: 20
         },
         legend: {
-          top: '10%',
+          top: '15%',
           icon: 'circle',
-          right: '100'
+          right: '10'
         },
         tooltip: {
           show: true,
@@ -96,7 +95,23 @@ export default {
         },
         series: [
           {
-            data: this.allData
+            data: this.allData,
+            itemStyle: {
+              emphasis: {
+                shadowBlur: 10,
+                shadowOffsetX: 0,
+                shadowColor: 'rgba(0, 0, 0, 0.3)'
+              },
+              normal: {
+                color: arg => {
+                  if (arg.name === '已支付') {
+                    return '#adffd6'
+                  } else {
+                    return '#bba8ff'
+                  }
+                }
+              }
+            }
           }
         ]
       }
@@ -104,24 +119,24 @@ export default {
     },
 
     screenAdapter() {
-      this.titleFontSize = this.$refs.isPaid_ref.offsetWidth / 100 * 3.6
+      const titleFontSize = this.$refs.isPaid_ref.offsetWidth / 100 * 3.6
       const adapterOption = {
         title: {
           textStyle: {
-            fontSize: this.titleFontSize
+            fontSize: titleFontSize * 1.3
           }
         },
         legend: {
-          itemWidth: this.titleFontSize,
-          itemHeight: this.titleFontSize,
-          itemGap: this.titleFontSize / 2,
+          itemWidth: titleFontSize * 2,
+          itemHeight: titleFontSize * 2,
+          itemGap: titleFontSize,
           textStyle: {
-            fontSize: this.titleFontSize / 2
+            fontSize: titleFontSize
           }
         },
         series: [
           {
-            radius: this.titleFontSize * 4.5,
+            radius: titleFontSize * 7,
             center: ['50%', '60%']
           }
         ]

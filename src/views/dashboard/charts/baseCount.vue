@@ -1,7 +1,7 @@
 <template>
   <div>
 <!--    景点、美食、旅馆、线路统计-->
-    <div ref="baseCount_ref" style="width: 100vw; height: 100vh"></div>
+    <div ref="baseCount_ref" style="width: 100%; height: 100%"></div>
   </div>
 </template>
 
@@ -64,7 +64,7 @@ export default {
           type: 'value'
         },
         yAxis: {
-          type: 'category'
+          type: 'category',
         },
         tooltip: {
           trigger: 'axis',
@@ -127,7 +127,7 @@ export default {
         },
         series: [
           {
-            barWidth: titleFontSize,
+            barWidth: titleFontSize * 2,
             itemStyle: {
               barBorderRadius: [0, titleFontSize/2, titleFontSize/2, 0]
             }

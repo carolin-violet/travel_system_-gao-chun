@@ -1,7 +1,7 @@
 <template>
   <div>
 <!--    所有景点、美食、旅馆、线路的好评数，悬浮可显示好评与差评数量 -->
-    <div ref="comment_ref" style="width: 100vw; height: 100vh"></div>
+    <div ref="comment_ref" style="width: 100%; height: 100%"></div>
   </div>
 </template>
 
@@ -12,7 +12,7 @@ export default {
     return {
       chartInstance: null,
       startValue: 0,
-      endValue: 10,
+      endValue: 5,
       timerId: null,
       allData: [
         {
@@ -222,7 +222,7 @@ export default {
         },
         series: [
           {
-            barWidth: titleFontSize,
+            barWidth: titleFontSize * 2,
             itemStyle: {
               barBorderRadius: [titleFontSize / 2, titleFontSize / 2, 0, 0]
             }
@@ -256,7 +256,7 @@ export default {
         this.endValue++
         if (this.endValue > this.allData.length - 1) {
           this.startValue = 0
-          this.endValue = 10
+          this.endValue = 5
         }
         this.updateChart()
       }, 2000)

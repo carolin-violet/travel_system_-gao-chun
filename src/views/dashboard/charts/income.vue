@@ -1,7 +1,7 @@
 <template>
   <div>
 <!--    近12个月的收益统计-->
-    <div ref="income_ref" style="width: 100vw; height: 100vh"></div>
+    <div ref="income_ref" style="width: 100%; height: 100%"></div>
   </div>
 </template>
 
@@ -161,7 +161,7 @@ export default {
       const adapterOption = {
         title: {
           textStyle: {
-            fontSize: titleFontSize
+            fontSize: titleFontSize * 0.7
           }
         },
         series: [

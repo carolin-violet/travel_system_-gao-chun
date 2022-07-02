@@ -22,7 +22,7 @@
           <a target="_blank" href="https://gitee.com/carolin-violet/travel_system_-gao-chun">
             <el-dropdown-item>Gitee</el-dropdown-item>
           </a>
-          <a target="_blank" href="http://82.157.183.73:8090/">
+          <a target="_blank" href="https://www.carolin-violet.cloud">
             <el-dropdown-item>博客</el-dropdown-item>
           </a>
           <el-dropdown-item divided @click.native="logout">
