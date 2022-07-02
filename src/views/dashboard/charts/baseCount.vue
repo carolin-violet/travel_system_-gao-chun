@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    <div ref="baseCount_ref"></div>
+  </div>
 </template>
 
 <script>
