@@ -3,7 +3,7 @@
 <!--    头像、昵称、时间信息-->
     <section class="w-full h-auto text-xl flex">
       <div class="w-16 h-20">
-        <img class="inline-block w-12 h-12 rounded-full" src="/固城湖.webp" alt="">
+        <img class="inline-block w-12 h-12 rounded-full" src="@/assets/images/avatar.webp" alt="">
       </div>
       <div class="w-auto h-20 flex flex-col">
         <span class="">{{ item.nickName }}</span>

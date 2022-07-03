@@ -33,7 +33,7 @@
           <div class="w-1/2 mt-2 space-y-3">
             <strong class="text-6xl">￥ {{ route.discountPrice }}</strong>
             <strong class="line-through text-3xl text-gray-400 ml-6">￥{{ route.price }}</strong>
-            <small class="block text-gray-400 text-xl">注：成年人全价,未成年人半价,老人、幼儿等免费,退伍军人、残疾人、学生、在职人员等持相关证明可免门票或半价购买门票</small>
+            <small class="block text-gray-400 text-xl">注：成年人全价,未成年人半价,老人、幼儿等免费,退伍军人、残疾人、学生、在职人员等无需预购持相关证明可免费进入</small>
           </div>
           <div class="cursor-pointer ml-36" @click="handleBook">
             <i class="iconfont icon-yuding text-6xl"></i>

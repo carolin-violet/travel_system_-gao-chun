@@ -1,6 +1,6 @@
 <template>
   <div class="w-screen h-auto">
-    <footer class="relative w-auto h-48 bg-white">
+    <footer class="relative w-auto h-48 bg-gray-200">
 <!--      备案号信息等-->
       <section class="absolute w-1/5 h-28 left-1/2 transform -translate-x-1/2 top-1/2 -translate-y-1/2 space-y-3 text-center pt-2 text-xl text-black">
         <span class="block ">Copyright©2022</span>
