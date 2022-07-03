@@ -128,7 +128,6 @@ export default {
           containLabel: true
         },
         tooltip: {
-          show: true,
           trigger: 'axis'
         },
         xAxis: {
@@ -222,10 +221,10 @@ export default {
         },
         series: [
           {
-            barWidth: titleFontSize * 2,
+            barWidth: titleFontSize * 1.5,
             itemStyle: {
-              barBorderRadius: [titleFontSize / 2, titleFontSize / 2, 0, 0]
-            }
+              borderRadius: [titleFontSize, titleFontSize, 0, 0], // 重点
+            },
           }
         ]
       }

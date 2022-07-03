@@ -129,7 +129,7 @@ export default {
           {
             barWidth: titleFontSize * 2,
             itemStyle: {
-              barBorderRadius: [0, titleFontSize/2, titleFontSize/2, 0]
+              borderRadius: [0, titleFontSize, titleFontSize, 0]
             }
           }
         ]
