@@ -72,7 +72,7 @@ export default {
             type: 'pie',
             // 默认不显示标签
             label: {
-              show: false
+              show: true
             },
             // 悬浮显示标签信息
             emphasis: {
@@ -104,7 +104,7 @@ export default {
               normal: {
                 color: arg => {
                   if (arg.name === '门票') {
-                    return '#fffda3'
+                    return '#D9AFD9'
                   } else {
                     return '#adcbff'
                   }

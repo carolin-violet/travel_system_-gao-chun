@@ -70,7 +70,7 @@ export default {
             type: 'pie',
             // 默认不显示标签
             label: {
-              show: false
+              show: true
             },
             // 悬浮显示标签信息
             emphasis: {
