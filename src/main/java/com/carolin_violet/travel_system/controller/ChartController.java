@@ -52,9 +52,9 @@ public class ChartController {
     @Autowired
     private OrderFormService orderFormService;
 
-    // 查询管理主页的所有数据
-    @GetMapping("statistics")
-    public R getStatistics() {
+
+    @GetMapping("panel")
+    public R getPanel() {
         // 查询计数板的信息
         int touristCount = touristService.count(null);
         int commentCount = commentService.count(null);
@@ -66,36 +66,89 @@ public class ChartController {
         panel.put("noteCount", noteCount);
         panel.put("feedbackCount", feedbackCount);
 
+        return R.ok().data("panel", panel);
+    }
+
+    @GetMapping("baseCount")
+    public R getBaseCount() {
         // 查询景点、美食、旅馆、线路的总数统计
+        List baseCount = new ArrayList();
+
         int scenicSpotCount = scenicSpotService.count(null);
         int hotelCount = hotelService.count(null);
         int delicacyCount = delicacyService.count(null);
         int routeCount = touristRouteService.count(null);
-        Map<String, Integer> baseCount = new HashMap<>();
-        baseCount.put("景点", scenicSpotCount);
-        baseCount.put("旅馆", hotelCount);
-        baseCount.put("美食", delicacyCount);
-        baseCount.put("拼团线路", routeCount);
+
+        Map scenicSpotCountMap = new HashMap();
+        scenicSpotCountMap.put("name", "景点");
+        scenicSpotCountMap.put("value", scenicSpotCount);
+        baseCount.add(scenicSpotCountMap);
+        Map hotelCountMap = new HashMap();
+        hotelCountMap.put("name", "旅馆");
+        hotelCountMap.put("value", hotelCount);
+        baseCount.add(hotelCountMap);
+        Map delicacyCountMap = new HashMap();
+        delicacyCountMap.put("name", "美食");
+        delicacyCountMap.put("value", delicacyCount);
+        baseCount.add(delicacyCountMap);
+        Map routeCountMap = new HashMap();
+        routeCountMap.put("name", "线路");
+        routeCountMap.put("value", routeCount);
+        baseCount.add(routeCountMap);
+
+        return R.ok().data("baseCount", baseCount);
+    }
+
+    @GetMapping("isPaid")
+    public R getIsPaid() {
 
         // 支付订单与未支付订单占比
+        List isPaidList = new ArrayList();
         QueryWrapper<OrderForm> isPaidWrapper = new QueryWrapper<>();
         isPaidWrapper.eq("is_paid", 0);
         int not_paid = orderFormService.count(isPaidWrapper);
         int orderCount = orderFormService.count(null);
         int paid = orderCount - not_paid;
-        Map<String, Integer> isPaid = new HashMap<>();
-        isPaid.put("已支付", paid);
-        isPaid.put("未支付", not_paid);
+
+        Map paidMap = new HashMap();
+        paidMap.put("name", "已支付");
+        paidMap.put("value", paid);
+        isPaidList.add(paidMap);
+
+        Map notPaidMap = new HashMap();
+        notPaidMap.put("name", "未支付");
+        notPaidMap.put("value", not_paid);
+        isPaidList.add(notPaidMap);
+
+        return R.ok().data("isPaid", isPaidList);
+    }
+
+    @GetMapping("scenicAndRoute")
+    public R getScenicAndRoute() {
 
         // 门票和拼团的订单总数占比
+        List scenicAndRouteList = new ArrayList();
         QueryWrapper<OrderForm> markWrapper = new QueryWrapper<>();
         markWrapper.eq("mark", "scenic");
         int scenicOrderCount = orderFormService.count(markWrapper);
+        int orderCount = orderFormService.count(null);
         int routeOrderCount = orderCount - scenicOrderCount;
-        Map<String, Integer> scenicAndRoute = new HashMap<>();
-        scenicAndRoute.put("门票", scenicOrderCount);
-        scenicAndRoute.put("拼团", routeOrderCount);
 
+        Map scenicMap = new HashMap();
+        scenicMap.put("name", "景点门票");
+        scenicMap.put("value", scenicOrderCount);
+        scenicAndRouteList.add(scenicMap);
+
+        Map routeMap = new HashMap();
+        routeMap.put("name", "线路拼团");
+        routeMap.put("value", routeOrderCount);
+        scenicAndRouteList.add(routeMap);
+
+        return R.ok().data("scenicAndRoute", scenicAndRouteList);
+    }
+
+    @GetMapping("comment")
+    public R getComment() {
         // 评论统计
         List<Map> allCommentInfo = new ArrayList<>();
         // 景点相关评论
@@ -175,8 +228,12 @@ public class ChartController {
             allCommentInfo.add(singleComment);
         }
 
-        // 查询近一年的交易总额
+        return R.ok().data("comment", allCommentInfo);
+    }
 
+    // 查询近一年的交易总额
+    @GetMapping("income")
+    public R getIncome() {
         // 先查询最近12个月
         List<String> dateList = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
@@ -203,13 +260,7 @@ public class ChartController {
                 incomeMap.put(strDate, incomeMap.get(strDate)+orderFormList.get(i).getAmount());
             }
         }
-
-        return R.ok().data("panel", panel)
-                .data("baseCount", baseCount)
-                .data("isPaid", isPaid)
-                .data("scenicAndRoute", scenicAndRoute)
-                .data("allCommentInfo", allCommentInfo)
-                .data("income", incomeMap);
+        return R.ok().data("income", incomeMap);
     }
 
     // 月份需要加0 则调用此方法
