@@ -9,7 +9,7 @@
           <div class="card-panel-text">
             注册游客总数
           </div>
-          <count-to :start-val="0" :end-val="102400" :duration="2600" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="panel.touristCount" :duration="2600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -22,7 +22,7 @@
           <div class="card-panel-text">
             评论总数
           </div>
-          <count-to :start-val="0" :end-val="81212" :duration="3000" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="panel.commentCount" :duration="3000" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -35,7 +35,7 @@
           <div class="card-panel-text">
             游记总数
           </div>
-          <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="panel.noteCount" :duration="3600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -48,7 +48,7 @@
           <div class="card-panel-text">
             反馈总数
           </div>
-          <count-to :start-val="0" :end-val="13600" :duration="3600" class="card-panel-num" />
+          <count-to :start-val="0" :end-val="panel.feedbackCount" :duration="3600" class="card-panel-num" />
         </div>
       </div>
     </el-col>
@@ -57,14 +57,28 @@
 
 <script>
 import CountTo from 'vue-count-to'
+import statistics from "@/api/statistics";
 
 export default {
   name: 'PanelGroup',
   components: {
     CountTo
   },
-  methods: {
+  data() {
+    return {
+      panel: {}
+    }
+  },
 
+  created() {
+    this.getPanel()
+  },
+
+  methods: {
+    async getPanel() {
+      let res = await statistics.getPanel()
+      this.panel = res.data.panel
+    }
   }
 }
 </script>

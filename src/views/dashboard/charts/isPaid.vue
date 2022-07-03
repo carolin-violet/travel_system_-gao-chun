@@ -6,21 +6,14 @@
 </template>
 
 <script>
+import statistics from "@/api/statistics";
+
 export default {
   name: "isPaid",
   data () {
     return {
       chartInstance: null,
-      allData: [
-        {
-          name: '已支付',
-          value: 156
-        },
-        {
-          name: '未支付',
-          value: 12
-        }
-      ]
+      allData: []
     }
   },
 
@@ -36,8 +29,8 @@ export default {
 
   mounted() {
     this.initChart()
+    this.getIsPaid()
     window.addEventListener('resize', this.screenAdapter)
-    this.updateChart()
     this.screenAdapter()
   },
 
@@ -46,6 +39,13 @@ export default {
   },
 
   methods: {
+
+    async getIsPaid() {
+      let res = await statistics.getIsPaid()
+      this.allData = res.data.isPaid
+      this.updateChart()
+    },
+
     initChart() {
       this.chartInstance = this.$echarts.init(this.$refs.isPaid_ref, 'chalk')
       const initOption = {

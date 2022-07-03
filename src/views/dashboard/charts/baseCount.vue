@@ -6,36 +6,20 @@
 </template>
 
 <script>
+import statistics from "@/api/statistics";
+
 export default {
   name: "baseCount",
   data() {
     return {
       chartInstance: null,
-      allData: [
-        {
-          name: '景点',
-          value: '45'
-        },
-        {
-          name: '拼团线路',
-          value: '9'
-        },
-        {
-          name: '美食',
-          value: '17'
-        },
-        {
-          name: '旅馆',
-          value: '36'
-        }
-      ]
+      allData: []
     }
   },
 
   mounted() {
-    this.allData = this.allData.sort((a, b) => a.value - b.value)
     this.initChart()
-    this.updateChart()
+    this.getBaseCount()
     window.addEventListener('resize', this.screenAdapter)
     this.screenAdapter()
   },
@@ -45,6 +29,14 @@ export default {
   },
 
   methods: {
+
+    async getBaseCount() {
+      let res = await statistics.getBaseCount()
+      this.allData = res.data.baseCount
+      this.allData.sort((a, b) => a.value - b.value)
+      this.updateChart()
+    },
+
     initChart() {
       this.chartInstance = this.$echarts.init(this.$refs.baseCount_ref, 'chalk')
       const initOption = {

@@ -6,67 +6,20 @@
 </template>
 
 <script>
+import statistics from "@/api/statistics";
+
 export default {
   name: "income",
   data() {
     return {
       chartInstance: null,
-      allData: [
-        {
-          name: '2019-01',
-          value: 1549.03
-        },
-        {
-          name: '2019-02',
-          value: 1578.03
-        },
-        {
-          name: '2019-03',
-          value: 1968.65
-        },
-        {
-          name: '2019-04',
-          value: 16357.03
-        },
-        {
-          name: '2019-05',
-          value: 20155.83
-        },
-        {
-          name: '2019-06',
-          value: 20957.03
-        },
-        {
-          name: '2019-07',
-          value: 65247.65
-        },
-        {
-          name: '2019-08',
-          value: 69857.03
-        },
-        {
-          name: '2019-9',
-          value: 15645.46
-        },
-        {
-          name: '2019-10',
-          value: 89537.85
-        },
-        {
-          name: '2019-11',
-          value: 7651.35
-        },
-        {
-          name: '2019-12',
-          value: 5489.24
-        },
-      ]
+      allData: []
     }
   },
 
   mounted() {
     this.initChart()
-    this.updateChart()
+    this.getIncome()
     window.addEventListener('resize', this.screenAdapter)
     this.screenAdapter()
   },
@@ -76,6 +29,20 @@ export default {
   },
 
   methods: {
+
+    async getIncome() {
+      let res = await statistics.getIncome()
+      const tempData = res.data.income
+      for (const key in tempData) {
+        this.allData.push({
+          name: key,
+          value: tempData[key].toFixed(2)
+        })
+      }
+      console.log(this.allData)
+      this.updateChart()
+    },
+
     initChart() {
       this.chartInstance = this.$echarts.init(this.$refs.income_ref, 'chalk')
       const initOption = {

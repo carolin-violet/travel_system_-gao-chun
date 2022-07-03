@@ -6,22 +6,15 @@
 </template>
 
 <script>
+import statistics from "@/api/statistics";
+
 export default {
   name: "scenicAndRoute",
   data () {
     return {
       chartInstance: null,
       titleFontSize: 0,
-      allData: [
-        {
-          name: '门票',
-          value: 156
-        },
-        {
-          name: '拼团',
-          value: 132
-        }
-      ]
+      allData: []
     }
   },
 
@@ -38,7 +31,7 @@ export default {
   mounted() {
     this.initChart()
     window.addEventListener('resize', this.screenAdapter)
-    this.updateChart()
+    this.getScenicAndRoute()
     this.screenAdapter()
   },
 
@@ -47,6 +40,13 @@ export default {
   },
 
   methods: {
+
+    async getScenicAndRoute() {
+      let res = await statistics.getScenicAndRoute()
+      this.allData = res.data.scenicAndRoute
+      this.updateChart()
+    },
+
     initChart() {
       this.chartInstance = this.$echarts.init(this.$refs.scenicAndRoute_ref, 'chalk')
       const initOption = {
@@ -103,7 +103,7 @@ export default {
               },
               normal: {
                 color: arg => {
-                  if (arg.name === '门票') {
+                  if (arg.name === '景点门票') {
                     return '#D9AFD9'
                   } else {
                     return '#adcbff'

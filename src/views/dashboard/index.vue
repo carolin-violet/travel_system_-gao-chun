@@ -45,6 +45,12 @@ import scenicAndRoute from "@/views/dashboard/charts/scenicAndRoute";
 
 export default {
   name: 'Dashboard',
+  data () {
+    return {
+      allData: null
+    }
+  },
+
   components: {
     panelGroup,
     baseCount,

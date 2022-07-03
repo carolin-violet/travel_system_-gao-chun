@@ -6,97 +6,23 @@
 </template>
 
 <script>
+import statistics from "@/api/statistics";
+
 export default {
   name: "comment",
   data() {
     return {
       chartInstance: null,
       startValue: 0,
-      endValue: 5,
+      endValue: 3,
       timerId: null,
-      allData: [
-        {
-          name: '游子山景区',
-          value: [324, 10],  // 分别为好评与差评
-          mark: '景点'  // 标志
-        },
-        {
-          name: '正福草堂',
-          value: [125, 3],
-          mark: '旅馆'
-        },
-        {
-          name: '大闸蟹',
-          value: [985, 13],
-          mark: '美食'
-        },
-        {
-          name: '氧气把一日游',
-          value: [681, 19],
-          mark: '线路'
-        },
-        {
-          name: '水慢城',
-          value: [2164, 3],
-          mark: '景点'
-        },
-        {
-          name: '高淳老街',
-          value: [6521, 52],
-          mark: '景点'
-        },
-        {
-          name: '桠栖国际慢城',
-          value: [9985, 49],
-          mark: '景点'
-        },
-        {
-          name: '水八仙',
-          value: [263, 12],
-          mark: '美食'
-        },
-        {
-          name: '半山旅馆',
-          value: [853, 65],
-          mark: '旅馆'
-        },
-        {
-          name: '红烧肉',
-          value: [853, 65],
-          mark: '美食'
-        },
-        {
-          name: '鲑鱼',
-          value: [996, 65],
-          mark: '美食'
-        },
-        {
-          name: '陇上',
-          value: [8435, 199],
-          mark: '旅馆'
-        },
-        {
-          name: '固城湾',
-          value: [4597, 65],
-          mark: '景点'
-        },
-        {
-          name: '高淳博物馆',
-          value: [6574, 65],
-          mark: '景点'
-        },
-        {
-          name: '蟹黄包',
-          value: [8539, 65],
-          mark: '美食'
-        },
-      ]
+      allData: []
     }
   },
 
   mounted() {
     this.initChart()
-    this.updateChart()
+    this.getComment()
     this.screenAdapter()
     this.startInterval()
     window.addEventListener('resize', this.screenAdapter)
@@ -108,6 +34,13 @@ export default {
   },
 
   methods: {
+
+    async getComment() {
+      let res = await statistics.getComment()
+      this.allData = res.data.comment
+      this.updateChart()
+    },
+
     initChart() {
       this.chartInstance = this.$echarts.init(this.$refs.comment_ref, 'chalk')
       const initOption = {
@@ -165,7 +98,7 @@ export default {
         tooltip: {
           formatter: arg => {
             const itemObj = this.allData.find(item => item.name === arg[0].name)
-            return `${itemObj.name}(${itemObj.mark})的好评率为：${this.getCommentRate(itemObj.value[0], itemObj.value[1])}`
+            return `${itemObj.name}(${itemObj.mark})的好评率为：${this.getCommentRate(itemObj.value[0], itemObj.value[1])},好评数：${itemObj.value[0]},差评数：${itemObj.value[1]}`
           }
         },
         dataZoom: {
@@ -255,10 +188,10 @@ export default {
         this.endValue++
         if (this.endValue > this.allData.length - 1) {
           this.startValue = 0
-          this.endValue = 5
+          this.endValue = 3
         }
         this.updateChart()
-      }, 2000)
+      }, 3000)
     }
   },
 
