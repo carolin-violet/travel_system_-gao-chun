@@ -1,5 +1,5 @@
 <template>
-  <div class="route-container w-screen h-auto pt-48">
+  <div class="route-container w-screen min-h-screen pt-48">
     <section class="w-4/5 h-auto mx-auto space-y-16 pb-16">
       <collapse v-for="(route, index) in items" :key='index'  :route="route"/>
     </section>

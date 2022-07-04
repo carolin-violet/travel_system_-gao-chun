@@ -20,6 +20,7 @@
     "font-awesome": "^4.7.0",
     "less": "^4.1.1",
     "less-loader": "^7.3.0",
+    "moment": "^2.29.3",
     "nuxt": "^2.15.8",
     "qrcodejs2": "^0.0.2",
     "swiper": "^3.4.2",
@@ -41,7 +42,7 @@
   },
   "config": {
     "nuxt": {
-      "host": "localhost",
+      "host": "127.0.0.1",
       "port": "5678"
     }
   }

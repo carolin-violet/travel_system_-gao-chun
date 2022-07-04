@@ -114,7 +114,7 @@
 
 <script>
 import {mapState} from 'vuex'
-import {format} from "date-fns";
+import moment from "moment";
 
 export default {
   name: "collapse",
@@ -229,7 +229,7 @@ export default {
 
     // 格式化日期
     formatDateTime(time) {
-      const commentTime = format(new Date(time), 'yyyy-MM-dd HH:mm:ss')
+      const commentTime = moment(time).utc().zone(+6).format('yyyy-MM-DD HH:mm:ss')
       return commentTime
     },
   }
