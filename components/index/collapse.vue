@@ -41,6 +41,39 @@
           </div>
         </div>
       </section>
+<!--      评论-->
+      <section class="relative w-full h-auto">
+        <strong class="text-3xl">评论：</strong>
+<!--        发布评论-->
+        <div class="flex justify-center space-x-4">
+          <img src="@/assets/images/avatar.webp" alt="" class="w-16 h-16 rounded-full">
+          <textarea v-model="comment" type="text" class="flex-1 h-16 p-4 border-2 border-gray-300 bg-gray-300 outline-none focus:bg-white rounded-2xl" placeholder="发送一条评论"></textarea>
+          <button @click="uploadComment" class="w-24 h-16 bg-blue-300 hover:bg-blue-400 text-white rounded-2xl">发布</button>
+        </div>
+<!--        评论列表-->
+        <div class="w-full h-auto flex mt-12 space-x-6" v-for="commentItem in commentList" :key="commentItem.id">
+          <img src="@/assets/images/avatar.webp" alt="" class="w-16 h-16 rounded-full">
+          <div class="flex-1 flex flex-col">
+            <span class="text-xl text-gray-600">{{ commentItem.nickName }}</span>
+            <small class="text-xs">{{ formatDateTime(commentItem.time) }}</small>
+            <span class="text-2xl font-bold">{{ commentItem.comment }}</span>
+          </div>
+        </div>
+
+        <strong v-if="commentList.length === 0" class="text-4xl ml-16">暂无任何评论</strong>
+        <!--    分页器-->
+        <el-pagination
+          v-else
+          class="mx-4 mt-4"
+          background
+          @current-change="handleCurrentChange"
+          :current-page="current"
+          layout="prev, pager, next, total"
+          :page-size="limit"
+          :total="total">
+        </el-pagination>
+
+      </section>
     </section>
 
     <!--   预购表单 -->
@@ -81,12 +114,18 @@
 
 <script>
 import {mapState} from 'vuex'
+import {format} from "date-fns";
 
 export default {
   name: "collapse",
   props: ['route'],
   data() {
     return {
+      comment: null,
+      current: 1,
+      limit: 5,
+      total: null,
+      commentList: [],
       loading: false,
       dialogFormVisible: false,
       formLabelWidth: "120px",
@@ -129,6 +168,10 @@ export default {
     }),
   },
 
+  created() {
+    this.getPageComment()
+  },
+
   methods: {
     // 点击预订按钮
     handleBook() {
@@ -153,7 +196,42 @@ export default {
     // 人数变化就更新总金额
     changeAmount() {
       this.curOrder.amount = ((this.curOrder.adult + this.curOrder.child/2) * this.route.discountPrice).toFixed(2)
-    }
+    },
+
+    handleCurrentChange(val) {
+      this.current = val
+      this.getPageComment()
+    },
+
+    // 添加评论
+    async uploadComment() {
+      const data = {
+        comment: this.comment,
+        markId: this.route.id,
+        touristId: this.userInfo.id
+      }
+      let res = await this.$axios.post('/addComment', data)
+      if (res.code === 20000) {
+        this.$message.success('添加评论成功')
+        this.comment = null
+        this.getPageComment()
+      } else {
+        this.$message.error('添加评论失败')
+      }
+    },
+
+    // 获取评论数据
+    async getPageComment() {
+      let res = await this.$axios.get(`comment/${this.route.id}/${this.current}/${this.limit}`)
+      this.total = res.data.commentNum
+      this.commentList = res.data.CommentDetailList
+    },
+
+    // 格式化日期
+    formatDateTime(time) {
+      const commentTime = format(new Date(time), 'yyyy-MM-dd HH:mm:ss')
+      return commentTime
+    },
   }
 }
 </script>

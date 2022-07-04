@@ -17,7 +17,7 @@
           <section class="w-11/12 h-5/6 space-y-10" v-if="total > 0">
             <div class="relative w-5/6 h-1/6 bg-purple-500 mx-auto text-black" v-for="comment in commentList" :key="comment.id">
               <div class="absolute w-48 h-full bg-yellow-300 space-y-2 text-center pt-3.5">
-                <div class="w-12 h-12 mx-auto"><img src="/固城湖.webp" alt="" class="w-12 h-12 rounded-full"></div>
+                <div class="w-12 h-12 mx-auto"><img src="@/assets/images/avatar.webp" alt="" class="w-12 h-12 rounded-full"></div>
                 <small class="block overflow-x-hidden">{{ comment.nickName }}</small>
                 <br>
                 <small class="block">{{ formatDateTime(comment.time) }}</small>
