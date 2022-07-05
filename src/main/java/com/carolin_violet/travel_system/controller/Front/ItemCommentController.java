@@ -7,7 +7,6 @@ import com.carolin_violet.travel_system.bean.Tourist;
 import com.carolin_violet.travel_system.service.*;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;

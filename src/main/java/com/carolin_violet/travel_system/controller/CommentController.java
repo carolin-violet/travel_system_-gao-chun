@@ -63,6 +63,7 @@ public class CommentController {
     @PreAuthorize("hasAnyAuthority('ROLE_COMMENT')")
     @PostMapping("analyse-sentiment")
     public R analyseSentiment() {
+        Integer count = 0;
         List<Comment> list = commentService.list(null);
         for (Comment comment : list) {
             if (comment.getSentiment() == null) {
@@ -71,6 +72,9 @@ public class CommentController {
                 Integer sentiment = (Integer) o;
                 comment.setSentiment(sentiment);
                 commentService.updateById(comment);
+                // 百度云免费接口每次只能处理2条
+                count += 1;
+                if (count == 2) return R.ok();
             }
         }
         return R.ok();

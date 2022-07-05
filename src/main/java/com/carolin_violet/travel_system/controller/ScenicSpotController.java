@@ -63,7 +63,11 @@ public class ScenicSpotController {
     @PreAuthorize("hasAnyAuthority('ROLE_SCENIC')")
     @PutMapping("updateScenicSpot")
     public R updateScenicSpot(@RequestBody ScenicSpot scenicSpot) {
-        scenicSpotService.removePhoto(scenicSpotService.getById(scenicSpot).getPicture());
+        try {
+            scenicSpotService.removePhoto(scenicSpotService.getById(scenicSpot).getPicture());
+        } catch (IllegalArgumentException err) {
+            System.out.println("图片处理错误！");
+        }
         boolean flag = scenicSpotService.updateById(scenicSpot);
         if (flag) {
             return R.ok();
