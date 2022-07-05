@@ -31,7 +31,7 @@
 
 
 <!--          分页器-->
-          <section class="relative w-full h-1/6" v-show="total > 1">
+          <section class="relative w-full h-1/6" v-show="total > 0">
             <div class="w-full h-32 mx-auto space-x-3 text-center pt-8">
               <pagination :cur="cur" :limit="limit" :total="total" :continueNum="continueNum" @changePage="changePage"/>
             </div>
