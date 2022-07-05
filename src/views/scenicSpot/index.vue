@@ -242,6 +242,8 @@ export default {
     // 调用接口修改景点信息
     async updateScenicSpot(data) {
       let res = await scenicSpot.updateScenicSpot(data)
+      console.log(data)
+      console.log(data.picture)
       this.buttonLoading = false
       if (res.code == 20000) {
         this.dialogFormVisible = false
@@ -357,7 +359,8 @@ export default {
 
     calcIndex(index) {
       return (this.current -1) * this.limit + index + 1
-    }
+    },
+
   }
 }
 </script>

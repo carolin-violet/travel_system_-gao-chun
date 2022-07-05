@@ -39,7 +39,6 @@ export default {
           value: tempData[key].toFixed(2)
         })
       }
-      console.log(this.allData)
       this.updateChart()
     },
 

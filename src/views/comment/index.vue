@@ -1,7 +1,7 @@
 <template>
   <div class="app-container">
-    <el-button type="primary" @click="updateSentiment">更新情感倾向</el-button>
-    <span>(百度api限制了一次只能更新2条未进行情感分析的数据)</span>
+    <el-button type="primary" @click="updateSentiment" :loading="loading">更新情感倾向</el-button>
+    <span>(百度api限制了一次只能更新2条未进行情感分析的数据,英文可能不太正确)</span>
 
     <!--   展示表格 -->
     <el-table
@@ -114,7 +114,8 @@ export default {
       commentList: [],
       current: 1,
       limit: 10,
-      total: null
+      total: null,
+      loading: false
     }
   },
 
@@ -126,7 +127,6 @@ export default {
     // 调用接口获取所有评论信息
     async getPageComment() {
       let res = await comment.getPageComment(this.current, this.limit)
-      console.log(res.data.rows)
       this.commentList = res.data.rows
       this.total = res.data.total
     },
@@ -139,6 +139,7 @@ export default {
         type: 'warning'
       }).then(async () => {
         let res = await comment.removeComment(data.id)
+        console.log(res)
         if (res.code == 20000) {
           this.getPageComment()
           this.$message.success("删除成功")
@@ -152,10 +153,15 @@ export default {
 
     // 跟新情感倾向
     async updateSentiment() {
+      this.loading = true
       let res = await comment.updateSentiment()
+      this.loading = false
+      console.log(res)
       if (res.code == 20000) {
         this.$message.success("更新成功")
         this.getPageComment()
+      } else {
+        this.$message.error("更新失败")
       }
     },
 
