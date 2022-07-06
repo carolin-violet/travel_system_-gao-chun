@@ -8,10 +8,12 @@ import com.carolin_violet.travel_system.bean.TravelNote;
 import com.carolin_violet.travel_system.service.PhotosService;
 import com.carolin_violet.travel_system.service.TouristService;
 import com.carolin_violet.travel_system.service.TravelNoteService;
+import com.carolin_violet.travel_system.utils.JwtUtils;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,12 +42,17 @@ public class ItemNoteController {
 
     // 分页查询游记信息
     @GetMapping("note/{cur}/{limit}/{tourist_id}")
-    public R getNote(@PathVariable long cur, @PathVariable long limit, @PathVariable String tourist_id) {
+    public R getNote(@PathVariable long cur, @PathVariable long limit, @PathVariable String tourist_id, HttpServletRequest httpServletRequest) {
         Page<TravelNote> travelNotePage = new Page<>(cur, limit);
         QueryWrapper<TravelNote> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("create_time");
 
-        if (tourist_id != null) wrapper.eq("tourist_id", tourist_id);
+        if (tourist_id != null) {
+            if (!JwtUtils.getMemberIdByJwtToken(httpServletRequest).equals(tourist_id)) {
+                return R.error().message("身份错误！");
+            }
+            wrapper.eq("tourist_id", tourist_id);
+        }
 
         travelNoteService.page(travelNotePage, wrapper);
 
@@ -79,7 +86,14 @@ public class ItemNoteController {
 
     // 删除游记
     @DeleteMapping("delNote/{id}")
-    public R delNote(@PathVariable String id) {
+    public R delNote(@PathVariable String id, HttpServletRequest httpServletRequest) {
+
+
+        if (!JwtUtils.getMemberIdByJwtToken(httpServletRequest).equals(travelNoteService.getById(id).getTouristId())) {
+            return R.error().message("身份错误！");
+        }
+
+
         photosService.removePhotos(id);
         travelNoteService.removeById(id);
         return R.ok();

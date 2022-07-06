@@ -8,10 +8,12 @@ import com.carolin_violet.travel_system.bean.Tourist;
 import com.carolin_violet.travel_system.service.FeedbackService;
 import com.carolin_violet.travel_system.service.PhotosService;
 import com.carolin_violet.travel_system.service.TouristService;
+import com.carolin_violet.travel_system.utils.JwtUtils;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,12 +42,18 @@ public class ItemFeedbackController {
 
     // 分页查询反馈信息
     @GetMapping("feedback/{cur}/{limit}/{tourist_id}")
-    public R getFeedback(@PathVariable long cur, @PathVariable long limit, @PathVariable String tourist_id) {
+    public R getFeedback(@PathVariable long cur, @PathVariable long limit, @PathVariable String tourist_id, HttpServletRequest httpServletRequest) {
         Page<Feedback> feedbackPage = new Page<>(cur, limit);
         QueryWrapper<Feedback> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("create_time");
 
-        if (tourist_id != null) wrapper.eq("tourist_id", tourist_id);
+        // 身份验证
+        if (tourist_id != null) {
+            if (!JwtUtils.getMemberIdByJwtToken(httpServletRequest).equals(tourist_id)) {
+                return R.error().message("身份错误！");
+            }
+            wrapper.eq("tourist_id", tourist_id);
+        }
 
 
         feedbackService.page(feedbackPage, wrapper);
@@ -79,7 +87,13 @@ public class ItemFeedbackController {
     }
 
     @DeleteMapping("delFeedback/{id}")
-    public R delFeedback(@PathVariable String id) {
+    public R delFeedback(@PathVariable String id, HttpServletRequest httpServletRequest) {
+
+        // 身份验证
+        if (!JwtUtils.getMemberIdByJwtToken(httpServletRequest).equals(feedbackService.getById(id).getTouristId())) {
+            return R.error().message("身份错误！");
+        }
+
         photosService.removePhotos(id);
         feedbackService.removeById(id);
         return R.ok();

@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @ClassName BaseInfo
  * @Description TODO
@@ -69,7 +71,13 @@ public class BaseInfoController {
 
     // 游客修改信息
     @PutMapping("updateInfo")
-    public R updateInfo(@RequestBody Tourist tourist) {
+    public R updateInfo(@RequestBody Tourist tourist, HttpServletRequest httpServletRequest) {
+
+        // 身份验证
+        if (!JwtUtils.getMemberIdByJwtToken(httpServletRequest).equals(tourist.getId())) {
+            return R.error().message("身份错误！");
+        }
+
         tourist.setPassword(BCrypt.hashpw(tourist.getPassword(), BCrypt.gensalt()));
         boolean save = touristService.updateById(tourist);
         if (save) {
