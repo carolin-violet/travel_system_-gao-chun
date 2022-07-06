@@ -205,14 +205,13 @@ export default {
       });
     },
 
-    // 完成支付按钮
+    // 已完成支付按钮
     async successPay() {
       for (const id of this.payList) {
         const data = {id, isPaid: 1}
         let res = await this.$axios.put('/updateOrder', data)
       }
-      this.getOrders()
-      this.dialogVisible = false
+      this.$router.push('/profile/order')
     }
 
   },

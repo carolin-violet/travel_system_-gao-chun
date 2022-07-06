@@ -25,7 +25,7 @@
       <el-table-column
         label="预约时间"
         align="center"
-        width="180">
+        width="150">
         <template slot-scope="scope">
           <i class="el-icon-time"></i>
           <span style="margin-left: 10px">{{ scope.row.appointmentTime }}</span>
@@ -34,10 +34,17 @@
       <el-table-column
         label="预约人姓名"
         align="center"
-        width="180">
+        show-overflow-tooltip
+        width="100">
         <template slot-scope="scope">
           <el-tag type="primary">{{ scope.row.name }}</el-tag>
         </template>
+      </el-table-column>
+      <el-table-column
+        prop="phone"
+        label="预约电话"
+        align="center"
+        width="150">
       </el-table-column>
       <el-table-column
         prop="adult"
@@ -55,7 +62,7 @@
         prop="amount"
         label="总金额"
         align="center"
-        width="180">
+        width="100">
       </el-table-column>
       <el-table-column
         label="是否支付"
@@ -90,8 +97,9 @@ export default {
   data() {
     return {
       orderList: [],
-      cur: 1,
-      limit: 5
+      current: 1,
+      limit: 5,
+      total: 0
     }
   },
   filters: {
@@ -129,7 +137,7 @@ export default {
 
   methods: {
     async getPageOrder() {
-      let res = await this.$axios.get(`getPageOrder/${this.userInfo.id}/${this.cur}/${this.limit}`)
+      let res = await this.$axios.get(`getPageOrder/${this.userInfo.id}/${this.current}/${this.limit}`)
       this.orderList = res.data.rows.map(order => {
         order.amount = order.amount.toFixed(2)
         return order
@@ -137,7 +145,8 @@ export default {
       this.total = res.data.total
     },
 
-    handleCurrentChange() {
+    handleCurrentChange(val) {
+      this.current = val
       this.getPageOrder()
     },
 
