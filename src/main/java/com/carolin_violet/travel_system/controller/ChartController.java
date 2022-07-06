@@ -244,6 +244,11 @@ public class ChartController {
             calendar.set(Calendar.MONTH,calendar.get(Calendar.MONTH)-1);
             // 需要判断月份是否为0  如果0则需要转换成12
             dateList.add(calendar.get(Calendar.YEAR)+"-"+ this.formatMonth(calendar.get(Calendar.MONTH)==0?12:calendar.get(Calendar.MONTH)));
+            // 去年12月显示今年12月的处理方法
+            if (dateList.get(i).split("-")[1].equals("12") && i != 11) {
+                System.out.println(dateList.get(i));
+                dateList.set(i, calendar.get(Calendar.YEAR) -1  + "-12");
+            }
         }
 
         Map<String, Double> incomeMap = new HashMap<>();
