@@ -8,11 +8,9 @@
 
 > 后端技术栈主要为springboot、mybatis-plus、spring-security、mysql、redis，图片存储用的是阿里云oss存储、短信服务目前是腾讯云的短信验证服务、然后调用了百度AI开放平台的情感倾向分析借口对游客评论做了情感分析
 
-> 前端后台技术栈主要为Vue全家桶、ElementUI、axios、vue-puzzle-vcode
+> 前端后台技术栈主要为Vue全家桶、ElementUI、axios、vue-puzzle-vcode、Echarts
 
 > 前端前台技术栈主要为 Nuxt框架、Tailwind、Vue全家桶、ElementUI、axios
-
-
 
 成品展示：
 
@@ -24,10 +22,16 @@
 
 ![](https://gitee.com/carolin-violet/travel_system_-gao-chun/raw/management-platform/markdown_images/4.webp)
 
-![](https://gitee.com/carolin-violet/travel_system_-gao-chun/raw/management-platform/markdown_images/5.webp)
+![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\5.webp)
 
-![](https://gitee.com/carolin-violet/travel_system_-gao-chun/raw/management-platform/markdown_images/6.webp)
+![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\6.webp)
 
-![](https://gitee.com/carolin-violet/travel_system_-gao-chun/raw/management-platform/markdown_images/7.webp)
+![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\7.webp)
 
-![](https://gitee.com/carolin-violet/travel_system_-gao-chun/raw/management-platform/markdown_images/8.webp)
+![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\8.webp)
+
+![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\9.webp)
+
+![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\10.webp)
+
+![](D:\study_software\webstore\webstore_code\travel_system\management\markdown_images\11.webp)
