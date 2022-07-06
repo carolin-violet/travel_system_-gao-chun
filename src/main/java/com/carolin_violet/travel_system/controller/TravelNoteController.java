@@ -35,12 +35,14 @@ public class TravelNoteController {
 
     // 分页查询游记
     @PreAuthorize("hasAnyAuthority('ROLE_NOTE')")
-    @RequestMapping("pageNote/{current}/{limit}")
-    public R getPageNote(@PathVariable long current, @PathVariable long limit) {
+    @RequestMapping("pageNote/{current}/{limit}/{tourist_id}")
+    public R getPageNote(@PathVariable long current, @PathVariable long limit, @PathVariable String tourist_id) {
         Page<TravelNote> travelNotePage = new Page<>(current, limit);
 
         QueryWrapper<TravelNote> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("create_time");
+
+        if (tourist_id != null) wrapper.eq("tourist_id", tourist_id);
 
         travelNoteService.page(travelNotePage, wrapper);
 

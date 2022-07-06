@@ -4,14 +4,16 @@ import com.carolin_violet.travel_system.bean.Comment;
 import com.carolin_violet.travel_system.bean.vo.FeedbackVo;
 import com.carolin_violet.travel_system.bean.vo.TravelNoteVo;
 import com.carolin_violet.travel_system.service.*;
+import com.carolin_violet.travel_system.utils.BaiDuSentiment;
 import com.carolin_violet.travel_system.utils.R;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @ClassName PictureController
- * @Description TODO
+ * @Description 可上传的操作
  * @Author zj
  * @Date 2022/6/5 20:38
  * @Version 1.0
@@ -61,6 +63,12 @@ public class uploadController {
     // 游客添加评论
     @PostMapping("addComment")
     public R addComment(@RequestBody Comment comment) {
+        // 评论情感分析
+        JSONObject sentimentRes = new BaiDuSentiment().getSentimentRes(comment.getComment());
+        Object o = sentimentRes.getJSONArray("items").getJSONObject(0).get("sentiment");
+        Integer sentiment = (Integer) o;
+        comment.setSentiment(sentiment);
+
         boolean save = commentService.save(comment);
         if (save) {
             return R.ok();

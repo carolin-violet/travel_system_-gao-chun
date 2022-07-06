@@ -5,11 +5,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.carolin_violet.travel_system.bean.Feedback;
 import com.carolin_violet.travel_system.bean.Photos;
 import com.carolin_violet.travel_system.bean.Tourist;
-import com.carolin_violet.travel_system.bean.TravelNote;
 import com.carolin_violet.travel_system.service.FeedbackService;
 import com.carolin_violet.travel_system.service.PhotosService;
 import com.carolin_violet.travel_system.service.TouristService;
-import com.carolin_violet.travel_system.service.TravelNoteService;
 import com.carolin_violet.travel_system.utils.R;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -41,11 +39,15 @@ public class ItemFeedbackController {
     private TouristService touristService;
 
     // 分页查询反馈信息
-    @GetMapping("feedback/{cur}/{limit}")
-    public R getFeedback(@PathVariable long cur, @PathVariable long limit) {
+    @GetMapping("feedback/{cur}/{limit}/{tourist_id}")
+    public R getFeedback(@PathVariable long cur, @PathVariable long limit, @PathVariable String tourist_id) {
         Page<Feedback> feedbackPage = new Page<>(cur, limit);
         QueryWrapper<Feedback> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("create_time");
+
+        if (tourist_id != null) wrapper.eq("tourist_id", tourist_id);
+
+
         feedbackService.page(feedbackPage, wrapper);
 
         List<Feedback> records = feedbackPage.getRecords();
@@ -57,6 +59,7 @@ public class ItemFeedbackController {
 
             map.put("content", feedback.getContent());
             map.put("time", feedback.getCreateTime());
+            map.put("id", feedback.getId());
 
             QueryWrapper<Photos> wrapper1 = new QueryWrapper<>();
             wrapper1.eq("mark_id", feedback.getId());
@@ -73,5 +76,12 @@ public class ItemFeedbackController {
 
         }
         return R.ok().data("total", total).data("items", feedbackList);
+    }
+
+    @DeleteMapping("delFeedback/{id}")
+    public R delFeedback(@PathVariable String id) {
+        photosService.removePhotos(id);
+        feedbackService.removeById(id);
+        return R.ok();
     }
 }

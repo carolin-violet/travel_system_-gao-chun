@@ -39,11 +39,14 @@ public class ItemNoteController {
     private TouristService touristService;
 
     // 分页查询游记信息
-    @GetMapping("note/{cur}/{limit}")
-    public R getNote(@PathVariable long cur, @PathVariable long limit) {
+    @GetMapping("note/{cur}/{limit}/{tourist_id}")
+    public R getNote(@PathVariable long cur, @PathVariable long limit, @PathVariable String tourist_id) {
         Page<TravelNote> travelNotePage = new Page<>(cur, limit);
         QueryWrapper<TravelNote> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("create_time");
+
+        if (tourist_id != null) wrapper.eq("tourist_id", tourist_id);
+
         travelNoteService.page(travelNotePage, wrapper);
 
         List<TravelNote> records = travelNotePage.getRecords();
@@ -55,6 +58,7 @@ public class ItemNoteController {
 
             map.put("content", travelNote.getContent());
             map.put("time", travelNote.getCreateTime());
+            map.put("id", travelNote.getId());
 
             QueryWrapper<Photos> wrapper1 = new QueryWrapper<>();
             wrapper1.eq("mark_id", travelNote.getId());
@@ -71,5 +75,13 @@ public class ItemNoteController {
 
         }
         return R.ok().data("total", total).data("items", noteList);
+    }
+
+    // 删除游记
+    @DeleteMapping("delNote/{id}")
+    public R delNote(@PathVariable String id) {
+        photosService.removePhotos(id);
+        travelNoteService.removeById(id);
+        return R.ok();
     }
 }

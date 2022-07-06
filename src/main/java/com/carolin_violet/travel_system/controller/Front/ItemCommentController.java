@@ -42,6 +42,8 @@ public class ItemCommentController {
         Page<Comment> commentPage = new Page<>(cur, limit);
         QueryWrapper<Comment> wrapper2 = new QueryWrapper<>();
         wrapper2.eq("mark_id", id).orderByDesc("create_time");
+
+
         commentService.page(commentPage, wrapper2);
         List<Comment> records = commentPage.getRecords();
         long commentNum = commentPage.getTotal();
@@ -63,4 +65,5 @@ public class ItemCommentController {
         }
         return R.ok().data("CommentDetailList", CommentDetailList).data("commentNum", commentNum);
     }
+
 }

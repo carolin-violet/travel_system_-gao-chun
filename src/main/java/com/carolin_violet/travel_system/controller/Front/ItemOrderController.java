@@ -73,7 +73,7 @@ public class ItemOrderController {
 
 
     // 游客根据订单时间倒序分页查询所有历史订单
-    @GetMapping("getPageOrder/{touristId}/{cur}/{limit}")
+    @GetMapping("order/{touristId}/{cur}/{limit}")
     public R getPageOrder(@PathVariable String touristId, @PathVariable long cur, @PathVariable long limit) {
         Page<OrderForm> orderFormPage = new Page<>(cur, limit);
         QueryWrapper<OrderForm> wrapper = new QueryWrapper<>();
