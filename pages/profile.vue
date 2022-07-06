@@ -23,6 +23,14 @@
           <i class="iconfont icon-yuding"></i>
           <nuxt-link to="/profile/order">历史订单</nuxt-link>
         </div>
+        <div class="cursor-pointer" style="height: 48px; line-height: 48px; padding-left: 30px" @click="changeNav('/profile/note')" :class="{'bg-blue-300': curTitle === '历史游记', 'text-white': curTitle === '历史游记'}">
+          <i class="iconfont icon-youji"></i>
+          <nuxt-link to="/profile/note">历史游记</nuxt-link>
+        </div>
+        <div class="cursor-pointer" style="height: 48px; line-height: 48px; padding-left: 30px" @click="changeNav('/profile/feedback')" :class="{'bg-blue-300': curTitle === '历史反馈', 'text-white': curTitle === '历史反馈'}">
+          <i class="iconfont icon-wodefankui"></i>
+          <nuxt-link to="/profile/feedback">历史反馈</nuxt-link>
+        </div>
       </aside>
 
 <!--      右边主体部分-->
@@ -53,6 +61,8 @@ export default {
         case 'userInfo': title = '个人信息';break;
         case 'order': title = '历史订单';break;
         case 'password': title = '修改密码';break;
+        case 'note': title = '历史游记';break;
+        case 'feedback': title = '历史反馈';break;
       }
       return title
     }

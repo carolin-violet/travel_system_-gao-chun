@@ -137,7 +137,7 @@ export default {
 
   methods: {
     async getPageOrder() {
-      let res = await this.$axios.get(`getPageOrder/${this.userInfo.id}/${this.current}/${this.limit}`)
+      let res = await this.$axios.get(`order/${this.userInfo.id}/${this.current}/${this.limit}`)
       this.orderList = res.data.rows.map(order => {
         order.amount = order.amount.toFixed(2)
         return order
