@@ -98,7 +98,7 @@ export default {
         tooltip: {
           formatter: arg => {
             const itemObj = this.allData.find(item => item.name === arg[0].name)
-            return `${itemObj.name}(${itemObj.mark})的好评率为：${this.getCommentRate(itemObj.value[0], itemObj.value[1])},好评数：${itemObj.value[0]},差评数：${itemObj.value[1]}`
+            return `${itemObj.name}(${itemObj.mark})的好评率为：${this.getCommentRate(itemObj.value[0], itemObj.value[1]) * 100}%,好评数：${itemObj.value[0]},差评数：${itemObj.value[1]}`
           }
         },
         dataZoom: {
@@ -169,7 +169,7 @@ export default {
     getCommentRate(positive, negative) {
       let res = null
       if (negative === 0 && positive !== 0) {
-        res = negative
+        res = 1
       } else if (positive === 0) {
         res = 0
       } else {

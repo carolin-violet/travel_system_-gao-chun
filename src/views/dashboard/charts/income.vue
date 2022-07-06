@@ -33,12 +33,14 @@ export default {
     async getIncome() {
       let res = await statistics.getIncome()
       const tempData = res.data.income
+      console.log(res.data)
       for (const key in tempData) {
         this.allData.push({
           name: key,
           value: tempData[key].toFixed(2)
         })
       }
+      this.allData.sort((a, b) => new Date(a.name) - new Date(b.name))
       this.updateChart()
     },
 
